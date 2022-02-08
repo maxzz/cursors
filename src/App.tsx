@@ -68,7 +68,7 @@ function loadImage(reader: FileReader, canvasRef: RefObject<HTMLCanvasElement>) 
     }
 }
 
-function loadImagefromBlob(data: string | ArrayBuffer | null) {
+function createImageFromBlob(data: string | ArrayBuffer | null) {
     return new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
         if (!data || !img) {
@@ -81,7 +81,7 @@ function loadImagefromBlob(data: string | ArrayBuffer | null) {
     });
 }
 
-function loadImageAsBlob(file: Blob): Promise<string | ArrayBuffer | null> {
+function loadFileData(file: Blob): Promise<string | ArrayBuffer | null> {
     return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
@@ -92,35 +92,33 @@ function loadImageAsBlob(file: Blob): Promise<string | ArrayBuffer | null> {
 
 function drawImage(img: HTMLImageElement, canvasRef: RefObject<HTMLCanvasElement>) {
     const canvas = canvasRef.current;
-    if (!canvas) {
-        return;
-    }
-    const context = canvas.getContext('2d');
-    if (!context) {
+    const context = canvas?.getContext('2d');
+    if (!canvas || !context) {
         return;
     }
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.beginPath();
+    // context.clearRect(0, 0, canvas.width, canvas.height);
+    // context.beginPath();
+    context.fillStyle = 'red';
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     context.drawImage(img, 0, 0);
 
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
-    for (var i = 0; i <= data.length; i += 4) {
-        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = avg;
-        data[i + 1] = avg;
-        data[i + 2] = avg;
-    }
-    context.putImageData(imageData, 0, 0);
-
+    // const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    // const data = imageData.data;
+    // for (var i = 0; i <= data.length; i += 4) {
+    //     const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+    //     data[i] = avg;
+    //     data[i + 1] = avg;
+    //     data[i + 2] = avg;
+    // }
+    // context.putImageData(imageData, 0, 0);
 }
 
 async function handleDrop(files: FileList, canvasRef: RefObject<HTMLCanvasElement>) {
     try {
-        const blob = await loadImageAsBlob(files[0]);
-        const img: HTMLImageElement = await loadImagefromBlob(blob);
+        const blob = await loadFileData(files[0]);
+        const img: HTMLImageElement = await createImageFromBlob(blob);
         drawImage(img, canvasRef);
     } catch (error) {
         console.log('failed to load image', error);
