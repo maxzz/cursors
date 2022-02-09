@@ -1,5 +1,6 @@
 import { RefObject, useRef, useState } from 'react';
 import './App.css';
+import { UIToaster } from './components/UI/UiToaster';
 
 function loadImage(reader: FileReader, canvasRef: RefObject<HTMLCanvasElement>) {
     // const lines = reader.result.split('\n').map(function (line) { return line.split(','); }); console.log(lines);
@@ -176,9 +177,12 @@ function DropZone() {
 
 function App() {
     return (
-        <div className="h-screen bg-purple-200 p-4">
-            <DropZone />
-        </div>
+        <>
+            <UIToaster />
+            <div className="h-screen bg-purple-200 p-4">
+                <DropZone />
+            </div>
+        </>
     );
 }
 
