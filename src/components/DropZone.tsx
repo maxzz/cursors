@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { RefObject, useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { orgImgAtom } from "../store/store";
 import { toastWarning } from "./UI/UiToaster";
 
@@ -113,6 +113,36 @@ function convertToGray(context: CanvasRenderingContext2D, canvas: HTMLCanvasElem
     context.putImageData(imageData, 0, 0);
 }
 
+function DropZoneC({ onDropped, accept, ...rest }: { onDropped: (files: FileList) => {}; accept?: string; } & React.HTMLAttributes<HTMLLabelElement>) { // accept = '.png'
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [dropActive, setDropActive] = useState(false);
+    return (
+        <label
+            className={`w-32 h-16 inline-block border-slate-500 border rounded ${dropActive ? 'bg-pink-400' : 'bg-slate-400'}`}
+            {...rest}
+            onDragOver={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                !dropActive && setDropActive(true);
+            }}
+            onDrop={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setDropActive(false);
+                onDropped(event.dataTransfer.files);
+            }}
+        >
+            <input
+                ref={inputRef}
+                type="file"
+                accept={accept}
+                className="hidden"
+                onChange={() => inputRef.current?.files && onDropped(inputRef.current?.files)}
+            />
+        </label>
+    );
+}
+
 export function DropZone() {
     const inputRef = useRef<HTMLInputElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -158,6 +188,9 @@ export function DropZone() {
 
     return (
         <>
+            <DropZoneC onDropped={handleDrop} />
+            <br/>
+            
             <label
                 className={`w-32 h-16 inline-block border-slate-500 border rounded ${dropActive ? 'bg-pink-400' : 'bg-slate-400'}`}
                 onDragOver={(event) => {
