@@ -1,7 +1,6 @@
 import { RefObject } from "react";
 
 function loadImage(reader: FileReader, canvasRef: RefObject<HTMLCanvasElement>) {
-    // const lines = reader.result.split('\n').map(function (line) { return line.split(','); }); console.log(lines);
     if (!reader.result || !canvasRef.current) {
         return;
     }
@@ -37,31 +36,9 @@ function loadImage(reader: FileReader, canvasRef: RefObject<HTMLCanvasElement>) 
                 data[i + 2] = avg;
             }
             context.putImageData(imageData, 0, 0);
-
-            //document.body.appendChild(canvas);
-
-            //canvas.toDataURL()
-            //const csvfile = new Blob(['one,two,three'], { type: 'text/csv' })
-
-            /*
-            canvas.toBlob(function (blob) {
-                if (!blob) {
-                    return;
-                }
-
-                const form = new FormData();
-                form.append('image', blob, 'moody.jpg');
-
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/imageupload', true);
-                xhr.send(form);
-            });
-            */
         };
 
         img.src = reader.result.toString();
-        //document.body.appendChild(img)
-
     } catch (error) {
 
     }
@@ -109,3 +86,23 @@ export function convertToGray(context: CanvasRenderingContext2D, canvas: HTMLCan
     }
     context.putImageData(imageData, 0, 0);
 }
+
+/*
+// const lines = reader.result.split('\n').map(function (line) { return line.split(','); }); console.log(lines);
+
+canvas.toDataURL()
+const csvfile = new Blob(['one,two,three'], { type: 'text/csv' })
+
+canvas.toBlob(function (blob) {
+    if (!blob) {
+        return;
+    }
+
+    const form = new FormData();
+    form.append('image', blob, 'moody.jpg');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/imageupload', true);
+    xhr.send(form);
+});
+*/
