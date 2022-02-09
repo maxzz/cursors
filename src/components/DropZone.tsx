@@ -120,21 +120,12 @@ export function DropZone() {
 
     const [orgImg, setOrgImg] = useAtom(orgImgAtom);
 
-    async function handleDrop(files: FileList, canvasRef: RefObject<HTMLCanvasElement>) {
-        if (!canvasRef.current) { return; }
+    async function handleDrop(files: FileList) {
+        if (!files.length) { return; }
         try {
             const blob = await loadFileData(files[0]);
             const img: HTMLImageElement = await createImageFromBlob(blob);
             setOrgImg(img);
-
-            // const canvas = canvasRef.current;
-            // const context = canvas?.getContext('2d');
-            // if (!canvas || !context) {
-            //     return;
-            // }
-
-            // drawImage(context, canvas, img);
-            // convertToGray(context, canvas);
         } catch (error) {
             setOrgImg(null);
             toastWarning(`failed to load image ${(error as Error)?.message}}`);
@@ -147,14 +138,16 @@ export function DropZone() {
         async function handleIngChange() {
             try {
                 const canvas = canvasRef.current;
-                const context = canvas?.getContext('2d');
-                if (!canvas || !context) {
+                const ctx = canvas?.getContext('2d');
+                if (!canvas || !ctx) {
                     return;
                 }
                 if (orgImg) {
-                    drawImage(context, canvas, orgImg);
+                    drawImage(ctx, canvas, orgImg);
+                    convertToGray(ctx, canvas);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
                 }
-                convertToGray(context, canvas);
             } catch (error) {
                 toastWarning(`failed to render image`);
                 console.log('failed to render image', error);
@@ -176,7 +169,7 @@ export function DropZone() {
                     event.preventDefault();
                     event.stopPropagation();
                     setDropActive(false);
-                    handleDrop(event.dataTransfer.files, canvasRef);
+                    handleDrop(event.dataTransfer.files);
                 }}
             >
                 <input
@@ -184,11 +177,10 @@ export function DropZone() {
                     type="file"
                     accept='.png'
                     className="hidden"
-                    onChange={(event) => inputRef.current?.files && handleDrop(inputRef.current?.files, canvasRef)}
+                    onChange={() => inputRef.current?.files && handleDrop(inputRef.current?.files)}
                 />
             </label>
             <canvas ref={canvasRef} className="bg-slate-300" />
-            {/* <canvas ref={canvasRef} className="w-40 h-32 bg-slate-300" /> */}
         </>
     );
 }
