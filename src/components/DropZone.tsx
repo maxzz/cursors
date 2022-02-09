@@ -1,15 +1,12 @@
 import { useAtom } from "jotai";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { orgImgAtom } from "../store/store";
 import { convertToGray, createImageFromBlob, drawImage, loadFileData } from "../utils/image-utils";
 import { DropContainer } from "./DropContainer";
 import { toastWarning } from "./UI/UiToaster";
 
 export function DropZone() {
-    const inputRef = useRef<HTMLInputElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [dropActive, setDropActive] = useState(false);
-
     const [orgImg, setOrgImg] = useAtom(orgImgAtom);
 
     async function handleDrop(files: FileList) {
@@ -51,30 +48,6 @@ export function DropZone() {
     return (
         <>
             <DropContainer onDropped={handleDrop} />
-            <br/>
-
-            <label
-                className={`w-32 h-16 inline-block border-slate-500 border rounded ${dropActive ? 'bg-pink-400' : 'bg-slate-400'}`}
-                onDragOver={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    !dropActive && setDropActive(true);
-                }}
-                onDrop={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setDropActive(false);
-                    handleDrop(event.dataTransfer.files);
-                }}
-            >
-                <input
-                    ref={inputRef}
-                    type="file"
-                    accept='.png'
-                    className="hidden"
-                    onChange={() => inputRef.current?.files && handleDrop(inputRef.current?.files)}
-                />
-            </label>
             <canvas ref={canvasRef} className="bg-slate-300" />
         </>
     );
