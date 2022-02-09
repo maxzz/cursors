@@ -62,10 +62,15 @@ export function DropZone() {
     return (
         <>
             <DropContainer onDropped={handleDrop} />
-            <canvas ref={canvasRef} className="bg-slate-300" />
+            <canvas ref={canvasRef} className="my-1 bg-slate-300" />
             {orgImg &&
                 <label className="flex items-center space-x-2 select-none">
-                    <input className="w-4 h-4" type="checkbox" checked={showGray} onChange={(e) => setShowGray(e.target.checked)} />
+                    <input
+                        className="w-4 h-4 text-slate-500 bg-purple-200 focus:ring-slate-500 focus:ring-offset-1 rounded"
+                        type="checkbox"
+                        checked={showGray}
+                        onChange={(e) => setShowGray(e.target.checked)}
+                    />
                     <div className="">show gray</div>
                 </label>
             }
