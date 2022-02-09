@@ -1,4 +1,7 @@
-import { RefObject, useRef, useState } from "react";
+import { useAtom } from "jotai";
+import { RefObject, useEffect, useRef, useState } from "react";
+import { orgImgAtom } from "../store/store";
+import { toastWarning } from "./UI/UiToaster";
 
 function loadImage(reader: FileReader, canvasRef: RefObject<HTMLCanvasElement>) {
     // const lines = reader.result.split('\n').map(function (line) { return line.split(','); }); console.log(lines);
@@ -85,7 +88,7 @@ function loadFileData(file: Blob): Promise<string | ArrayBuffer | null> {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
         reader.onerror = () => reject();
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file); ////reader.readAsText(file);
     });
 }
 
@@ -115,33 +118,50 @@ export function DropZone() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [dropActive, setDropActive] = useState(false);
 
+    const [orgImg, setOrgImg] = useAtom(orgImgAtom);
+
     async function handleDrop(files: FileList, canvasRef: RefObject<HTMLCanvasElement>) {
         if (!canvasRef.current) { return; }
         try {
             const blob = await loadFileData(files[0]);
             const img: HTMLImageElement = await createImageFromBlob(blob);
+            setOrgImg(img);
 
-            const canvas = canvasRef.current;
-            const context = canvas?.getContext('2d');
-            if (!canvas || !context) {
-                return;
-            }
+            // const canvas = canvasRef.current;
+            // const context = canvas?.getContext('2d');
+            // if (!canvas || !context) {
+            //     return;
+            // }
 
-            drawImage(context, canvas, img);
-            convertToGray(context, canvas);
+            // drawImage(context, canvas, img);
+            // convertToGray(context, canvas);
         } catch (error) {
+            setOrgImg(null);
+            toastWarning(`failed to load image ${(error as Error)?.message}}`);
             console.log('failed to load image', error);
         }
-
-        console.log('onDrop', files);
-        /*
-        const reader = new FileReader();
-        reader.onload = () => loadImage(reader, canvasRef);
-    
-        //reader.readAsText(files[0])
-        reader.readAsDataURL(files[0]);
-        */
     }
+
+    useEffect(() => {
+        if (!canvasRef.current) { return; }
+        async function handleIngChange() {
+            try {
+                const canvas = canvasRef.current;
+                const context = canvas?.getContext('2d');
+                if (!canvas || !context) {
+                    return;
+                }
+                if (orgImg) {
+                    drawImage(context, canvas, orgImg);
+                }
+                convertToGray(context, canvas);
+            } catch (error) {
+                toastWarning(`failed to render image`);
+                console.log('failed to render image', error);
+            }
+        }
+        handleIngChange();
+    }, [orgImg]);
 
     return (
         <>
