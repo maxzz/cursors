@@ -1,6 +1,6 @@
-import './App.css';
 import { DropZone } from './components/DropZone';
 import { UIToaster } from './components/UI/UiToaster';
+import './App.css';
 
 function App() {
     return (
