@@ -5,7 +5,7 @@ export function DropContainer({ onDropped, accept, children, ...rest }: { onDrop
     const [dropActive, setDropActive] = useState(false);
     return (
         <label
-            className={`w-32 h-16 inline-block border-slate-500 border rounded ${dropActive ? 'bg-pink-400' : 'bg-slate-400'}`}
+            className={`w-full h-full inline-block border-slate-500 border rounded ${dropActive ? 'bg-pink-400' : 'bg-slate-400'} cursor-pointer`}
             {...rest}
             onDragOver={(event) => {
                 event.preventDefault();
