@@ -35,27 +35,22 @@ export function AppCanvas() {
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
-        async function handleIngChange() {
-            if (!canvas || !canvasCtx) { return; }
-            try {
-                if (orgImg) {
-                    drawImage(canvasCtx, canvas, orgImg);
-                    showGray && convertToGray(canvasCtx, canvas);
-                } else {
-                    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-                }
-            } catch (error) {
-                toastWarning(`Failed to render image`);
-                console.log('Failed to render image', error);
+        if (!canvas || !canvasCtx) { return; }
+        try {
+            if (orgImg) {
+                drawImage(canvasCtx, canvas, orgImg);
+                showGray && convertToGray(canvasCtx, canvas);
+            } else {
+                canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
             }
+        } catch (error) {
+            toastWarning(`Failed to render image`);
+            console.log('Failed to render image', error);
         }
-        handleIngChange();
     }, [canvas, canvasCtx, orgImg]);
 
     useEffect(() => {
-        if (!canvas || !canvasCtx) {
-            return;
-        }
+        if (!canvas || !canvasCtx) { return; }
         if (showGray) {
             convertToGray(canvasCtx, canvas);
         } else {
