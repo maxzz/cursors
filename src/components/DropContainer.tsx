@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-export function DropContainer({ onDropped, accept, ...rest }: { onDropped: (files: FileList) => {}; accept?: string; } & React.HTMLAttributes<HTMLLabelElement>) { // accept = '.png'
+export function DropContainer({ onDropped, accept, children, ...rest }: { onDropped: (files: FileList) => {}; accept?: string; } & React.HTMLAttributes<HTMLLabelElement>) { // accept = '.png'
     const inputRef = useRef<HTMLInputElement>(null);
     const [dropActive, setDropActive] = useState(false);
     return (
@@ -26,6 +26,7 @@ export function DropContainer({ onDropped, accept, ...rest }: { onDropped: (file
                 className="hidden"
                 onChange={() => inputRef.current?.files && onDropped(inputRef.current?.files)}
             />
+            {children}
         </label>
     );
 }

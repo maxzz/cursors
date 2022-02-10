@@ -4,6 +4,7 @@ import { showGrayAtom, orgImgAtom } from "../store/store";
 import { convertToGray, createImageFromBlob, drawImage, loadFileData } from "../utils/image-utils";
 import { DropContainer } from "./DropContainer";
 import { toastWarning } from "./UI/UiToaster";
+import { IconImagePlus } from "./UI/UIIcons";
 
 export function DropZone() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -61,7 +62,9 @@ export function DropZone() {
 
     return (
         <>
-            <DropContainer onDropped={handleDrop} />
+            <DropContainer onDropped={handleDrop}>
+                <IconImagePlus className="w-full h-full" />
+            </DropContainer>
             <canvas ref={canvasRef} className="my-1 bg-slate-300" />
             {orgImg &&
                 <label className="flex items-center space-x-2 select-none">
