@@ -1,4 +1,4 @@
-import { AppCanvas } from './components/DropZone';
+import { AppCanvas } from './components/AppCanvas';
 import { UIToaster } from './components/UI/UiToaster';
 import './App.css';
 

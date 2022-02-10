@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { PrimitiveAtom, useAtom } from "jotai";
-import { classNames } from "../utils/classnames";
+import { classNames } from "../../utils/classnames";
 
-export function DropContainer({ onDropped, accept, className, children, activeAtom, ...rest }: { // accept = '.png'
+export function UIDropContainer({ onDropped, accept, className, children, activeAtom, ...rest }: {
     onDropped: (files: FileList) => {};
-    accept?: string;
+    accept?: string; // accept = '.png'
     activeAtom: PrimitiveAtom<boolean>;
 } & React.HTMLAttributes<HTMLLabelElement>
 ) {
