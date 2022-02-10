@@ -31,21 +31,18 @@ function CursorCanvas() {
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
     const canvas = useAtomValue(canvasAtom);
+    const canvasCtx = useAtomValue(canvasCtxAtom);
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
-        if (!canvas) { return; }
         async function handleIngChange() {
+            if (!canvas || !canvasCtx) { return; }
             try {
-                const ctx = canvas?.getContext('2d');
-                if (!canvas || !ctx) {
-                    return;
-                }
                 if (orgImg) {
-                    drawImage(ctx, canvas, orgImg);
-                    showGray && convertToGray(ctx, canvas);
+                    drawImage(canvasCtx, canvas, orgImg);
+                    showGray && convertToGray(canvasCtx, canvas);
                 } else {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
                 }
             } catch (error) {
                 toastWarning(`Failed to render image`);
@@ -53,19 +50,18 @@ export function AppCanvas() {
             }
         }
         handleIngChange();
-    }, [canvas, orgImg]);
+    }, [canvas, canvasCtx, orgImg]);
 
     useEffect(() => {
-        const ctx = canvas?.getContext('2d');
-        if (!canvas || !ctx) {
+        if (!canvas || !canvasCtx) {
             return;
         }
         if (showGray) {
-            convertToGray(ctx, canvas);
+            convertToGray(canvasCtx, canvas);
         } else {
-            orgImg && drawImage(ctx, canvas, orgImg);
+            orgImg && drawImage(canvasCtx, canvas, orgImg);
         }
-    }, [canvas, showGray]);
+    }, [canvas, canvasCtx, showGray]);
 
     return (
         <>
