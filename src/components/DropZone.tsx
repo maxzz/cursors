@@ -1,15 +1,16 @@
-import React, { useEffect, useRef } from "react";
-import { useAtom } from "jotai";
+import React, { useEffect, useRef, useState } from "react";
+import { atom, useAtom } from "jotai";
+import { useAtomValue, useUpdateAtom } from "jotai/utils";
 import { showGrayAtom, orgImgAtom } from "../store/store";
 import { convertToGray, createImageFromBlob, drawImage, loadFileData } from "../utils/image-utils";
 import { DropContainer } from "./DropContainer";
 import { toastWarning } from "./UI/UiToaster";
 import { IconImagePlus } from "./UI/UIIcons";
 
-export function DropZone() {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [orgImg, setOrgImg] = useAtom(orgImgAtom);
-    const [showGray, setShowGray] = useAtom(showGrayAtom);
+function DropZone() {
+    const setOrgImg = useUpdateAtom(orgImgAtom);
+    const [activeAtom] = useState(atom(false));
+    const active = useAtomValue(activeAtom);
 
     async function handleDrop(files: FileList) {
         if (!files.length) { return; }
@@ -23,6 +24,19 @@ export function DropZone() {
             console.log('Failed to load image', error);
         }
     }
+    return (
+        <div className="w-32 h-32">
+            <DropContainer onDropped={handleDrop} activeAtom={activeAtom}>
+                <IconImagePlus className="w-full h-full" />
+            </DropContainer>
+        </div>
+    );
+}
+
+export function AppCanvas() {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const orgImg = useAtomValue(orgImgAtom);
+    const [showGray, setShowGray] = useAtom(showGrayAtom);
 
     useEffect(() => {
         if (!canvasRef.current) { return; }
@@ -62,9 +76,7 @@ export function DropZone() {
 
     return (
         <>
-            <DropContainer onDropped={handleDrop}>
-                <IconImagePlus className="w-full h-full" />
-            </DropContainer>
+            <DropZone />
             <canvas ref={canvasRef} className="my-1 bg-slate-300" />
             {orgImg &&
                 <label className="flex items-center space-x-2 select-none">
