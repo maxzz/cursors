@@ -13,8 +13,19 @@ export function DropContainer({ onDropped, accept, className, children, activeAt
     return (
         <label
             className={classNames(`inline-block`, className)}
-            onDragOver={(event) => { event.preventDefault(); event.stopPropagation(); !dropActive && setDropActive(true); }}
-            onDrop={(event) => { event.preventDefault(); event.stopPropagation(); setDropActive(false); onDropped(event.dataTransfer.files); }}
+            onDragOver={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                !dropActive && setDropActive(true);
+            }}
+            onDrop={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setDropActive(false);
+                onDropped(event.dataTransfer.files);
+            }}
+            onDragEnter={(event) => setDropActive(true)}
+            onDragLeave={(event) => setDropActive(false)}
             {...rest}
         >
             <input

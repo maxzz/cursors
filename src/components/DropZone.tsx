@@ -26,13 +26,13 @@ function DropZone() {
     }
     return (
         <div className="relative">
-            <div className="absolute left-2 top-0.5 pb-0.5 px-1 text-xs bg-slate-400 border-slate-500 border rounded">Load image</div>
+            <div className="absolute left-4 top-0.5 pb-0.5 text-xs text-slate-100">Load image</div>
             <DropContainer
                 className={`w-32 h-32 ${active ? 'bg-pink-400' : 'bg-slate-400'} border-slate-500 border rounded cursor-pointer`}
                 onDropped={handleDrop}
                 activeAtom={activeAtom}
             >
-                <IconImagePlus />
+                <IconImagePlus className="text-slate-300 pointer-events-none" />
             </DropContainer>
         </div>
     );
