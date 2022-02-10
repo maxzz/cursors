@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useAtom } from "jotai";
 import { useAtomValue } from "jotai/utils";
-import { showGrayAtom, orgImgAtom } from "../store/store";
+import { showGrayAtom, orgImgAtom, canvasAtom } from "../store/store";
 import { convertToGray, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 import { DropZone } from "./DropZone";
@@ -21,16 +21,23 @@ function CheckBox() {
     );
 }
 
+function CursorCanvas() {
+    const [canvas, setCanvas] = useAtom(canvasAtom);
+    return (
+        <canvas ref={setCanvas} className="my-1 bg-slate-300" />
+    );
+
+}
+
 export function AppCanvas() {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
     const orgImg = useAtomValue(orgImgAtom);
+    const canvas = useAtomValue(canvasAtom);
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
-        if (!canvasRef.current) { return; }
+        if (!canvas) { return; }
         async function handleIngChange() {
             try {
-                const canvas = canvasRef.current;
                 const ctx = canvas?.getContext('2d');
                 if (!canvas || !ctx) {
                     return;
@@ -47,10 +54,9 @@ export function AppCanvas() {
             }
         }
         handleIngChange();
-    }, [orgImg]);
+    }, [canvas, orgImg]);
 
     useEffect(() => {
-        const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
         if (!canvas || !ctx) {
             return;
@@ -60,12 +66,12 @@ export function AppCanvas() {
         } else {
             orgImg && drawImage(ctx, canvas, orgImg);
         }
-    }, [showGray]);
+    }, [canvas, showGray]);
 
     return (
         <>
             <DropZone />
-            <canvas ref={canvasRef} className="my-1 bg-slate-300" />
+            <CursorCanvas />
             {orgImg && <CheckBox />}
         </>
     );
