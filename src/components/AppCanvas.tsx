@@ -23,19 +23,9 @@ function CheckBox() {
 
 function CursorCanvas() {
     const [canvas, setCanvas] = useAtom(canvasAtom);
-    const [canvasCtx, setCanvasCtx] = useAtom(canvasCtxAtom);
-    function setRef(el: HTMLCanvasElement | null) {
-        setCanvas(el);
-        if (el) {
-            setCanvasCtx(el.getContext('2d'));
-        } else {
-            setCanvasCtx(null);
-        }
-    }
     return (
-        <canvas ref={setRef} className="my-1 bg-slate-300" />
+        <canvas ref={setCanvas} className="my-1 bg-slate-300" />
     );
-
 }
 
 export function AppCanvas() {
