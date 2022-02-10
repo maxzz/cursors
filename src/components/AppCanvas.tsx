@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useAtom } from "jotai";
 import { useAtomValue } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, canvasAtom } from "../store/store";
+import { showGrayAtom, orgImgAtom, canvasAtom, canvasCtxAtom } from "../store/store";
 import { convertToGray, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 import { DropZone } from "./DropZone";
@@ -23,8 +23,17 @@ function CheckBox() {
 
 function CursorCanvas() {
     const [canvas, setCanvas] = useAtom(canvasAtom);
+    const [canvasCtx, setCanvasCtx] = useAtom(canvasCtxAtom);
+    function setRef(el: HTMLCanvasElement | null) {
+        setCanvas(el);
+        if (el) {
+            setCanvasCtx(el.getContext('2d'));
+        } else {
+            setCanvasCtx(null);
+        }
+    }
     return (
-        <canvas ref={setCanvas} className="my-1 bg-slate-300" />
+        <canvas ref={setRef} className="my-1 bg-slate-300" />
     );
 
 }
