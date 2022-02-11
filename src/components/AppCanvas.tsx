@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, canvasAtom, canvasCtxAtom } from "../store/store";
+import { showGrayAtom, orgImgAtom, canvasBodyAtom } from "../store/store";
 import { applyXOR, convertToGray, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 import { DropZone } from "./DropZone";
@@ -22,7 +22,7 @@ function CheckBox() {
 }
 
 function CursorCanvas() {
-    const setCanvas = useUpdateAtom(canvasAtom);
+    const setCanvas = useUpdateAtom(canvasBodyAtom);
     return (
         <canvas ref={setCanvas} className="my-1 bg-slate-300" />
     );
@@ -30,40 +30,41 @@ function CursorCanvas() {
 
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
-    const canvas = useAtomValue(canvasAtom);
-    const canvasCtx = useAtomValue(canvasCtxAtom);
+    // const canvas = useAtomValue(canvasAtom);
+    // const canvasCtx = useAtomValue(canvasCtxAtom);
+    const canvasBody = useAtomValue(canvasBodyAtom);
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
-        if (!canvas || !canvasCtx) { return; }
+        if (!canvasBody) { return; }
         try {
             if (orgImg) {
                 // canvas.width = orgImg.width;
                 // canvas.height = orgImg.height;
 
-                canvasCtx.beginPath();
-                drawImage(canvasCtx, canvas, orgImg);
+                canvasBody.ctx.beginPath();
+                drawImage(canvasBody.ctx, canvasBody.el, orgImg);
 
                 //showGray && convertToGray(canvasCtx, canvas);
-                showGray && applyXOR(canvasCtx, canvas, '#000000');
+                showGray && applyXOR(canvasBody.ctx, canvasBody.el, '#000000');
             } else {
-                canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+                canvasBody.ctx.clearRect(0, 0, canvasBody.el.width, canvasBody.el.height);
             }
         } catch (error) {
             toastWarning(`Failed to render image`);
             console.log('Failed to render image', error);
         }
-    }, [canvas, canvasCtx, orgImg, showGray]);
+    }, [canvasBody,orgImg, showGray]);
 
     useEffect(() => {
-        if (!canvas || !canvasCtx) { return; }
+        if (!canvasBody) { return; }
         if (showGray) {
             //convertToGray(canvasCtx, canvas);
-            showGray && applyXOR(canvasCtx, canvas, '#300000');
+            showGray && applyXOR(canvasBody.ctx, canvasBody.el, '#300000');
         } else {
-            orgImg && drawImage(canvasCtx, canvas, orgImg);
+            orgImg && drawImage(canvasBody.ctx, canvasBody.el, orgImg);
         }
-    }, [canvas, canvasCtx, showGray]);
+    }, [canvasBody, showGray]);
 
     return (
         <>
@@ -73,3 +74,49 @@ export function AppCanvas() {
         </>
     );
 }
+
+// export function AppCanvas() {
+//     const orgImg = useAtomValue(orgImgAtom);
+//     const canvas = useAtomValue(canvasAtom);
+//     const canvasCtx = useAtomValue(canvasCtxAtom);
+//     const showGray = useAtomValue(showGrayAtom);
+
+//     useEffect(() => {
+//         if (!canvas || !canvasCtx) { return; }
+//         try {
+//             if (orgImg) {
+//                 // canvas.width = orgImg.width;
+//                 // canvas.height = orgImg.height;
+
+//                 canvasCtx.beginPath();
+//                 drawImage(canvasCtx, canvas, orgImg);
+
+//                 //showGray && convertToGray(canvasCtx, canvas);
+//                 showGray && applyXOR(canvasCtx, canvas, '#000000');
+//             } else {
+//                 canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+//             }
+//         } catch (error) {
+//             toastWarning(`Failed to render image`);
+//             console.log('Failed to render image', error);
+//         }
+//     }, [canvas, canvasCtx, orgImg, showGray]);
+
+//     useEffect(() => {
+//         if (!canvas || !canvasCtx) { return; }
+//         if (showGray) {
+//             //convertToGray(canvasCtx, canvas);
+//             showGray && applyXOR(canvasCtx, canvas, '#300000');
+//         } else {
+//             orgImg && drawImage(canvasCtx, canvas, orgImg);
+//         }
+//     }, [canvas, canvasCtx, showGray]);
+
+//     return (
+//         <>
+//             <DropZone />
+//             <CursorCanvas />
+//             {orgImg && <CheckBox />}
+//         </>
+//     );
+// }

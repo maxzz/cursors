@@ -26,7 +26,7 @@ type CanvasBody = {
 
 const _canvasBodyAtom = atom<CanvasBody | null | undefined>(null);
 
-const canvasBodyAtom = atom(
+export const canvasBodyAtom = atom(
     (get) => get(_canvasBodyAtom),
     (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => {
         let newBody: CanvasBody | null | undefined;
@@ -41,6 +41,7 @@ const canvasBodyAtom = atom(
 
 //
 
+/*
 const _canvasAtom = atom<HTMLCanvasElement | null>(null);
 export const canvasCtxAtom = atom<CanvasRenderingContext2D | null>(null);
 
@@ -51,7 +52,8 @@ export const canvasAtom = atom(
         set(canvasCtxAtom, el ? el.getContext('2d') : null);
     }
 );
-
+*/
+/*
 export const doCanvasSizeAtom = atom(
     (get) => {
         const c = get(_canvasAtom);
@@ -65,7 +67,7 @@ export const doCanvasSizeAtom = atom(
         }
     }
 );
-
+*/
 // options
 
 export const showGrayAtom = atom(true);
