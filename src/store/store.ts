@@ -4,20 +4,11 @@ export type ViewPoint = { x: number; y: number; };
 export type ViewSize = { w: number; h: number; };
 export type ViewBox = ViewPoint & ViewSize;
 
-// canvas
+// source image
 
 export const orgImgAtom = atom<HTMLImageElement | null>(null);
 
-// const _canvasAtom = atom<HTMLCanvasElement | null>(null);
-// export const canvasCtxAtom = atom<CanvasRenderingContext2D | null>(null);
-
-// export const canvasAtom = atom(
-//     (get) => get(_canvasAtom),
-//     (get, set, el: HTMLCanvasElement | null) => {
-//         set(_canvasAtom, el);
-//         set(canvasCtxAtom, el ? el.getContext('2d') : null);
-//     }
-// );
+// canvas body
 
 type CanvasBody = {
     el: HTMLCanvasElement;
@@ -39,35 +30,6 @@ export const canvasBodyAtom = atom(
     }
 );
 
-//
-
-/*
-const _canvasAtom = atom<HTMLCanvasElement | null>(null);
-export const canvasCtxAtom = atom<CanvasRenderingContext2D | null>(null);
-
-export const canvasAtom = atom(
-    (get) => get(_canvasAtom),
-    (get, set, el: HTMLCanvasElement | null) => {
-        set(_canvasAtom, el);
-        set(canvasCtxAtom, el ? el.getContext('2d') : null);
-    }
-);
-*/
-/*
-export const doCanvasSizeAtom = atom(
-    (get) => {
-        const c = get(_canvasAtom);
-        return c ? { w: c.width, h: c.height } : { w: 0, h: 0 };
-    },
-    (get, set, size: ViewSize) => {
-        const c = get(_canvasAtom);
-        if (c) {
-            c.width = size.w;
-            c.height = size.h;
-        }
-    }
-);
-*/
 // options
 
 export const showGrayAtom = atom(true);

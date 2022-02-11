@@ -30,8 +30,6 @@ function CursorCanvas() {
 
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
-    // const canvas = useAtomValue(canvasAtom);
-    // const canvasCtx = useAtomValue(canvasCtxAtom);
     const canvasBody = useAtomValue(canvasBodyAtom);
     const showGray = useAtomValue(showGrayAtom);
 
@@ -54,7 +52,7 @@ export function AppCanvas() {
             toastWarning(`Failed to render image`);
             console.log('Failed to render image', error);
         }
-    }, [canvasBody,orgImg, showGray]);
+    }, [canvasBody, orgImg, showGray]);
 
     useEffect(() => {
         if (!canvasBody) { return; }
@@ -74,49 +72,3 @@ export function AppCanvas() {
         </>
     );
 }
-
-// export function AppCanvas() {
-//     const orgImg = useAtomValue(orgImgAtom);
-//     const canvas = useAtomValue(canvasAtom);
-//     const canvasCtx = useAtomValue(canvasCtxAtom);
-//     const showGray = useAtomValue(showGrayAtom);
-
-//     useEffect(() => {
-//         if (!canvas || !canvasCtx) { return; }
-//         try {
-//             if (orgImg) {
-//                 // canvas.width = orgImg.width;
-//                 // canvas.height = orgImg.height;
-
-//                 canvasCtx.beginPath();
-//                 drawImage(canvasCtx, canvas, orgImg);
-
-//                 //showGray && convertToGray(canvasCtx, canvas);
-//                 showGray && applyXOR(canvasCtx, canvas, '#000000');
-//             } else {
-//                 canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-//             }
-//         } catch (error) {
-//             toastWarning(`Failed to render image`);
-//             console.log('Failed to render image', error);
-//         }
-//     }, [canvas, canvasCtx, orgImg, showGray]);
-
-//     useEffect(() => {
-//         if (!canvas || !canvasCtx) { return; }
-//         if (showGray) {
-//             //convertToGray(canvasCtx, canvas);
-//             showGray && applyXOR(canvasCtx, canvas, '#300000');
-//         } else {
-//             orgImg && drawImage(canvasCtx, canvas, orgImg);
-//         }
-//     }, [canvas, canvasCtx, showGray]);
-
-//     return (
-//         <>
-//             <DropZone />
-//             <CursorCanvas />
-//             {orgImg && <CheckBox />}
-//         </>
-//     );
-// }
