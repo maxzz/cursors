@@ -38,8 +38,8 @@ export function AppCanvas() {
         if (!canvas || !canvasCtx) { return; }
         try {
             if (orgImg) {
-                canvas.width = orgImg.width;
-                canvas.height = orgImg.height;
+                // canvas.width = orgImg.width;
+                // canvas.height = orgImg.height;
 
                 canvasCtx.beginPath();
                 drawImage(canvasCtx, canvas, orgImg);
