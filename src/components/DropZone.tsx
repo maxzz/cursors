@@ -23,16 +23,18 @@ export function DropZone() {
             toastWarning((error as Error)?.message || 'Failed to load image');
         }
     }
-    
+
     return (
         <div className="relative">
-            <div className="absolute left-4 top-0.5 pb-0.5 text-xs text-slate-100">Load image</div>
+            <div className={`absolute left-4 top-0.5 pb-0.5 text-xs ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
+                {active ? 'Drop' : 'Load image'}
+            </div>
             <UIDropContainer
-                className={`w-32 h-32 ${active ? 'bg-pink-400' : 'bg-slate-400'} border-slate-500 border rounded cursor-pointer`}
+                className={`w-32 h-32 ${active ? 'bg-green-700' : 'bg-slate-400'} border-slate-500 border rounded cursor-pointer`}
                 onDropped={handleDrop}
                 activeAtom={activeAtom}
             >
-                <IconImagePlus className="text-slate-300 pointer-events-none" />
+                <IconImagePlus className={`${active ? 'text-green-600/30' : 'text-slate-300'}   pointer-events-none`} />
             </UIDropContainer>
         </div>
     );
