@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { useAtom } from "jotai";
-import { useAtomValue } from "jotai/utils";
+import { useAtomValue, useUpdateAtom } from "jotai/utils";
 import { showGrayAtom, orgImgAtom, canvasAtom, canvasCtxAtom } from "../store/store";
-import { convertToGray, drawImage } from "../utils/image-utils";
+import { applyXOR, convertToGray, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 import { DropZone } from "./DropZone";
 
@@ -22,7 +22,7 @@ function CheckBox() {
 }
 
 function CursorCanvas() {
-    const [canvas, setCanvas] = useAtom(canvasAtom);
+    const setCanvas = useUpdateAtom(canvasAtom);
     return (
         <canvas ref={setCanvas} className="my-1 bg-slate-300" />
     );
@@ -38,8 +38,11 @@ export function AppCanvas() {
         if (!canvas || !canvasCtx) { return; }
         try {
             if (orgImg) {
+                canvas.width = orgImg.width;
+                canvas.height = orgImg.height;
                 drawImage(canvasCtx, canvas, orgImg);
-                showGray && convertToGray(canvasCtx, canvas);
+                //showGray && convertToGray(canvasCtx, canvas);
+                showGray && applyXOR(canvasCtx, canvas, '#000000');
             } else {
                 canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
             }

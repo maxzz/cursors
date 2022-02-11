@@ -31,12 +31,30 @@ export function drawImage(context: CanvasRenderingContext2D, canvas: HTMLCanvasE
 
 export function convertToGray(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
+    const data: Uint8ClampedArray = imageData.data;
     for (var i = 0; i <= data.length; i += 4) {
         const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
         data[i] = avg;
         data[i + 1] = avg;
         data[i + 2] = avg;
+    }
+    context.putImageData(imageData, 0, 0);
+}
+
+export function applyXOR(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement, hexColor: string) {
+
+    const color = hexColor.match(/(\d\d)/g);
+    if (!color || color.length !== 3) {
+        throw new Error('invalid color');
+    }
+
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const data: Uint8ClampedArray = imageData.data;
+    for (var i = 0; i <= data.length; i += 4) {
+        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        data[i] = 0; //r
+        data[i + 1] = 256; //g
+        data[i + 2] = 0; //b
     }
     context.putImageData(imageData, 0, 0);
 }
