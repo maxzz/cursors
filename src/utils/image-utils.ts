@@ -29,8 +29,8 @@ export function drawImage(context: CanvasRenderingContext2D, canvas: HTMLCanvasE
     context.drawImage(img, 0, 0);
 }
 
-export function convertToGray(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+export function convertToGray(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data: Uint8ClampedArray = imageData.data;
     for (var i = 0; i <= data.length; i += 4) {
         const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
@@ -38,25 +38,31 @@ export function convertToGray(context: CanvasRenderingContext2D, canvas: HTMLCan
         data[i + 1] = avg;
         data[i + 2] = avg;
     }
-    context.putImageData(imageData, 0, 0);
+    ctx.putImageData(imageData, 0, 0);
 }
 
-export function applyXOR(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement, hexColor: string) {
+const enum RGB {
+    r = 0,
+    g = 1,
+    b = 2,
+}
+
+export function applyXOR(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, hexColor: string) {
 
     const color = hexColor.match(/(\d\d)/g);
     if (!color || color.length !== 3) {
         throw new Error('invalid color');
     }
 
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data: Uint8ClampedArray = imageData.data;
+    debugger
     for (var i = 0; i <= data.length; i += 4) {
-        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = 0; //r
-        data[i + 1] = 256; //g
-        data[i + 2] = 0; //b
+        data[i + RGB.r] = 0; //r
+        data[i + RGB.g] = 256; //g
+        data[i + RGB.b] = 0; //b
     }
-    context.putImageData(imageData, 0, 0);
+    ctx.putImageData(imageData, 0, 0);
 }
 
 /*

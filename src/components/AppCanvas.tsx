@@ -40,7 +40,10 @@ export function AppCanvas() {
             if (orgImg) {
                 canvas.width = orgImg.width;
                 canvas.height = orgImg.height;
+                
+                canvasCtx.beginPath();
                 drawImage(canvasCtx, canvas, orgImg);
+
                 //showGray && convertToGray(canvasCtx, canvas);
                 showGray && applyXOR(canvasCtx, canvas, '#000000');
             } else {
@@ -50,7 +53,7 @@ export function AppCanvas() {
             toastWarning(`Failed to render image`);
             console.log('Failed to render image', error);
         }
-    }, [canvas, canvasCtx, orgImg]);
+    }, [canvas, canvasCtx, orgImg, showGray]);
 
     useEffect(() => {
         if (!canvas || !canvasCtx) { return; }
