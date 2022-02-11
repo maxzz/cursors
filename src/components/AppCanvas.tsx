@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, canvasBodyAtom } from "../store/store";
+import { showGrayAtom, orgImgAtom, canvasBodyAtom, canvasBody2Atom } from "../store/store";
 import { applyXOR, convertToGray, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 import { DropZone } from "./DropZone";
@@ -28,9 +28,17 @@ function CursorCanvas() {
     );
 }
 
+function DestCanvas() {
+    const setCanvas = useUpdateAtom(canvasBody2Atom);
+    return (
+        <canvas ref={setCanvas} className="my-1 bg-slate-300" />
+    );
+}
+
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
     const canvasBody = useAtomValue(canvasBodyAtom);
+    const canvasBody2 = useAtomValue(canvasBody2Atom);
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
@@ -55,6 +63,27 @@ export function AppCanvas() {
     }, [canvasBody, orgImg, showGray]);
 
     useEffect(() => {
+        if (!canvasBody2) { return; }
+        try {
+            if (orgImg) {
+                canvasBody2.el.width = orgImg.width;
+                canvasBody2.el.height = orgImg.height;
+
+                canvasBody2.ctx.beginPath();
+                drawImage(canvasBody2.ctx, canvasBody2.el, orgImg);
+
+                //showGray && convertToGray(canvasCtx, canvas);
+                //showGray && applyXOR(canvasBody2.ctx, canvasBody2.el, '#000000');
+            } else {
+                canvasBody2.ctx.clearRect(0, 0, canvasBody2.el.width, canvasBody2.el.height);
+            }
+        } catch (error) {
+            toastWarning(`Failed to render image`);
+            console.log('Failed to render image', error);
+        }
+    }, [canvasBody2, orgImg]);
+
+    useEffect(() => {
         if (!canvasBody) { return; }
         if (showGray) {
             //convertToGray(canvasCtx, canvas);
@@ -68,6 +97,7 @@ export function AppCanvas() {
         <>
             <DropZone />
             <CursorCanvas />
+            <DestCanvas />
             {orgImg && <CheckBox />}
         </>
     );
