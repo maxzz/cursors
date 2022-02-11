@@ -20,8 +20,7 @@ export function DropZone() {
             setOrgImg(img);
         } catch (error) {
             setOrgImg(null);
-            toastWarning(`Failed to load image ${(error as Error)?.message || ''}`);
-            console.log('Failed to load image', error);
+            toastWarning((error as Error)?.message || 'Failed to load image');
         }
     }
     

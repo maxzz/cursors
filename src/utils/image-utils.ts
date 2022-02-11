@@ -1,3 +1,12 @@
+export function loadFileData(file: Blob): Promise<string | ArrayBuffer | null> {
+    return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Failed to load file'));
+        reader.readAsDataURL(file); ////reader.readAsText(file);
+    });
+}
+
 export function createImageFromBlob(data: string | ArrayBuffer | null) {
     return new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
@@ -5,18 +14,9 @@ export function createImageFromBlob(data: string | ArrayBuffer | null) {
             reject();
         } else {
             img.onload = () => resolve(img);
-            img.onerror = () => reject();
+            img.onerror = (e) => reject(new Error('Failed to create image'));
             img.src = data.toString();
         }
-    });
-}
-
-export function loadFileData(file: Blob): Promise<string | ArrayBuffer | null> {
-    return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = () => reject();
-        reader.readAsDataURL(file); ////reader.readAsText(file);
     });
 }
 
