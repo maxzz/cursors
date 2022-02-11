@@ -40,7 +40,7 @@ export function AppCanvas() {
             if (orgImg) {
                 canvas.width = orgImg.width;
                 canvas.height = orgImg.height;
-                
+
                 canvasCtx.beginPath();
                 drawImage(canvasCtx, canvas, orgImg);
 
@@ -58,7 +58,8 @@ export function AppCanvas() {
     useEffect(() => {
         if (!canvas || !canvasCtx) { return; }
         if (showGray) {
-            convertToGray(canvasCtx, canvas);
+            //convertToGray(canvasCtx, canvas);
+            showGray && applyXOR(canvasCtx, canvas, '#300000');
         } else {
             orgImg && drawImage(canvasCtx, canvas, orgImg);
         }
