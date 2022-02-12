@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { PrimitiveAtom, useAtom } from "jotai";
+import React from "react";
+import { useAtom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, canvasBodyAtom, canvasBody2Atom, CanvasBody, CanvasBodyAtomType } from "../store/store";
-import { applyXOR, convertToGray, drawImage } from "../utils/image-utils";
-import { toastWarning } from "./UI/UiToaster";
-import { DropZone } from "./DropZone";
+import { showGrayAtom, orgImgAtom, canvasBodyAtom, canvasBody2Atom, CanvasBodyAtomType } from "../store/store";
 import { classNames } from "../utils/classnames";
+import { DropZone } from "./DropZone";
+import { CanvasActions } from "./CanvasActions";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -40,57 +39,6 @@ function CanvasElements() {
             </div>
         </div>
     );
-}
-
-function CanvasActions() {
-    const orgImg = useAtomValue(orgImgAtom);
-    const canvasBody = useAtomValue(canvasBodyAtom);
-    const canvasBody2 = useAtomValue(canvasBody2Atom);
-    const showGray = useAtomValue(showGrayAtom);
-
-    useEffect(() => {
-        if (!canvasBody) { return; }
-        try {
-            if (orgImg) {
-                drawImage(canvasBody, orgImg);
-
-                showGray && applyXOR(canvasBody, '#000000');
-            } else {
-                canvasBody.ctx.clearRect(0, 0, canvasBody.el.width, canvasBody.el.height);
-            }
-        } catch (error) {
-            toastWarning(`Failed to render image`);
-            console.log('Failed to render image', error);
-        }
-    }, [canvasBody, orgImg, showGray]);
-
-    useEffect(() => {
-        if (!canvasBody2) { return; }
-        try {
-            if (orgImg) {
-                canvasBody2.el.width = orgImg.width;
-                canvasBody2.el.height = orgImg.height;
-
-                drawImage(canvasBody2, orgImg);
-            } else {
-                canvasBody2.ctx.clearRect(0, 0, canvasBody2.el.width, canvasBody2.el.height);
-            }
-        } catch (error) {
-            toastWarning(`Failed to render image`);
-            console.log('Failed to render image', error);
-        }
-    }, [canvasBody2, orgImg]);
-
-    useEffect(() => {
-        if (!canvasBody) { return; }
-        if (showGray) {
-            showGray && applyXOR(canvasBody, '#300000');
-        } else {
-            orgImg && drawImage(canvasBody, orgImg);
-        }
-    }, [canvasBody, showGray]);
-
-    return null;
 }
 
 export function AppCanvas() {
