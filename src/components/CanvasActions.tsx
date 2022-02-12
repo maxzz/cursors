@@ -1,62 +1,62 @@
 import { useAtomValue } from "jotai";
 import { useEffect } from "react";
-import { canvasBody2Atom, canvasBodyAtom, orgImgAtom, showGrayAtom } from "../store/store";
+import { canvasBodyDstAtom, canvasBodySrcAtom, orgImgAtom, showGrayAtom } from "../store/store";
 import { applyXOR, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 
 export function SourceCanvasActions() {
     const orgImg = useAtomValue(orgImgAtom);
-    const canvasBody = useAtomValue(canvasBodyAtom);
+    const body = useAtomValue(canvasBodySrcAtom);
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
-        if (!canvasBody) { return; }
+        if (!body) { return; }
         try {
             if (orgImg) {
-                drawImage(canvasBody, orgImg);
+                drawImage(body, orgImg);
 
-                showGray && applyXOR(canvasBody, '#000000');
+                showGray && applyXOR(body, '#000000');
             } else {
-                canvasBody.ctx.clearRect(0, 0, canvasBody.el.width, canvasBody.el.height);
+                body.ctx.clearRect(0, 0, body.el.width, body.el.height);
             }
         } catch (error) {
             toastWarning(`Failed to render image`);
             console.log('Failed to render image', error);
         }
-    }, [canvasBody, orgImg, showGray]);
+    }, [body, orgImg, showGray]);
 
     useEffect(() => {
-        if (!canvasBody) { return; }
+        if (!body) { return; }
         if (showGray) {
-            showGray && applyXOR(canvasBody, '#300000');
+            showGray && applyXOR(body, '#300000');
         } else {
-            orgImg && drawImage(canvasBody, orgImg);
+            orgImg && drawImage(body, orgImg);
         }
-    }, [canvasBody, showGray]);
+    }, [body, showGray]);
 
     return null;
 }
 
 export function DestCanvasActions() {
     const orgImg = useAtomValue(orgImgAtom);
-    const canvasBody2 = useAtomValue(canvasBody2Atom);
+    const body = useAtomValue(canvasBodyDstAtom);
 
     useEffect(() => {
-        if (!canvasBody2) { return; }
+        if (!body) { return; }
         try {
             if (orgImg) {
-                canvasBody2.el.width = orgImg.width;
-                canvasBody2.el.height = orgImg.height;
+                body.el.width = orgImg.width;
+                body.el.height = orgImg.height;
 
-                drawImage(canvasBody2, orgImg);
+                drawImage(body, orgImg);
             } else {
-                canvasBody2.ctx.clearRect(0, 0, canvasBody2.el.width, canvasBody2.el.height);
+                body.ctx.clearRect(0, 0, body.el.width, body.el.height);
             }
         } catch (error) {
             toastWarning(`Failed to render image`);
             console.log('Failed to render image', error);
         }
-    }, [canvasBody2, orgImg]);
+    }, [body, orgImg]);
 
     return null;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useAtom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, canvasBodyAtom, canvasBody2Atom, CanvasBodyAtomType } from "../store/store";
+import { showGrayAtom, orgImgAtom, canvasBodySrcAtom, canvasBodyDstAtom, CanvasBodyAtomType } from "../store/store";
 import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
@@ -32,10 +32,10 @@ function CanvasElements() {
     return (
         <div className="flex gap-4">
             <div className="border-red-700 border">
-                <CanvasElement className="bg-slate-300" updateAtom={canvasBodyAtom} />
+                <CanvasElement className="bg-slate-300" updateAtom={canvasBodySrcAtom} />
             </div>
             <div className="border-red-700 border">
-                <CanvasElement className="bg-slate-300" updateAtom={canvasBody2Atom} />
+                <CanvasElement className="bg-slate-300" updateAtom={canvasBodyDstAtom} />
             </div>
         </div>
     );

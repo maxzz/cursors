@@ -15,7 +15,7 @@ export type CanvasBody = {
     ctx: CanvasRenderingContext2D;
 };
 
-export type CanvasBodyAtomType = typeof canvasBodyAtom;
+export type CanvasBodyAtomType = typeof canvasBodySrcAtom;
 
 function atomCanvasUpdate(get: Getter, set: Setter, value: SetStateAction<HTMLCanvasElement | null | undefined>, atomToSet: PrimitiveAtom<CanvasBody | null | undefined>) {
     let newBody: CanvasBody | null | undefined;
@@ -27,16 +27,16 @@ function atomCanvasUpdate(get: Getter, set: Setter, value: SetStateAction<HTMLCa
     set(atomToSet, newBody);
 }
 
-const _canvasBodyAtom = atom<CanvasBody | null | undefined>(null);
-export const canvasBodyAtom = atom(
-    (get) => get(_canvasBodyAtom),
-    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasBodyAtom)
+const _canvasBodySrcAtom = atom<CanvasBody | null | undefined>(null);
+export const canvasBodySrcAtom = atom(
+    (get) => get(_canvasBodySrcAtom),
+    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasBodySrcAtom)
 );
 
-const _canvasBody2Atom = atom<CanvasBody | null | undefined>(null);
-export const canvasBody2Atom = atom(
-    (get) => get(_canvasBody2Atom),
-    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasBody2Atom)
+const _canvasBodyDstAtom = atom<CanvasBody | null | undefined>(null);
+export const canvasBodyDstAtom = atom(
+    (get) => get(_canvasBodyDstAtom),
+    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasBodyDstAtom)
 );
 
 // options
