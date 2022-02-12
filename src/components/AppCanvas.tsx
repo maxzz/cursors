@@ -52,9 +52,9 @@ function CanvasActions() {
         if (!canvasBody) { return; }
         try {
             if (orgImg) {
-                drawImage(canvasBody.ctx, canvasBody.el, orgImg);
+                drawImage(canvasBody, orgImg);
 
-                showGray && applyXOR(canvasBody.ctx, canvasBody.el, '#000000');
+                showGray && applyXOR(canvasBody, '#000000');
             } else {
                 canvasBody.ctx.clearRect(0, 0, canvasBody.el.width, canvasBody.el.height);
             }
@@ -71,7 +71,7 @@ function CanvasActions() {
                 canvasBody2.el.width = orgImg.width;
                 canvasBody2.el.height = orgImg.height;
 
-                drawImage(canvasBody2.ctx, canvasBody2.el, orgImg);
+                drawImage(canvasBody2, orgImg);
             } else {
                 canvasBody2.ctx.clearRect(0, 0, canvasBody2.el.width, canvasBody2.el.height);
             }
@@ -84,9 +84,9 @@ function CanvasActions() {
     useEffect(() => {
         if (!canvasBody) { return; }
         if (showGray) {
-            showGray && applyXOR(canvasBody.ctx, canvasBody.el, '#300000');
+            showGray && applyXOR(canvasBody, '#300000');
         } else {
-            orgImg && drawImage(canvasBody.ctx, canvasBody.el, orgImg);
+            orgImg && drawImage(canvasBody, orgImg);
         }
     }, [canvasBody, showGray]);
 

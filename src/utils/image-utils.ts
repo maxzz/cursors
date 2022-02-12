@@ -1,3 +1,5 @@
+import { CanvasBody } from "../store/store";
+
 export function loadFileData(file: Blob): Promise<string | ArrayBuffer | null> {
     return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
         const reader = new FileReader();
@@ -20,17 +22,17 @@ export function createImageFromBlob(data: string | ArrayBuffer | null) {
     });
 }
 
-export function drawImage(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) {
-    // context.clearRect(0, 0, canvas.width, canvas.height);
-    // context.beginPath();
-    context.fillStyle = 'red';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+export function drawImage(body: CanvasBody, img: HTMLImageElement) {
+    // body.ctx.clearRect(0, 0, body.el.width, body.el.height);
+    // body.ctx.beginPath();
+    body.ctx.fillStyle = 'red';
+    body.ctx.fillRect(0, 0, body.el.width, body.el.height);
 
-    context.drawImage(img, 0, 0);
+    body.ctx.drawImage(img, 0, 0);
 }
 
-export function convertToGray(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+export function convertToGray(body: CanvasBody) {
+    const imageData = body.ctx.getImageData(0, 0, body.el.width, body.el.height);
     const data: Uint8ClampedArray = imageData.data;
     for (var i = 0; i <= data.length; i += 4) {
         const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
@@ -38,7 +40,7 @@ export function convertToGray(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasE
         data[i + 1] = avg;
         data[i + 2] = avg;
     }
-    ctx.putImageData(imageData, 0, 0);
+    body.ctx.putImageData(imageData, 0, 0);
 }
 
 const enum RGB {
@@ -47,14 +49,14 @@ const enum RGB {
     b = 2,
 }
 
-export function applyXOR(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, hexColor: string) {
+export function applyXOR(body: CanvasBody, hexColor: string) {
 
     const color = hexColor.match(/([a-fA-F\d]{2})/g);
     if (!color || color.length !== 3) {
         throw new Error('invalid color');
     }
 
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const imageData = body.ctx.getImageData(0, 0, body.el.width, body.el.height);
     const data: Uint8ClampedArray = imageData.data;
 
     const cc = [data[length-4], data[length-3], data[length-2]];
@@ -76,7 +78,7 @@ export function applyXOR(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElemen
         // data[i + 1] = data[i + 1] ^ +color[1]; //g
         // data[i + 2] = data[i + 2] ^ +color[2]; //b
     }
-    ctx.putImageData(imageData, 0, 0);
+    body.ctx.putImageData(imageData, 0, 0);
 }
 
 /*
