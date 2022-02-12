@@ -33,18 +33,16 @@ function CanvasElements() {
     return (
         <div className="flex justify-around space-x-2">
             <div className="border-red-700 border">
-                <CanvasElement className="my-1 bg-slate-300" updateAtom={canvasBodyAtom} />
+                <CanvasElement className="bg-slate-300" updateAtom={canvasBodyAtom} />
             </div>
             <div className="border-red-700 border">
-                <CanvasElement className="my-1 bg-slate-300" updateAtom={canvasBody2Atom} />
+                <CanvasElement className="bg-slate-300" updateAtom={canvasBody2Atom} />
             </div>
         </div>
     );
 }
 
-const CanvasElementsMemo = React.memo(CanvasElements);
-
-export function AppCanvas() {
+function CanvasActions() {
     const orgImg = useAtomValue(orgImgAtom);
     const canvasBody = useAtomValue(canvasBodyAtom);
     const canvasBody2 = useAtomValue(canvasBody2Atom);
@@ -92,13 +90,19 @@ export function AppCanvas() {
         }
     }, [canvasBody, showGray]);
 
+    return null;
+}
+
+export function AppCanvas() {
+    const orgImg = useAtomValue(orgImgAtom);
     return (
         <>
+            <CanvasActions />
             <div className="flex space-x-2">
                 <DropZone />
                 {orgImg && <CheckBox className="self-end pb-1" />}
             </div>
-            <CanvasElementsMemo />
+            <CanvasElements />
         </>
     );
 }
