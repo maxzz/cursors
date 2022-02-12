@@ -31,7 +31,7 @@ function CanvasElement({ updateAtom, ...rest }: { updateAtom: CanvasBodyAtomType
 
 function CanvasElements() {
     return (
-        <div className="flex justify-around space-x-2">
+        <div className="flex gap-4">
             <div className="border-red-700 border">
                 <CanvasElement className="bg-slate-300" updateAtom={canvasBodyAtom} />
             </div>
@@ -96,13 +96,20 @@ function CanvasActions() {
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
     return (
-        <>
+        <div className="h-full flex flex-col">
+            {/* No UI actions */}
             <CanvasActions />
+
+            {/* Drop zone */}
             <div className="flex space-x-2">
                 <DropZone />
                 {orgImg && <CheckBox className="self-end pb-1" />}
             </div>
-            <CanvasElements />
-        </>
+
+            {/* The rest */}
+            <div className="flex-1 flex items-center justify-center">
+                <CanvasElements />
+            </div>
+        </div>
     );
 }
