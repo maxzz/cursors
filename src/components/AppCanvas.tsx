@@ -7,7 +7,7 @@ import { toastWarning } from "./UI/UiToaster";
 import { DropZone } from "./DropZone";
 import { classNames } from "../utils/classnames";
 
-function CheckBox({className, ...rest}: React.HTMLAttributes<HTMLLabelElement>) {
+function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
     return (
         <label className={classNames("flex items-center space-x-2 select-none", className)} {...rest}>
@@ -22,12 +22,27 @@ function CheckBox({className, ...rest}: React.HTMLAttributes<HTMLLabelElement>) 
     );
 }
 
-function CursorCanvas({ updateAtom, className, ...rest }: { updateAtom: CanvasBodyAtomType; } & React.HTMLAttributes<HTMLCanvasElement>) {
+function CanvasElement({ updateAtom, ...rest }: { updateAtom: CanvasBodyAtomType; } & React.HTMLAttributes<HTMLCanvasElement>) {
     const setCanvas = useUpdateAtom(updateAtom);
     return (
-        <canvas ref={setCanvas} className={className} {...rest} />
+        <canvas ref={setCanvas} {...rest} />
     );
 }
+
+function CanvasElements() {
+    return (
+        <div className="flex justify-around space-x-2">
+            <div className="border-red-700 border">
+                <CanvasElement className="my-1 bg-slate-300" updateAtom={canvasBodyAtom} />
+            </div>
+            <div className="border-red-700 border">
+                <CanvasElement className="my-1 bg-slate-300" updateAtom={canvasBody2Atom} />
+            </div>
+        </div>
+    );
+}
+
+const CanvasElementsMemo = React.memo(CanvasElements);
 
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
@@ -83,15 +98,7 @@ export function AppCanvas() {
                 <DropZone />
                 {orgImg && <CheckBox className="self-end pb-1" />}
             </div>
-
-            <div className="flex justify-around">
-                <div className="">
-                    <CursorCanvas className="my-1 bg-slate-300" updateAtom={canvasBodyAtom} />
-                </div>
-                <div className="">
-                    <CursorCanvas className="my-1 bg-slate-300" updateAtom={canvasBody2Atom} />
-                </div>
-            </div>
+            <CanvasElementsMemo />
         </>
     );
 }
