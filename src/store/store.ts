@@ -37,19 +37,6 @@ export const canvasBody2Atom = atom(
     (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasBody2Atom)
 );
 
-// export const canvasBodyAtom = atom(
-//     (get) => get(_canvasBodyAtom),
-//     (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => {
-//         let newBody: CanvasBody | null | undefined;
-//         if (value) {
-//             let el = typeof value === 'function' ? value(get(_canvasBodyAtom)?.el) : value;
-//             let ctx = value && el?.getContext('2d');
-//             newBody = el && ctx && { el, ctx, };
-//         }
-//         set(_canvasBodyAtom, newBody);
-//     }
-// );
-
 // options
 
 export const showGrayAtom = atom(true);

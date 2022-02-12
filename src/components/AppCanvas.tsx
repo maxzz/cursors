@@ -45,13 +45,8 @@ export function AppCanvas() {
         if (!canvasBody) { return; }
         try {
             if (orgImg) {
-                // canvas.width = orgImg.width;
-                // canvas.height = orgImg.height;
-
-                canvasBody.ctx.beginPath();
                 drawImage(canvasBody.ctx, canvasBody.el, orgImg);
 
-                //showGray && convertToGray(canvasCtx, canvas);
                 showGray && applyXOR(canvasBody.ctx, canvasBody.el, '#000000');
             } else {
                 canvasBody.ctx.clearRect(0, 0, canvasBody.el.width, canvasBody.el.height);
@@ -69,11 +64,7 @@ export function AppCanvas() {
                 canvasBody2.el.width = orgImg.width;
                 canvasBody2.el.height = orgImg.height;
 
-                canvasBody2.ctx.beginPath();
                 drawImage(canvasBody2.ctx, canvasBody2.el, orgImg);
-
-                //showGray && convertToGray(canvasCtx, canvas);
-                //showGray && applyXOR(canvasBody2.ctx, canvasBody2.el, '#000000');
             } else {
                 canvasBody2.ctx.clearRect(0, 0, canvasBody2.el.width, canvasBody2.el.height);
             }
@@ -86,7 +77,6 @@ export function AppCanvas() {
     useEffect(() => {
         if (!canvasBody) { return; }
         if (showGray) {
-            //convertToGray(canvasCtx, canvas);
             showGray && applyXOR(canvasBody.ctx, canvasBody.el, '#300000');
         } else {
             orgImg && drawImage(canvasBody.ctx, canvasBody.el, orgImg);
