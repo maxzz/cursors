@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { useAtom } from "jotai";
+import { PrimitiveAtom, useAtom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, canvasBodyAtom, canvasBody2Atom } from "../store/store";
+import { showGrayAtom, orgImgAtom, canvasBodyAtom, canvasBody2Atom, CanvasBody, CanvasBodyAtomType } from "../store/store";
 import { applyXOR, convertToGray, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 import { DropZone } from "./DropZone";
+import { classNames } from "../utils/classnames";
 
-function CheckBox() {
+function CheckBox({className, ...rest}: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
     return (
-        <label className="flex items-center space-x-2 select-none">
+        <label className={classNames("flex items-center space-x-2 select-none", className)} {...rest}>
             <input
                 className="w-4 h-4 text-slate-500 bg-purple-200 focus:ring-slate-500 focus:ring-offset-1 rounded"
                 type="checkbox"
@@ -21,17 +22,10 @@ function CheckBox() {
     );
 }
 
-function CursorCanvas() {
-    const setCanvas = useUpdateAtom(canvasBodyAtom);
+function CursorCanvas({ updateAtom, className, ...rest }: { updateAtom: CanvasBodyAtomType; } & React.HTMLAttributes<HTMLCanvasElement>) {
+    const setCanvas = useUpdateAtom(updateAtom);
     return (
-        <canvas ref={setCanvas} className="my-1 bg-slate-300" />
-    );
-}
-
-function DestCanvas() {
-    const setCanvas = useUpdateAtom(canvasBody2Atom);
-    return (
-        <canvas ref={setCanvas} className="my-1 bg-slate-300" />
+        <canvas ref={setCanvas} className={className} {...rest} />
     );
 }
 
@@ -85,10 +79,19 @@ export function AppCanvas() {
 
     return (
         <>
-            <DropZone />
-            <CursorCanvas />
-            <DestCanvas />
-            {orgImg && <CheckBox />}
+            <div className="flex space-x-2">
+                <DropZone />
+                {orgImg && <CheckBox className="self-end pb-1" />}
+            </div>
+
+            <div className="flex justify-around">
+                <div className="">
+                    <CursorCanvas className="my-1 bg-slate-300" updateAtom={canvasBodyAtom} />
+                </div>
+                <div className="">
+                    <CursorCanvas className="my-1 bg-slate-300" updateAtom={canvasBody2Atom} />
+                </div>
+            </div>
         </>
     );
 }

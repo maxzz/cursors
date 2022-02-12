@@ -10,10 +10,12 @@ export const orgImgAtom = atom<HTMLImageElement | null>(null);
 
 // canvas body
 
-type CanvasBody = {
+export type CanvasBody = {
     el: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
 };
+
+export type CanvasBodyAtomType = typeof canvasBodyAtom;
 
 function atomCanvasUpdate(get: Getter, set: Setter, value: SetStateAction<HTMLCanvasElement | null | undefined>, atomToSet: PrimitiveAtom<CanvasBody | null | undefined>) {
     let newBody: CanvasBody | null | undefined;
