@@ -4,10 +4,9 @@ import { canvasBody2Atom, canvasBodyAtom, orgImgAtom, showGrayAtom } from "../st
 import { applyXOR, drawImage } from "../utils/image-utils";
 import { toastWarning } from "./UI/UiToaster";
 
-export function CanvasActions() {
+export function SourceCanvasActions() {
     const orgImg = useAtomValue(orgImgAtom);
     const canvasBody = useAtomValue(canvasBodyAtom);
-    const canvasBody2 = useAtomValue(canvasBody2Atom);
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
@@ -27,6 +26,22 @@ export function CanvasActions() {
     }, [canvasBody, orgImg, showGray]);
 
     useEffect(() => {
+        if (!canvasBody) { return; }
+        if (showGray) {
+            showGray && applyXOR(canvasBody, '#300000');
+        } else {
+            orgImg && drawImage(canvasBody, orgImg);
+        }
+    }, [canvasBody, showGray]);
+
+    return null;
+}
+
+export function DestCanvasActions() {
+    const orgImg = useAtomValue(orgImgAtom);
+    const canvasBody2 = useAtomValue(canvasBody2Atom);
+
+    useEffect(() => {
         if (!canvasBody2) { return; }
         try {
             if (orgImg) {
@@ -43,14 +58,12 @@ export function CanvasActions() {
         }
     }, [canvasBody2, orgImg]);
 
-    useEffect(() => {
-        if (!canvasBody) { return; }
-        if (showGray) {
-            showGray && applyXOR(canvasBody, '#300000');
-        } else {
-            orgImg && drawImage(canvasBody, orgImg);
-        }
-    }, [canvasBody, showGray]);
-
     return null;
+}
+
+export function CanvasActions() {
+    return (<>
+        <SourceCanvasActions />
+        <DestCanvasActions />
+    </>);
 }
