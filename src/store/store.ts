@@ -42,3 +42,7 @@ export const canvasBodyDstAtom = atom(
 // options
 
 export const showGrayAtom = atom(true);
+
+// cursor dementions
+
+export const cursorSizeAtom = atom(32);
