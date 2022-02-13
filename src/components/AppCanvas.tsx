@@ -22,19 +22,37 @@ function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>
     );
 }
 
+const CURSOR_SIZES = [16, 32, 64, 128, 256];
+
 function SizeSelector() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     function onChange(event: ChangeEvent<HTMLInputElement>) {
-        console.log(+event.target.value);
         setSize(+event.target.value);
     }
     return (
         <div className="self-start flex items-center space-x-2">
-            <label><input type="radio" value={0} checked={size === 0} onChange={onChange}/>16</label>
-            <label><input type="radio" value={1} checked={size === 1} onChange={onChange}/>32</label>
-            <label><input type="radio" value={2} checked={size === 2} onChange={onChange}/>64</label>
-            <label><input type="radio" value={3} checked={size === 3} onChange={onChange}/>128</label>
-            <label><input type="radio" value={4} checked={size === 4} onChange={onChange}/>256</label>
+            {CURSOR_SIZES.map((item, idx) => (
+                <label key={item} className="text-xs flex items-center space-x-1">
+                    <input type="radio" value={item} checked={size === item} onChange={onChange} />
+                    <div className="">{item}</div>
+                </label>
+            ))}
+        </div>
+    );
+}
+
+function SizeSelectorSlider() {
+    const [size, setSize] = useAtom(cursorSizeAtom);
+    function onChange(event: ChangeEvent<HTMLInputElement>) {
+        setSize(+event.target.value);
+    }
+    return (
+        <div className="self-start flex items-center space-x-2">
+            <label className="flex items-center">
+                <div className="">Size</div>
+                <input type="range" value={size} onChange={(event) => setSize(+event.target.value)} />
+                <input type="text" value={size} onChange={(event) => setSize(+event.target.value)}/>
+            </label>
         </div>
     );
 }
@@ -50,7 +68,11 @@ export function AppCanvas() {
             <div className="flex space-x-2">
                 <DropZone />
                 {orgImg && <CheckBox className="self-end pb-1" />}
-                <SizeSelector />
+                <div className="">
+                    <div className="">Cursor size</div>
+                    <SizeSelector />
+                    <SizeSelectorSlider />
+                </div>
             </div>
 
             {/* The rest */}
