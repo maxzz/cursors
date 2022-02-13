@@ -5,6 +5,7 @@ import { showGrayAtom, orgImgAtom, canvasBodySrcAtom, canvasBodyDstAtom, CanvasB
 import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
+import { CanvasElements } from "./CanvasElements";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -18,26 +19,6 @@ function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>
             />
             <div className="">show gray</div>
         </label>
-    );
-}
-
-function CanvasElement({ updateAtom, ...rest }: { updateAtom: CanvasBodyAtomType; } & React.HTMLAttributes<HTMLCanvasElement>) {
-    const setCanvas = useUpdateAtom(updateAtom);
-    return (
-        <canvas ref={setCanvas} {...rest} />
-    );
-}
-
-function CanvasElements() {
-    return (
-        <div className="flex gap-4">
-            <div className="border-red-700 border">
-                <CanvasElement className="bg-slate-300" updateAtom={canvasBodySrcAtom} />
-            </div>
-            <div className="border-red-700 border">
-                <CanvasElement className="bg-slate-300" updateAtom={canvasBodyDstAtom} />
-            </div>
-        </div>
     );
 }
 
