@@ -6,7 +6,9 @@ import visualizer from 'rollup-plugin-visualizer';
 export default defineConfig({
     base: '',
     plugins: [
-        react(),
+        react({
+            jsxRuntime: 'classic'
+        }),
         visualizer({
             filename: 'visualization.html',
             template: 'sunburst', // sunburst - d3 style (good as default as well); treemap - table (default); network - graph (slow to open).
