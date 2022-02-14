@@ -13,7 +13,7 @@ export function CursorSizeSelector() {
         <div className="self-start flex items-center space-x-2">
             {CURSOR_SIZES.map((item, idx) => (
                 <label key={item} className="text-xs flex items-center space-x-1">
-                    <input type="radio" value={item} checked={size === item} onChange={onChange} />
+                    <input className="form-radio" type="radio" value={item} checked={size === item} onChange={onChange} />
                     <div className="">{item}</div>
                 </label>
             ))}
@@ -27,11 +27,13 @@ export function SizeSelectorSlider() {
         setSize(+event.target.value);
     }
     return (
-        <div className="self-start flex items-center space-x-2">
-            <label className="flex items-center">
+        <div className="">
+            <label className="h-6 text-sm flex items-center space-x-2">
                 <div className="">Size</div>
                 <input type="range" value={size} onChange={(event) => setSize(+event.target.value)} />
-                <input type="text" value={size} onChange={(event) => setSize(+event.target.value)}/>
+                <div className="">
+                    <input className="w-10 text-center" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
+                </div>
             </label>
         </div>
     );
