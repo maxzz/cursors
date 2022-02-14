@@ -6,7 +6,6 @@ import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
-import { Slider } from "@adobe/react-spectrum";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -58,18 +57,6 @@ function SizeSelectorSlider() {
     );
 }
 
-function SizeSelectorSliderSpectrum() {
-    const [size, setSize] = useAtom(cursorSizeAtom);
-    function onChange(event: ChangeEvent<HTMLInputElement>) {
-        setSize(+event.target.value);
-    }
-    return (
-        <div className="self-start flex items-center space-x-2">
-            <Slider label="Cookies to buy" defaultValue={12} />
-        </div>
-    );
-}
-
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
     return (
@@ -85,7 +72,6 @@ export function AppCanvas() {
                     <div className="">Cursor size</div>
                     <SizeSelector />
                     <SizeSelectorSlider />
-                    <SizeSelectorSliderSpectrum />
                 </div>
             </div>
 
