@@ -6,7 +6,7 @@ import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
-import { CursorSizeSelector, SizeSelectorSlider } from "./CursorSizeSelector";
+import { CursorSizeSelector } from "./CursorSizeSelector";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -34,11 +34,7 @@ export function AppCanvas() {
             <div className="flex space-x-2">
                 <DropZone />
                 {orgImg && <CheckBox className="self-end pb-1" />}
-                <div className="">
-                    <div className="">Cursor size</div>
-                    <CursorSizeSelector />
-                    <SizeSelectorSlider />
-                </div>
+                <CursorSizeSelector />
             </div>
 
             {/* The rest */}
