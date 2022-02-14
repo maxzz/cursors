@@ -1,11 +1,12 @@
 import React, { ChangeEvent } from "react";
 import { useAtom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, canvasBodySrcAtom, canvasBodyDstAtom, CanvasBodyAtomType, cursorSizeAtom } from "../store/store";
+import { showGrayAtom, orgImgAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
+import { CursorSizeSelector, SizeSelectorSlider } from "./CursorSizeSelector";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -22,41 +23,6 @@ function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>
     );
 }
 
-const CURSOR_SIZES = [16, 32, 64, 128, 256];
-
-function SizeSelector() {
-    const [size, setSize] = useAtom(cursorSizeAtom);
-    function onChange(event: ChangeEvent<HTMLInputElement>) {
-        setSize(+event.target.value);
-    }
-    return (
-        <div className="self-start flex items-center space-x-2">
-            {CURSOR_SIZES.map((item, idx) => (
-                <label key={item} className="text-xs flex items-center space-x-1">
-                    <input type="radio" value={item} checked={size === item} onChange={onChange} />
-                    <div className="">{item}</div>
-                </label>
-            ))}
-        </div>
-    );
-}
-
-function SizeSelectorSlider() {
-    const [size, setSize] = useAtom(cursorSizeAtom);
-    function onChange(event: ChangeEvent<HTMLInputElement>) {
-        setSize(+event.target.value);
-    }
-    return (
-        <div className="self-start flex items-center space-x-2">
-            <label className="flex items-center">
-                <div className="">Size</div>
-                <input type="range" value={size} onChange={(event) => setSize(+event.target.value)} />
-                <input type="text" value={size} onChange={(event) => setSize(+event.target.value)}/>
-            </label>
-        </div>
-    );
-}
-
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
     return (
@@ -70,7 +36,7 @@ export function AppCanvas() {
                 {orgImg && <CheckBox className="self-end pb-1" />}
                 <div className="">
                     <div className="">Cursor size</div>
-                    <SizeSelector />
+                    <CursorSizeSelector />
                     <SizeSelectorSlider />
                 </div>
             </div>

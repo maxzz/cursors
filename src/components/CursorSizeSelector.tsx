@@ -1,0 +1,38 @@
+import { ChangeEvent } from "react";
+import { useAtom } from "jotai";
+import { cursorSizeAtom } from "../store/store";
+
+const CURSOR_SIZES = [16, 32, 64, 128, 256];
+
+export function CursorSizeSelector() {
+    const [size, setSize] = useAtom(cursorSizeAtom);
+    function onChange(event: ChangeEvent<HTMLInputElement>) {
+        setSize(+event.target.value);
+    }
+    return (
+        <div className="self-start flex items-center space-x-2">
+            {CURSOR_SIZES.map((item, idx) => (
+                <label key={item} className="text-xs flex items-center space-x-1">
+                    <input type="radio" value={item} checked={size === item} onChange={onChange} />
+                    <div className="">{item}</div>
+                </label>
+            ))}
+        </div>
+    );
+}
+
+export function SizeSelectorSlider() {
+    const [size, setSize] = useAtom(cursorSizeAtom);
+    function onChange(event: ChangeEvent<HTMLInputElement>) {
+        setSize(+event.target.value);
+    }
+    return (
+        <div className="self-start flex items-center space-x-2">
+            <label className="flex items-center">
+                <div className="">Size</div>
+                <input type="range" value={size} onChange={(event) => setSize(+event.target.value)} />
+                <input type="text" value={size} onChange={(event) => setSize(+event.target.value)}/>
+            </label>
+        </div>
+    );
+}
