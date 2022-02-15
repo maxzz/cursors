@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { useAtom } from "jotai";
-import { useAtomValue, useUpdateAtom } from "jotai/utils";
+import { useAtomValue } from "jotai/utils";
 import { showGrayAtom, orgImgAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";

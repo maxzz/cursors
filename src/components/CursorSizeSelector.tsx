@@ -1,8 +1,7 @@
-import { ChangeEvent } from "react";
+import React, { ChangeEvent, HTMLAttributes } from "react";
 import { useAtom } from "jotai";
 import { cursorSizeAtom } from "../store/store";
-
-const CURSOR_SIZES = [16, 32, 64, 128, 256];
+import { classNames } from "../utils/classnames";
 
 function SizeSelectorSlider() {
     const [size, setSize] = useAtom(cursorSizeAtom);
@@ -22,13 +21,15 @@ function SizeSelectorSlider() {
     );
 }
 
+const CURSOR_SIZES = [16, 32, 64, 128, 256];
+
 function CursorSizeSelectorButtons() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     function onChange(event: ChangeEvent<HTMLInputElement>) {
         setSize(+event.target.value);
     }
     return (
-        <div className="self-start flex items-center space-x-2">
+        <div className="flex items-center space-x-2">
             {CURSOR_SIZES.map((item, idx) => (
                 <label key={item} className="text-xs flex items-center space-x-1">
                     <input className="form-radio" type="radio" value={item} checked={size === item} onChange={onChange} />
@@ -39,15 +40,31 @@ function CursorSizeSelectorButtons() {
     );
 }
 
-export function CursorSizeSelector() {
+export function CursorSizeSelector({ className }: HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className={classNames("flex flex-col space-y-4", className)}>
+            <CursorSizeSelectorButtons />
+            <SizeSelectorSlider />
+            <br />
+            <CursorSizeSelectorButtons2 />
+        </div>
+    );
+}
+
+function CursorSizeSelectorButtons2() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     function onChange(event: ChangeEvent<HTMLInputElement>) {
         setSize(+event.target.value);
     }
     return (
-        <div className="self-start flex flex-col space-y-4">
-            <CursorSizeSelectorButtons />
-            <SizeSelectorSlider />
+        <div className="flex items-center">
+            {CURSOR_SIZES.map((item, idx) => (
+                // <label key={item} className="px-2 py-2 text-xs flex items-center space-x-1 border-t border-b border-r border-red-500 first:border-l">
+                <label key={item} className="px-2 py-2 text-xs flex items-center space-x-1 border-red-500 border border-l-0 first:border-l first:rounded-l-xl last:rounded-r-xl">
+                    <input className="form-radio" type="radio" value={item} checked={size === item} onChange={onChange} />
+                    <div className="">{item}</div>
+                </label>
+            ))}
         </div>
     );
 }
