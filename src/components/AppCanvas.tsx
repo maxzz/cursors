@@ -1,7 +1,7 @@
 import React from "react";
 import { useAtom } from "jotai";
-import { useAtomValue } from "jotai/utils";
-import { showGrayAtom, orgImgAtom } from "../store/store";
+import { useAtomValue, useUpdateAtom } from "jotai/utils";
+import { showGrayAtom, orgImgAtom, showHelpIdAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
@@ -25,6 +25,7 @@ function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>
 
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
+    const showHelp = useUpdateAtom(showHelpIdAtom);
     return (
         <div className="h-full flex flex-col">
             {/* No UI actions */}
@@ -34,6 +35,15 @@ export function AppCanvas() {
             <div className="flex space-x-2">
                 <DropZone />
                 <CursorSizeSelector />
+                <div className="p-2">
+                    <div
+                        className="w-6 h-6 pt-px text-sm text-center font-bold font-serif text-amber-900 bg-amber-400 border-amber-600 border rounded-md active:scale-[.97] cursor-pointer"
+                        title="info"
+                        onClick={() => showHelp(1)}
+                    >
+                        i
+                    </div>
+                </div>
                 {orgImg && <CheckBox className="self-end pb-1" />}
             </div>
 
