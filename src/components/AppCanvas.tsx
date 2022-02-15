@@ -33,8 +33,8 @@ export function AppCanvas() {
             {/* Drop zone */}
             <div className="flex space-x-2">
                 <DropZone />
-                {orgImg && <CheckBox className="self-end pb-1" />}
                 <CursorSizeSelector />
+                {orgImg && <CheckBox className="self-end pb-1" />}
             </div>
 
             {/* The rest */}
