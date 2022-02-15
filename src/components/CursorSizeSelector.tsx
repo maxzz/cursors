@@ -51,6 +51,8 @@ export function CursorSizeSelector({ className }: HTMLAttributes<HTMLDivElement>
     );
 }
 
+const CURSOR_SIZES2 = [16, 32, 64, 128, 256, -1];
+
 function CursorSizeSelectorButtons2() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     function onChange(event: ChangeEvent<HTMLInputElement>) {
@@ -58,11 +60,20 @@ function CursorSizeSelectorButtons2() {
     }
     return (
         <div className="flex items-center">
-            {CURSOR_SIZES.map((item, idx) => (
+            {CURSOR_SIZES2.map((item, idx) => (
                 // <label key={item} className="px-2 py-2 text-xs flex items-center space-x-1 border-t border-b border-r border-red-500 first:border-l">
-                <label key={item} className="px-2 py-2 text-xs flex items-center space-x-1 border-red-500 border border-l-0 first:border-l first:rounded-l-xl last:rounded-r-xl">
-                    <input className="form-radio" type="radio" value={item} checked={size === item} onChange={onChange} />
-                    <div className="">{item}</div>
+                <label className="px-2 py-2 text-xs flex items-center space-x-1 border-red-500 border border-l-0 first:border-l first:rounded-l-full last:rounded-r-full" key={item}>
+                    {idx !== CURSOR_SIZES2.length - 1
+                        ? <>
+                            <input className="form-radio" type="radio" value={item} checked={size === item} onChange={onChange} />
+                            <div className="">{item}</div>
+                        </>
+                        : <>
+                            <div className="">
+                                <input className="w-10 text-center" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
+                            </div>
+                        </>
+                    }
                 </label>
             ))}
         </div>
