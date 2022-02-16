@@ -1,4 +1,41 @@
 import { atom, Getter, PrimitiveAtom, SetStateAction, Setter } from "jotai";
+import atomWithCallback from "../hooks/atomsX";
+import debounce from "../utils/debounce";
+
+//#region LocalStorage
+
+namespace Storage {
+    const KEY = 'react-svg-expo-01';
+
+    type Store = {
+        showHelpId: number | null;
+    };
+
+    export let initialData: Store = {
+        showHelpId: null,
+    };
+
+    function load() {
+        const s = localStorage.getItem(KEY);
+        if (s) {
+            try {
+                let obj = JSON.parse(s) as Store;
+                initialData = { ...initialData, ...obj };
+            } catch (error) {
+            }
+        }
+    }
+    load();
+
+    export const save = debounce(function _save(get: Getter) {
+        let newStore: Store = {
+            showHelpId: get(showHelpIdAtom),
+        };
+        localStorage.setItem(KEY, JSON.stringify(newStore));
+    }, 1000);
+}
+
+//#endregion LocalStorage
 
 export type ViewPoint = { x: number; y: number; };
 export type ViewSize = { w: number; h: number; };
@@ -42,7 +79,7 @@ export const canvasBodyDstAtom = atom(
 // options
 
 export const showGrayAtom = atom(true);
-export const showHelpIdAtom = atom<number | null>(1);
+export const showHelpIdAtom = atomWithCallback<number | null>(Storage.initialData.showHelpId, ({get}) => Storage.save(get));
 
 // cursor dementions
 
