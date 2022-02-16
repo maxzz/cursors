@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { cursorSizeAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
 
+/*
 function SizeSelectorSlider() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     function onChange(event: ChangeEvent<HTMLInputElement>) {
@@ -39,22 +40,22 @@ function CursorSizeSelectorButtons() {
         </div>
     );
 }
-
+*/
 export function CursorSizeSelector({ className }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className="h-32 flex flex-col justify-between">
-            <div className={classNames("flex flex-col space-y-4", className)}>
+            {/* <div className={classNames("flex flex-col space-y-4", className)}>
                 <CursorSizeSelectorButtons />
                 <SizeSelectorSlider />
-            </div>
+            </div> */}
             <CursorSizeSelectorButtons2 />
         </div>
     );
 }
 
-const CURSOR_SIZES2 = [16, 32, 64, 128, 256];
+const CURSOR_SIZES2 = [16, 32, 128, 256];
 
-function CursorSizeSelectorButtons2() {
+export function CursorSizeSelectorButtons2() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     function onChange(event: ChangeEvent<HTMLInputElement>) {
         let size = +event.target.value;
@@ -71,10 +72,10 @@ function CursorSizeSelectorButtons2() {
                 </label>
             ))}
             <label className="relative w-14 last:w-min text-xs flex items-center justify-center border-red-500 border border-l-0 first:border-l first:rounded-l-full last:rounded-r-full" key={-1}>
-                <input className="absolute left-2 form-radio z-10" type="radio" value={-1} checked={size === -1} onChange={onChange} />
                 <div className="">
                     <input className="w-16 pl-2 py-3 text-center rounded-r-full" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
                 </div>
+                <input className="absolute left-2 form-radio" type="radio" value={-1} checked={size === -1} onChange={onChange} />
             </label>
         </div>
     );
