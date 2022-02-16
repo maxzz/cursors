@@ -1,0 +1,11 @@
+/*
+https://codepen.io/amit_sheen/pen/VwrMPgM 'Ball illusion (CSS only)'
+.container {
+    width: 55.5em; height: 55.5em;
+    background-image: conic-gradient(#fff 0 90deg, #000 0 180deg, #fff 0 270deg, #000 270deg 360deg);
+    background-size: 7em 7em;
+    background-position: center;
+    box-shadow: 0 0 3em #000;
+    filter: blur(1px);
+}
+*/
