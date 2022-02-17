@@ -2,10 +2,14 @@ import { atom, Getter, PrimitiveAtom, SetStateAction, Setter } from "jotai";
 import atomWithCallback from "../hooks/atomsX";
 import debounce from "../utils/debounce";
 
+export type ViewPoint = { x: number; y: number; };
+export type ViewSize = { w: number; h: number; };
+export type ViewBox = ViewPoint & ViewSize;
+
 //#region LocalStorage
 
 namespace Storage {
-    const KEY = 'react-svg-expo-01';
+    const KEY = 'react-cursors-01';
 
     type Store = {
         showHelpId: number | null;
@@ -36,10 +40,6 @@ namespace Storage {
 }
 
 //#endregion LocalStorage
-
-export type ViewPoint = { x: number; y: number; };
-export type ViewSize = { w: number; h: number; };
-export type ViewBox = ViewPoint & ViewSize;
 
 // source image
 
@@ -84,3 +84,4 @@ export const showHelpIdAtom = atomWithCallback<number | null>(Storage.initialDat
 // cursor dementions
 
 export const cursorSizeAtom = atom(32);
+export const cursorRectAtom = atom<ViewBox | null>(null);
