@@ -38,10 +38,9 @@ function FormEditorTrigger() {
     );
 }
 
-function Dialogs() {
+export function Dialogs() {
     return (
         <FormEditorTrigger />
     );
 }
 
-export default Dialogs;
