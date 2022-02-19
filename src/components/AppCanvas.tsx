@@ -24,31 +24,35 @@ function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>
     );
 }
 
+function InfoTrigger({className, ...rest}: React.HTMLAttributes<HTMLDivElement>) {
+    const showHelp = useUpdateAtom(showHelpIdAtom);
+    return (
+        <div
+            className={classNames("w-6 h-6 pt-px text-sm text-center font-bold font-serif text-amber-900 bg-amber-400 border-amber-600 border rounded-md active:scale-[.97] cursor-pointer", className)}
+            title="info"
+            onClick={() => showHelp(1)}
+            {...rest}
+        >
+            i
+        </div>
+    );
+}
+
 export function AppCanvas() {
     const orgImg = useAtomValue(orgImgAtom);
-    const showHelp = useUpdateAtom(showHelpIdAtom);
     return (
         <div className="h-full flex flex-col">
             {/* No UI actions */}
             <CanvasActions />
 
             {/* Drop zone */}
-            <div className="h-32 flex space-x-2">
+            <div className="h-32 flex flex-col space-y-2">
                 <DropZone />
+                <InfoTrigger />
                 {/* <CursorSizeSelector /> */}
                 <div className="flex flex-col justify-between">
                     <CursorSizeSelectorButtons2 />
                     {orgImg && <CheckBox className="" />}
-                </div>
-                {/* Info */}
-                <div className="p-2">
-                    <div
-                        className="w-6 h-6 pt-px text-sm text-center font-bold font-serif text-amber-900 bg-amber-400 border-amber-600 border rounded-md active:scale-[.97] cursor-pointer"
-                        title="info"
-                        onClick={() => showHelp(1)}
-                    >
-                        i
-                    </div>
                 </div>
             </div>
 
@@ -57,7 +61,7 @@ export function AppCanvas() {
                 <div className="flex items-center justify-center">
                     <CanvasElements />
                 </div>
-                <div className=""><CursorTester/></div>
+                <div className=""><CursorTester /></div>
             </div>
         </div>
     );
