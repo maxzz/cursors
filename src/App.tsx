@@ -7,7 +7,7 @@ import './App.css';
 function App() {
     return (<>
         <UIToaster />
-        <div className="h-screen bg-sky-700 p-4">
+        <div className="h-screen bg-white bg-gradient-to-t from-sky-700/50 via-sky-700/60 to-sky-700/50 p-4">
             <AppCanvas />
         </div>
         <Dialogs />

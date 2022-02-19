@@ -53,10 +53,12 @@ export function AppCanvas() {
             </div>
 
             {/* The rest */}
-            <div className="flex-1 flex items-center justify-center">
-                <CanvasElements />
+            <div className="flex-1 flex flex-col justify-center gap-y-4">
+                <div className="flex items-center justify-center">
+                    <CanvasElements />
+                </div>
+                <div className=""><CursorTester/></div>
             </div>
-            <div className=""><CursorTester/></div>
         </div>
     );
 }
