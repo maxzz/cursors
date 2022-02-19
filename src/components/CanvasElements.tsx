@@ -11,11 +11,11 @@ function CanvasElement({ updateAtom, ...rest }: { updateAtom: CanvasBodyAtomType
 export function CanvasElements() {
     return (
         <div className="flex gap-4">
-            <div className="border-red-700 border">
-                <CanvasElement className="w-full aspect-square bg-slate-300" updateAtom={canvasBodySrcAtom} />
+            <div className="w-full aspect-square border-sky-700 border">
+                <CanvasElement className="w-full h-full bg-slate-300" updateAtom={canvasBodySrcAtom} />
             </div>
-            <div className="border-red-700 border">
-                <CanvasElement className="w-full aspect-square bg-slate-300" updateAtom={canvasBodyDstAtom} />
+            <div className="w-full aspect-square border-sky-700 border">
+                <CanvasElement className="w-full h-full bg-slate-300" updateAtom={canvasBodyDstAtom} />
             </div>
         </div>
     );
