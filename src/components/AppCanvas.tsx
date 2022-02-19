@@ -7,6 +7,7 @@ import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
 import { CursorSizeSelector, CursorSizeSelectorButtons2 } from "./CursorSizeSelector";
+import CursorTester from "./CursorTester";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -55,6 +56,7 @@ export function AppCanvas() {
             <div className="flex-1 flex items-center justify-center">
                 <CanvasElements />
             </div>
+            <div className=""><CursorTester/></div>
         </div>
     );
 }

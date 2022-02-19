@@ -83,5 +83,7 @@ export const showHelpIdAtom = atomWithCallback<number | null>(Storage.initialDat
 
 // cursor dementions
 
-export const cursorSizeAtom = atom(32);
+export const imageRectAtom = atom<ViewBox | null>(null); // left: rect inside source canvas to use for cursor
+
+export const cursorSizeAtom = atom(32); // right i.e. destination
 export const cursorRectAtom = atom<ViewBox | null>(null);
