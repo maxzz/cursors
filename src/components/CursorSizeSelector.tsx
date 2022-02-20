@@ -101,7 +101,7 @@ export function CursorSizeSelectorButtons2() {
     return (
         <div className="">
             <div className="relative inline-block text-xs">
-                <label className={classNames("w-16 flex items-center bg-slate-300 border-slate-500 border overflow-hidden focus-within:ring", open?'rounded-t-md':'rounded-md')}>
+                <label className={classNames("w-16 flex items-center bg-slate-300 border-slate-500 border overflow-hidden focus-within:ring", open ? 'rounded-t-md' : 'rounded-md')}>
                     <div className="w-10">
                         <input className="w-full px-2 py-1 bg-transparent border-slate-500 border-r focus:outline-none" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
                     </div>
@@ -112,15 +112,26 @@ export function CursorSizeSelectorButtons2() {
                         </svg>
                     </button>
                 </label>
-                {open && <>
-                    <div className="absolute top-full w-16 px-2 bg-slate-300 border-slate-500 border">
-                        <div className="w-full">16</div>
-                        <div className="w-full">32</div>
-                        <div className="w-full">128</div>
-                        <div className="w-full">256</div>
+                {open &&
+                    <div className="absolute top-full w-16 bg-slate-300 border-slate-500 border">
+                        {CURSOR_SIZES2.map((itemSize) => <>
+                            <div
+                                className={`w-full px-2 hover:bg-green-500 ${itemSize === size ? 'bg-red-500' : ''} cursor-pointer`} key={itemSize}
+                                onClick={() => { setSize(itemSize); setOpen(false); }}
+                            >
+                                {itemSize}
+                            </div>
+                        </>)}
                     </div>
-                </>}
+                }
             </div>
         </div>
     );
 }
+
+// <div className="absolute top-full w-16 px-2 bg-slate-300 border-slate-500 border">
+                            //     <div className="w-full">16</div>
+                            //     <div className="w-full">32</div>
+                            //     <div className="w-full">128</div>
+                            //     <div className="w-full">256</div>
+                            // </div>
