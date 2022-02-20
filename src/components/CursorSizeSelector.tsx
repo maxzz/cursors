@@ -105,7 +105,7 @@ export function CursorSizeSelectorButtons2() {
                     <div className="w-10">
                         <input className="w-full px-2 py-1 bg-transparent border-slate-500 border-r focus:outline-none" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
                     </div>
-                    <button className="" onClick={() => setOpen(v => !v)}>
+                    <button className="focus:outline-none focus:bg-slate-400" onClick={() => setOpen(v => !v)}>
                         {/* Open/Close icon */}
                         <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
                             <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 34 L 45 65 L 78 34", "M 15 53 L 45 23 L 78 53"] })} />
@@ -113,10 +113,10 @@ export function CursorSizeSelectorButtons2() {
                     </button>
                 </label>
                 {open &&
-                    <div className="absolute top-full w-16 bg-slate-300 border-slate-500 border">
+                    <div className="absolute top-full w-16 bg-slate-300 border-slate-500 border rounded-b-md">
                         {CURSOR_SIZES2.map((itemSize) => <>
                             <div
-                                className={`w-full px-2 hover:bg-green-500 ${itemSize === size ? 'bg-red-500' : ''} cursor-pointer`} key={itemSize}
+                                className={`w-full px-2 py-1 hover:bg-slate-400 ${itemSize === size ? 'font-bold' : ''} cursor-pointer`} key={itemSize}
                                 onClick={() => { setSize(itemSize); setOpen(false); }}
                             >
                                 {itemSize}
@@ -128,10 +128,3 @@ export function CursorSizeSelectorButtons2() {
         </div>
     );
 }
-
-// <div className="absolute top-full w-16 px-2 bg-slate-300 border-slate-500 border">
-                            //     <div className="w-full">16</div>
-                            //     <div className="w-full">32</div>
-                            //     <div className="w-full">128</div>
-                            //     <div className="w-full">256</div>
-                            // </div>
