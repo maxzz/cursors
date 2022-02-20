@@ -95,16 +95,16 @@ export function CursorSizeSelectorButtons2() {
             setSize(size);
         }
     }
-    
+
     const [open, setOpen] = React.useState(false);
     const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
     return (
         <div className="flex items-center">
-            <label className="w-16 flex items-center text-xs border-sky-500 border" key={-1}>
+            <label className="w-16 flex items-center text-xs border-slate-500 border rounded-md overflow-hidden" key={-1}>
                 <div className="flex-1">
-                    <input className="w-full px-2 py-1" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
+                    <input className="w-full px-2 py-1 bg-transparent border-slate-500 border-r focus:ring-0" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
                 </div>
-                <button className="w-6 h-6 border-slate-400 border" onClick={() => setOpen(v => !v)}>
+                <button className="" onClick={() => setOpen(v => !v)}>
                     {/* Open/Close icon */}
                     <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
                         <a.path d={styles.open.to({ range: [0, .3, 1], output: ["M 50 13 L 80 43 L 50 72", "M 50 13 L 50 42 L 50 72", "M 80 35 L 50 65 L 20 35"] })} />
