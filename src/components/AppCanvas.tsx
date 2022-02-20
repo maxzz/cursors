@@ -52,7 +52,7 @@ export function AppCanvas() {
                     <InfoTrigger />
                 </div>
 
-                {/* <CursorSizeSelector /> */}
+                <CursorSizeSelector />
                 <div className="flex flex-col justify-between">
                     <CursorSizeSelectorButtons2 />
                     {orgImg && <CheckBox className="" />}
