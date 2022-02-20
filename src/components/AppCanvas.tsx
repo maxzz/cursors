@@ -28,7 +28,7 @@ function InfoTrigger({className, ...rest}: React.HTMLAttributes<HTMLDivElement>)
     const showHelp = useUpdateAtom(showHelpIdAtom);
     return (
         <div
-            className={classNames("w-6 h-6 pt-px text-sm text-center font-bold font-serif text-amber-900 bg-amber-400 border-amber-600 border rounded-md active:scale-[.97] cursor-pointer", className)}
+            className={classNames("w-6 h-6 pt-px text-sm text-center font-bold font-serif text-slate-700 bg-slate-300 border-slate-500 border rounded-md active:scale-[.97] cursor-pointer", className)}
             title="info"
             onClick={() => showHelp(1)}
             {...rest}
@@ -47,8 +47,11 @@ export function AppCanvas() {
 
             {/* Drop zone */}
             <div className="h-32 flex flex-col space-y-2">
-                <DropZone />
-                <InfoTrigger />
+                <div className="self-center flex space-x-2">
+                    <DropZone />
+                    <InfoTrigger />
+                </div>
+
                 {/* <CursorSizeSelector /> */}
                 <div className="flex flex-col justify-between">
                     <CursorSizeSelectorButtons2 />
