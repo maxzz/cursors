@@ -99,18 +99,28 @@ export function CursorSizeSelectorButtons2() {
     const [open, setOpen] = React.useState(false);
     const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
     return (
-        <div className="flex items-center">
-            <label className="w-16 flex items-center text-xs border-slate-500 border rounded-md overflow-hidden" key={-1}>
-                <div className="flex-1">
-                    <input className="w-full px-2 py-1 bg-transparent border-slate-500 border-r focus:ring-0" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
-                </div>
-                <button className="" onClick={() => setOpen(v => !v)}>
-                    {/* Open/Close icon */}
-                    <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
-                        <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 53 L 45 23 L 78 53", "M 15 34 L 45 65 L 78 34"] })} />
-                    </svg>
-                </button>
-            </label>
+        <div className="">
+            <div className="relative inline-block text-xs">
+                <label className={classNames("w-16 flex items-center bg-slate-300 border-slate-500 border overflow-hidden", open?'rounded-t-md':'rounded-md')}>
+                    <div className="w-10">
+                        <input className="w-full px-2 py-1 bg-transparent border-slate-500 border-r focus:ring-0" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
+                    </div>
+                    <button className="" onClick={() => setOpen(v => !v)}>
+                        {/* Open/Close icon */}
+                        <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
+                            <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 34 L 45 65 L 78 34", "M 15 53 L 45 23 L 78 53"] })} />
+                        </svg>
+                    </button>
+                </label>
+                {open && <>
+                    <div className="absolute top-full w-10 px-2 bg-slate-300 border-slate-500 border">
+                        <div className="w-full">16</div>
+                        <div className="w-full">32</div>
+                        <div className="w-full">128</div>
+                        <div className="w-full">256</div>
+                    </div>
+                </>}
+            </div>
         </div>
     );
 }
