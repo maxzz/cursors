@@ -6,7 +6,7 @@ import { classNames } from "../utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
-import { CursorSizeSelector, CursorSizeSelectorButtons2 } from "./CursorSizeSelector";
+import { CursorSizeSelector } from "./CursorSizeSelector";
 import CursorTester from "./CursorTester";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
@@ -24,7 +24,7 @@ function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>
     );
 }
 
-function InfoTrigger({className, ...rest}: React.HTMLAttributes<HTMLDivElement>) {
+function InfoTrigger({ className, ...rest }: React.HTMLAttributes<HTMLDivElement>) {
     const showHelp = useUpdateAtom(showHelpIdAtom);
     return (
         <div
@@ -52,9 +52,8 @@ export function AppCanvas() {
                     <InfoTrigger />
                 </div>
 
-                <CursorSizeSelector />
                 <div className="flex flex-col justify-between">
-                    <CursorSizeSelectorButtons2 />
+                    <CursorSizeSelector />
                     {orgImg && <CheckBox className="" />}
                 </div>
             </div>
@@ -64,7 +63,9 @@ export function AppCanvas() {
                 <div className="flex items-center justify-center">
                     <CanvasElements />
                 </div>
-                <div className=""><CursorTester /></div>
+                <div>
+                    <CursorTester />
+                </div>
             </div>
         </div>
     );
