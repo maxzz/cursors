@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { cursorSizeAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
 import { a, useSpring } from '@react-spring/web';
+import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
 
 /*
 function SizeSelectorSlider() {
@@ -95,6 +96,8 @@ export function CursorSizeSelectorButtons2() {
             setSize(size);
         }
     }
+
+    const bind = useNumberInput(size, setSize, cleanupValueUInt);
 
     const [open, setOpen] = React.useState(false);
     const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
