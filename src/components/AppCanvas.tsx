@@ -46,7 +46,7 @@ export function AppCanvas() {
             <CanvasActions />
 
             {/* Drop zone */}
-            <div className="h-32 flex flex-col space-y-2">
+            <div className="flex flex-col space-y-2">
                 <div className="self-center flex space-x-2">
                     <DropZone />
                     <InfoTrigger />
