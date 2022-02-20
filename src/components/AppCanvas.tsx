@@ -47,13 +47,15 @@ export function AppCanvas() {
 
             {/* Drop zone */}
             <div className="flex flex-col space-y-2">
-                <div className="self-center flex space-x-2">
+                <div className="h-32 self-center flex space-x-2">
                     <DropZone />
-                    <InfoTrigger />
+                    <div className="flex flex-col justify-between">
+                        <InfoTrigger />
+                        <CursorSizeSelector />
+                    </div>
                 </div>
 
                 <div className="flex flex-col justify-between">
-                    <CursorSizeSelector />
                     {orgImg && <CheckBox className="" />}
                 </div>
             </div>
