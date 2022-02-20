@@ -90,15 +90,7 @@ const CURSOR_SIZES2 = [16, 32, 128, 256];
 
 export function CursorSizeSelectorButtons2() {
     const [size, setSize] = useAtom(cursorSizeAtom);
-    function onChange(event: ChangeEvent<HTMLInputElement>) {
-        let size = +event.target.value;
-        if (size !== -1) {
-            setSize(size);
-        }
-    }
-
     const bind = useNumberInput(size, setSize, cleanupValueUInt);
-
     const [open, setOpen] = React.useState(false);
     const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
     return (
@@ -106,7 +98,7 @@ export function CursorSizeSelectorButtons2() {
             <div className="relative inline-block text-xs">
                 <label className={classNames("w-16 flex items-center bg-slate-300 border-slate-500 border overflow-hidden focus-within:ring", open ? 'rounded-t-md' : 'rounded-md')}>
                     <div className="w-10">
-                        <input className="w-full px-2 py-1 bg-transparent border-slate-500 border-r focus:outline-none" type="text" value={size} onChange={(event) => setSize(+event.target.value)} />
+                        <input className="w-full px-2 py-1 bg-transparent border-slate-500 border-r focus:outline-none" type="text" {...bind} />
                     </div>
                     <button className="focus:outline-none focus:bg-slate-400" onClick={() => setOpen(v => !v)}>
                         {/* Open/Close icon */}
@@ -117,14 +109,15 @@ export function CursorSizeSelectorButtons2() {
                 </label>
                 {open &&
                     <div className="absolute top-full w-16 bg-slate-300 border-slate-500 border rounded-b-md">
-                        {CURSOR_SIZES2.map((itemSize) => <>
+                        {CURSOR_SIZES2.map((itemSize) => (
                             <div
-                                className={`w-full px-2 py-1 hover:bg-slate-400 ${itemSize === size ? 'font-bold' : ''} cursor-pointer`} key={itemSize}
+                                className={`w-full px-2 py-1 hover:bg-slate-400 ${itemSize === size ? 'font-bold' : ''} cursor-pointer`}
+                                key={itemSize}
                                 onClick={() => { setSize(itemSize); setOpen(false); }}
                             >
                                 {itemSize}
                             </div>
-                        </>)}
+                        ))}
                     </div>
                 }
             </div>
