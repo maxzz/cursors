@@ -107,7 +107,7 @@ export function CursorSizeSelectorButtons2() {
                 <button className="" onClick={() => setOpen(v => !v)}>
                     {/* Open/Close icon */}
                     <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
-                        <a.path d={styles.open.to({ range: [0, .3, 1], output: ["M 50 13 L 80 43 L 50 72", "M 50 13 L 50 42 L 50 72", "M 80 35 L 50 65 L 20 35"] })} />
+                        <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 53 L 45 23 L 78 53", "M 15 34 L 45 65 L 78 34"] })} />
                     </svg>
                 </button>
             </label>
