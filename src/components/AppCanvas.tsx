@@ -67,29 +67,31 @@ function Transitions() {
 }
 */
 
+let TestCount = 0;
+
 function Mount() {
     const [show, set] = React.useState(false);
     const transitions = useTransition(show, {
         from: { opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
-        reverse: show,
+        //reverse: show,
         delay: 200,
         //config: config.molasses,
         //onRest: () => set(!show),
         onRest: () => {
-            console.log('--------done----------');
+            console.log('--------done----------', TestCount++, show);
         },
     });
     return <div className="">
+        <button onClick={() => set(!show)} className="px-2 py-1 border-slate-500 border rounded focus:scale-[.97]">Show/Hide</button>
         {transitions(
-            (styles, item) => {
-                console.log('item', item);
+            (styles, item, t, i) => {
+                console.log('item', item, t, i);
 
-                return item && <a.div style={styles}>✌️</a.div>;
+                return item && <a.div style={styles} className="text-3xl">✌️</a.div>;
             }
         )}
-        <button onClick={() => set(!show)}>Show/Hide</button>
     </div>;
 }
 
