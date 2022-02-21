@@ -19,7 +19,7 @@ export function CursorSizeSelector() {
                 open ? 'rounded-t-md' : 'rounded-md'
             )}>
                 <div className="w-10">
-                    <input className="w-full px-2 py-1 bg-slate-300 border-slate-500 border-r focus:outline-none" type="text" {...bind} />
+                    <input className="w-full px-2 py-1 text-center bg-slate-300 border-slate-500 border-r focus:outline-none" type="text" {...bind} />
                 </div>
                 {/* <button className="focus:outline-none focus:bg-slate-400" onClick={() => setOpen(v => !v)}> */}
                 <button className="focus:outline-none bg-slate-300 focus:bg-slate-400" onClick={() => setOpen(v => !v)}>
