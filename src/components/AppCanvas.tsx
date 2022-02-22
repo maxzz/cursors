@@ -8,7 +8,7 @@ import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
 import { CursorSizeSelector } from "./CursorSizeSelector";
 import CursorTester from "./CursorTester";
-import { a, config, useTransition } from "@react-spring/web";
+import { a, AnimationResult, config, useTransition } from "@react-spring/web";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -69,29 +69,35 @@ function Transitions() {
 
 let TestCount = 0;
 
+type Item = boolean;
+
 function Mount() {
     const [show, set] = React.useState(false);
-    const transitions = useTransition<boolean, {}>(show, {
+    const transitions = useTransition<Item, {}>(show, {
         from: { opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
         //reverse: show,
-        delay: 1200,
-        key: (item: boolean) => item,
+        //delay: 1200,
+        key: (item: Item) => item ? 0 : 1,
         //config: config.molasses,
+        config: { duration: 1000 },
         //onRest: () => set(!show),
-        onRest: (...rest: any[]) => {
-            console.log('......onRest......', TestCount++, show, rest);
+        onRest: (result: any, ctrl: any, item: Item) => {
+            console.log('......onRest......', 'cnt:', TestCount++, 'useState of show', show, 'item', item, { result, ctrl });
         },
-        onDestroyed: (item: boolean, key: boolean) => {
-            console.log('-----onDestroyed-----', TestCount++, show, 'item', item, 'key', key);
+        onDestroyed: (item: Item, key: any) => {
+            console.log('---onDestroyed--- ', 'cnt:', TestCount, 'useState of show', show, 'item', item, 'key', key);
         }
     });
     return <div className="">
-        <button onClick={() => set(!show)} className="px-2 py-1 border-slate-500 border rounded focus:scale-[.97]">Show/Hide</button>
+        <button onClick={() => {
+            console.log('=================================== set show', !show);
+            set(!show);
+        }} className="px-2 py-1 border-slate-500 border rounded focus:scale-[.97]">Show/Hide</button>
         {transitions(
             (styles, item, t, i) => {
-                console.log('from transition(): item', item, 'transition', t, 'idx', i);
+                console.log('from transition():', 'cnt:', TestCount, 'useState of show', show, 'item', item, 'idx', i, 'transition', t);
 
                 return item && <a.div style={styles} className="text-3xl">✌️</a.div>;
             }
