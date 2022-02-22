@@ -29,10 +29,13 @@ export function CursorSizeSelector() {
     const [open, setOpen] = React.useState(false);
     const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
     const transition = useTransition(open, {
-        from: { opacity: 0, transform: 'translateY(-140px)' },
-        enter: { opacity: 1, transform: 'translateY(0px)' },
-        leave: { opacity: 0, transform: 'translateY(-140px)' },
-        key: open,
+        from: { opacity: 0, transform: 'scaleY(0.1)' },
+        enter: { opacity: 1, transform: 'scaleY(1)' },
+        leave: { opacity: 0, transform: 'scaleY(0.1)' },
+        // from: { opacity: 0, transform: 'translateY(-40px)' },
+        // enter: { opacity: 1, transform: 'translateY(0px)' },
+        // leave: { opacity: 0, transform: 'translateY(-40px)' },
+        //key: open,
         //config: {duration: 1000}
     });
     return (
