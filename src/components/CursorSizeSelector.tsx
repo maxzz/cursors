@@ -32,11 +32,12 @@ export function CursorSizeSelector() {
         from: { opacity: 0, transform: 'scaleY(0.1)' },
         enter: { opacity: 1, transform: 'scaleY(1)' },
         leave: { opacity: 0, transform: 'scaleY(0.1)' },
+        config: { mass: 0.2, tension: 692, clamp: true },
         // from: { opacity: 0, transform: 'translateY(-40px)' },
         // enter: { opacity: 1, transform: 'translateY(0px)' },
         // leave: { opacity: 0, transform: 'translateY(-40px)' },
         //key: open,
-        //config: {duration: 1000}
+        //config: {duration: 1000},
     });
     return (
         <div className="relative inline-block text-xs">
