@@ -1,4 +1,4 @@
-import React, { ChangeEvent, HTMLAttributes } from "react";
+import React, { HTMLAttributes } from "react";
 import { useAtom } from "jotai";
 import { cursorSizeAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
@@ -6,6 +6,22 @@ import { a, useSpring } from '@react-spring/web';
 import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
+
+function DropDown({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }) {
+    return (
+        <div className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden">
+            {CURSOR_SIZES2.map((itemSize) => (
+                <div
+                    className={`w-full px-2 py-1 bg-slate-300 hover:bg-slate-400 ${itemSize === size ? 'font-bold' : ''} cursor-pointer`}
+                    key={itemSize}
+                    onClick={() => { setSize(itemSize); setOpen(false); }}
+                >
+                    {itemSize}
+                </div>
+            ))}
+        </div>
+    );
+}
 
 export function CursorSizeSelector() {
     const [size, setSize] = useAtom(cursorSizeAtom);
@@ -29,19 +45,7 @@ export function CursorSizeSelector() {
                     </svg>
                 </button>
             </label>
-            {open &&
-                <div className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden">
-                    {CURSOR_SIZES2.map((itemSize) => (
-                        <div
-                            className={`w-full px-2 py-1 bg-slate-300 hover:bg-slate-400 ${itemSize === size ? 'font-bold' : ''} cursor-pointer`}
-                            key={itemSize}
-                            onClick={() => { setSize(itemSize); setOpen(false); }}
-                        >
-                            {itemSize}
-                        </div>
-                    ))}
-                </div>
-            }
+            {open && <DropDown size={size} setSize={setSize} setOpen={setOpen} />}
         </div>
     );
 }
