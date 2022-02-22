@@ -42,11 +42,20 @@ function ListTransition({ open, children }: { open: boolean; children: React.Rea
     ));
 }
 
+function IconUpdown({ open }: { open: boolean; }) {
+    const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
+    return (
+        <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
+            <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 34 L 45 65 L 78 34", "M 15 53 L 45 23 L 78 53"] })} />
+        </svg>
+    );
+}
+
 export function CursorSizeSelector() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
     const [open, setOpen] = React.useState(false);
-    const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
+    //const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
     return (
         <div className="relative inline-block text-xs">
 
@@ -63,9 +72,10 @@ export function CursorSizeSelector() {
 
                 {/* Open/Close icon */}
                 <button className="focus:outline-none bg-slate-300 focus:bg-slate-400" onClick={() => setOpen(v => !v)}>
-                    <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
+                    <IconUpdown open={open} />
+                    {/* <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
                         <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 34 L 45 65 L 78 34", "M 15 53 L 45 23 L 78 53"] })} />
-                    </svg>
+                    </svg> */}
                 </button>
             </label>
 
