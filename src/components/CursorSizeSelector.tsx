@@ -1,8 +1,8 @@
 import React, { HTMLAttributes } from "react";
 import { useAtom } from "jotai";
-import { cursorSizeAtom } from "../store/store";
+import { cursorSizeAtom, showGrayAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
-import { a, useSpring } from '@react-spring/web';
+import { a, useSpring, useTransition } from '@react-spring/web';
 import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
@@ -28,6 +28,13 @@ export function CursorSizeSelector() {
     const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
     const [open, setOpen] = React.useState(false);
     const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
+    const transition = useTransition(open, {
+        from: { opacity: 0, transform: 'translateY(-140px)' },
+        enter: { opacity: 1, transform: 'translateY(0px)' },
+        leave: { opacity: 0, transform: 'translateY(-140px)' },
+        key: open,
+        //config: {duration: 1000}
+    });
     return (
         <div className="relative inline-block text-xs">
 
@@ -51,7 +58,11 @@ export function CursorSizeSelector() {
             </label>
 
             {/* List */}
-            {open && <DropDown size={size} setSize={setSize} setOpen={setOpen} />}
+            {transition((styles, item) => (
+                item && <a.div style={styles}>
+                    <DropDown size={size} setSize={setSize} setOpen={setOpen} />
+                </a.div>
+            ))}
         </div>
     );
 }
