@@ -23,13 +23,18 @@ function DropDown({ size, setSize, setOpen }: { size: number, setSize: (v: numbe
     );
 }
 
+const animationScaleY = {
+    from: { opacity: 0, transform: 'scaleY(0.1)' },
+    enter: { opacity: 1, transform: 'scaleY(1)' },
+    leave: { opacity: 0, transform: 'scaleY(0.1)' },
+};
+
+const animationConfig = {
+    config: { mass: 0.2, tension: 692, clamp: true },
+};
+
 function ListTransition({ open, children }: { open: boolean; children: React.ReactNode; }) {
-    const transition = useTransition(open, {
-        from: { opacity: 0, transform: 'scaleY(0.1)' },
-        enter: { opacity: 1, transform: 'scaleY(1)' },
-        leave: { opacity: 0, transform: 'scaleY(0.1)' },
-        config: { mass: 0.2, tension: 692, clamp: true },
-    });
+    const transition = useTransition(open, { ...animationScaleY, ...animationConfig });
     return transition((styles, item) => (
         item && <a.div style={styles}>
             {children}
