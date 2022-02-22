@@ -71,23 +71,27 @@ let TestCount = 0;
 
 function Mount() {
     const [show, set] = React.useState(false);
-    const transitions = useTransition(show, {
+    const transitions = useTransition<boolean, {}>(show, {
         from: { opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
         //reverse: show,
-        delay: 200,
+        delay: 1200,
+        key: (item: boolean) => item,
         //config: config.molasses,
         //onRest: () => set(!show),
-        onRest: () => {
-            console.log('--------done----------', TestCount++, show);
+        onRest: (...rest: any[]) => {
+            console.log('......onRest......', TestCount++, show, rest);
         },
+        onDestroyed: (item: boolean, key: boolean) => {
+            console.log('-----onDestroyed-----', TestCount++, show, 'item', item, 'key', key);
+        }
     });
     return <div className="">
         <button onClick={() => set(!show)} className="px-2 py-1 border-slate-500 border rounded focus:scale-[.97]">Show/Hide</button>
         {transitions(
             (styles, item, t, i) => {
-                console.log('item', item, t, i);
+                console.log('from transition(): item', item, 'transition', t, 'idx', i);
 
                 return item && <a.div style={styles} className="text-3xl">✌️</a.div>;
             }
