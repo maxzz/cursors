@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from "react";
+import React, { Children, HTMLAttributes } from "react";
 import { useAtom } from "jotai";
 import { cursorSizeAtom, showGrayAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
@@ -23,11 +23,7 @@ function DropDown({ size, setSize, setOpen }: { size: number, setSize: (v: numbe
     );
 }
 
-export function CursorSizeSelector() {
-    const [size, setSize] = useAtom(cursorSizeAtom);
-    const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
-    const [open, setOpen] = React.useState(false);
-    const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
+function ListTransition({ open, children }: { open: boolean; children: React.ReactNode; }) {
     const transition = useTransition(open, {
         from: { opacity: 0, transform: 'scaleY(0.1)' },
         enter: { opacity: 1, transform: 'scaleY(1)' },
@@ -39,6 +35,31 @@ export function CursorSizeSelector() {
         //key: open,
         //config: {duration: 1000},
     });
+    return transition((styles, item) => (
+        item && <a.div style={styles}>
+            {children}
+        </a.div>
+    ));
+}
+
+export function CursorSizeSelector() {
+    const [size, setSize] = useAtom(cursorSizeAtom);
+    const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
+    const [open, setOpen] = React.useState(false);
+    const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
+    /*
+    const transition = useTransition(open, {
+        from: { opacity: 0, transform: 'scaleY(0.1)' },
+        enter: { opacity: 1, transform: 'scaleY(1)' },
+        leave: { opacity: 0, transform: 'scaleY(0.1)' },
+        config: { mass: 0.2, tension: 692, clamp: true },
+        // from: { opacity: 0, transform: 'translateY(-40px)' },
+        // enter: { opacity: 1, transform: 'translateY(0px)' },
+        // leave: { opacity: 0, transform: 'translateY(-40px)' },
+        //key: open,
+        //config: {duration: 1000},
+    });
+    */
     return (
         <div className="relative inline-block text-xs">
 
@@ -62,11 +83,14 @@ export function CursorSizeSelector() {
             </label>
 
             {/* List */}
-            {transition((styles, item) => (
+            {/* {transition((styles, item) => (
                 item && <a.div style={styles}>
                     <DropDown size={size} setSize={setSize} setOpen={setOpen} />
                 </a.div>
-            ))}
+            ))} */}
+            <ListTransition open={open}>
+                <DropDown size={size} setSize={setSize} setOpen={setOpen} />
+            </ListTransition>
         </div>
     );
 }
