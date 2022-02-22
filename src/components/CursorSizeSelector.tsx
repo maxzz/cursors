@@ -7,7 +7,7 @@ import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 
-function DropDown({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }) {
+function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }) {
     return (
         <div className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden">
             {CURSOR_SIZES2.map((itemSize) => (
@@ -24,9 +24,9 @@ function DropDown({ size, setSize, setOpen }: { size: number, setSize: (v: numbe
 }
 
 const animationScaleY = {
-    from: { opacity: 0, transform: 'scaleY(0.1)' },
+    from: { opacity: 0, transform: 'scaleY(0.001)' },
     enter: { opacity: 1, transform: 'scaleY(1)' },
-    leave: { opacity: 0, transform: 'scaleY(0.1)' },
+    leave: { opacity: 0, transform: 'scaleY(0.001)' },
 };
 
 const animationConfig = {
@@ -43,7 +43,7 @@ function ListTransition({ open, children }: { open: boolean; children: React.Rea
 }
 
 function IconUpdown({ open }: { open: boolean; }) {
-    const styles = useSpring({ open: open ? 1 : 0, config: { mass: 0.2, tension: 492, clamp: true } });
+    const styles = useSpring({ open: open ? 1 : 0, ...animationConfig });
     return (
         <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
             <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 34 L 45 65 L 78 34", "M 15 53 L 45 23 L 78 53"] })} />
@@ -77,7 +77,7 @@ export function CursorSizeSelector() {
 
             {/* List */}
             <ListTransition open={open}>
-                <DropDown size={size} setSize={setSize} setOpen={setOpen} />
+                <DropDownList size={size} setSize={setSize} setOpen={setOpen} />
             </ListTransition>
         </div>
     );
