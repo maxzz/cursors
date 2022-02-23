@@ -24,9 +24,9 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
 }
 
 const animationScaleY = {
-    from: { opacity: 0, transform: 'scaleY(0.001)' },
-    enter: { opacity: 1, transform: 'scaleY(1)' },
-    leave: { opacity: 0, transform: 'scaleY(0.001)' },
+    from: { opacity: 0, scaleY: 0 },
+    enter: { opacity: 1, scaleY: 1 },
+    leave: { opacity: 0, scaleY: 0 },
 };
 
 const animationConfig = {
