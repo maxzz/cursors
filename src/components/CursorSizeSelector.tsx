@@ -5,6 +5,7 @@ import { classNames } from "../utils/classnames";
 import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
 import { UIListTransition } from "./UI/UIListTransition";
 import { UIIconUpDown } from "./UI/UIIconUpDown";
+import { useClickAway } from "react-use";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 
@@ -28,8 +29,10 @@ export function CursorSizeSelector() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
     const [open, setOpen] = React.useState(false);
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    useClickAway(containerRef, () => setOpen(false));
     return (
-        <div className="relative inline-block text-xs">
+        <div className="relative inline-block text-xs" ref={containerRef}>
 
             {/* Input and button */}
             <label className={
