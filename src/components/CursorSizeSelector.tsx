@@ -5,33 +5,41 @@ import { classNames } from "../utils/classnames";
 import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
 import { UIListTransition } from "./UI/UIListTransition";
 import { UIIconUpDown } from "./UI/UIIconUpDown";
-import { useClickAway, useKey } from "react-use";
+import { useClickAway } from "react-use";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 
 function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }) {
     const containerRef = React.useRef<HTMLUListElement>(null);
-    function handleKey(event: KeyboardEvent) {
-        console.log('k');
+    function handleKey(event: React.KeyboardEvent<HTMLUListElement>) {
+        event.preventDefault();
+
+        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            let idx = CURSOR_SIZES2.findIndex((item) => item === size);
+            if (idx !== -1) {
+                idx = idx + (event.key === 'ArrowUp' ? -1 : 1);
+                if (idx === -1) {
+                    idx = CURSOR_SIZES2.length - 1;
+                }
+            } else {
+                idx = 0;
+            }
+            setSize(CURSOR_SIZES2[idx % CURSOR_SIZES2.length]);
+        }
+        else if (event.key === 'Enter') {
+            setOpen(false);
+        }
+        console.log('ee inline', event.key);
     }
-    useKey((event) => {
-        console.log('ee', event);
-        
-        return event.key === 'ArrowUp'
-    }, handleKey, { target: containerRef.current });
-    console.log('ini', containerRef.current);
-    
     return (
         <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden" ref={containerRef} tabIndex={0}
-        // onKeyUpCapture={(event) => {
-        //     console.log('ee inline', event);
-        // }}
+            onKeyUp={handleKey}
         >
             {CURSOR_SIZES2.map((itemSize) => (
                 <li
                     className={`w-full px-2 py-1 bg-slate-300 hover:bg-slate-400 ${itemSize === size ? 'font-bold' : ''} cursor-pointer`}
-                    key={itemSize}
                     onClick={() => { setSize(itemSize); setOpen(false); }}
+                    key={itemSize}
                 >
                     {itemSize}
                 </li>
