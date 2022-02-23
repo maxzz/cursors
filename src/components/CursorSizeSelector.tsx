@@ -1,9 +1,10 @@
-import React, { Children, HTMLAttributes } from "react";
+import React, { HTMLAttributes } from "react";
 import { useAtom } from "jotai";
-import { cursorSizeAtom, showGrayAtom } from "../store/store";
+import { cursorSizeAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
-import { a, useSpring, useTransition } from '@react-spring/web';
+import { a, useSpring } from '@react-spring/web';
 import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
+import { animationConfig, UIListTransition } from "./UI/UIListTransition";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 
@@ -21,25 +22,6 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
             ))}
         </div>
     );
-}
-
-const animationScaleY = {
-    from: { opacity: 0, scaleY: 0 },
-    enter: { opacity: 1, scaleY: 1 },
-    leave: { opacity: 0, scaleY: 0 },
-};
-
-const animationConfig = {
-    config: { mass: 0.2, tension: 692, clamp: true },
-};
-
-function ListTransition({ open, children }: { open: boolean; children: React.ReactNode; }) {
-    const transition = useTransition(open, { ...animationScaleY, ...animationConfig });
-    return transition((styles, item) => (
-        item && <a.div style={styles}>
-            {children}
-        </a.div>
-    ));
 }
 
 function IconUpdown({ open }: { open: boolean; }) {
@@ -76,9 +58,9 @@ export function CursorSizeSelector() {
             </label>
 
             {/* List */}
-            <ListTransition open={open}>
+            <UIListTransition open={open}>
                 <DropDownList size={size} setSize={setSize} setOpen={setOpen} />
-            </ListTransition>
+            </UIListTransition>
         </div>
     );
 }
