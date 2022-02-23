@@ -1,10 +1,10 @@
-import React, { HTMLAttributes } from "react";
+import React from "react";
 import { useAtom } from "jotai";
 import { cursorSizeAtom } from "../store/store";
 import { classNames } from "../utils/classnames";
-import { a, useSpring } from '@react-spring/web';
 import { cleanupValueUInt, useNumberInput } from "../hooks/useNumberInput";
-import { animationConfig, UIListTransition } from "./UI/UIListTransition";
+import { UIListTransition } from "./UI/UIListTransition";
+import { UIIconUpDown } from "./UI/UIIconUpDown";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 
@@ -21,15 +21,6 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
                 </div>
             ))}
         </div>
-    );
-}
-
-function IconUpdown({ open }: { open: boolean; }) {
-    const styles = useSpring({ open: open ? 1 : 0, ...animationConfig });
-    return (
-        <svg className="w-6 h-6 p-1 stroke-current stroke-[.6rem] fill-transparent" viewBox="0 0 100 100">
-            <a.path d={styles.open.to({ range: [0, 1], output: ["M 15 34 L 45 65 L 78 34", "M 15 53 L 45 23 L 78 53"] })} />
-        </svg>
     );
 }
 
@@ -53,7 +44,7 @@ export function CursorSizeSelector() {
 
                 {/* Open/Close icon */}
                 <button className="focus:outline-none bg-slate-300 focus:bg-slate-400" onClick={() => setOpen(v => !v)}>
-                    <IconUpdown open={open} />
+                    <UIIconUpDown open={open} />
                 </button>
             </label>
 
