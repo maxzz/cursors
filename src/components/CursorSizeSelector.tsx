@@ -13,19 +13,21 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
     const containerRef = React.useRef<HTMLUListElement>(null);
     function handleKey(event: React.KeyboardEvent<HTMLUListElement>) {
         event.preventDefault();
+        const k = event.key;
 
-        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        if (k === 'ArrowUp' || k === 'ArrowDown') {
             let idx = CURSOR_SIZES2.findIndex((item) => item === size);
-            idx = idx !== -1 ? idx + (event.key === 'ArrowUp' ? -1 + CURSOR_SIZES2.length : 1) : 0;
+            idx = idx !== -1 ? idx + (k === 'ArrowUp' ? -1 + CURSOR_SIZES2.length : 1) : 0;
             setSize(CURSOR_SIZES2[idx % CURSOR_SIZES2.length]);
         }
-        else if (event.key === 'Enter') {
+        else if (k === 'Enter' || k === 'Space') {
             setOpen(false);
         }
-        console.log('ee inline', event.key);
+        console.log('ee inline', k);
     }
     return (
-        <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden" ref={containerRef} tabIndex={0}
+        <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden focus:outline-none focus-within:ring" 
+            ref={containerRef} tabIndex={0}
             onKeyUp={handleKey}
         >
             {CURSOR_SIZES2.map((itemSize) => (
