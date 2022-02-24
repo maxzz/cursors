@@ -16,14 +16,7 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
 
         if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
             let idx = CURSOR_SIZES2.findIndex((item) => item === size);
-            if (idx !== -1) {
-                idx = idx + (event.key === 'ArrowUp' ? -1 : 1);
-                if (idx === -1) {
-                    idx = CURSOR_SIZES2.length - 1;
-                }
-            } else {
-                idx = 0;
-            }
+            idx = idx !== -1 ? idx + (event.key === 'ArrowUp' ? -1 + CURSOR_SIZES2.length : 1) : 0;
             setSize(CURSOR_SIZES2[idx % CURSOR_SIZES2.length]);
         }
         else if (event.key === 'Enter') {
