@@ -27,12 +27,13 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
     }
     return (
         <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden focus:outline-none focus-within:ring" 
-            ref={containerRef} tabIndex={0}
+            ref={containerRef}
+            tabIndex={0}
             onKeyUp={handleKey}
         >
             {CURSOR_SIZES2.map((itemSize) => (
                 <li
-                    className={`w-full px-2 py-1 bg-slate-300 hover:bg-slate-400 ${itemSize === size ? 'font-bold' : ''} cursor-pointer`}
+                    className={`w-full px-2 py-1 bg-slate-300 hover:bg-black/[.01] ${itemSize === size ? 'font-bold' : ''} cursor-pointer`}
                     onClick={() => { setSize(itemSize); setOpen(false); }}
                     key={itemSize}
                 >
@@ -52,18 +53,19 @@ export function CursorSizeSelector() {
     return (
         <div className="relative inline-block text-xs" ref={containerRef}>
 
-            {/* Input and button */}
+            {/* Input and dropdown list Open/Close button */}
             <label className={
                 classNames(
                     "w-16 flex items-center bg-slate-400 border-slate-500 border overflow-hidden focus-within:ring shadow-md",
                     open ? 'rounded-t-md' : 'rounded-md'
                 )}
             >
+                {/* Input */}
                 <div className="w-10">
                     <input className="w-full px-2 py-1 text-center bg-slate-300 border-slate-500 border-r focus:outline-none" type="text" {...bind} />
                 </div>
 
-                {/* Open/Close icon */}
+                {/* Button */}
                 <button className="focus:outline-none bg-slate-300 focus:bg-slate-400" onClick={() => setOpen(v => !v)}>
                     <UIIconUpDown open={open} />
                 </button>
