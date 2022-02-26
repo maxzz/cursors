@@ -11,10 +11,10 @@ const CURSOR_SIZES2 = [16, 32, 128, 256];
 
 function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }, ref: React.Ref<HTMLUListElement>) {
     function handleKey(event: React.KeyboardEvent<HTMLUListElement>) {
-        event.preventDefault();
+        //event.preventDefault();
         const k = event.key;
 
-        console.log('key', k, event);
+        console.log('List:onKeyUp key', k, event, document.activeElement);
 
         if (k === 'ArrowUp' || k === 'ArrowDown') {
             let idx = CURSOR_SIZES2.findIndex((item) => item === size);
@@ -29,7 +29,10 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
         <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden focus:outline-none focus-within:ring"
             ref={ref}
             tabIndex={0}
-            onKeyUp={handleKey}
+            onKeyDown={handleKey}
+            onKeyPress={(event) => {
+                console.log('List:onKeyPress', event, document.activeElement);
+            }}
         >
             {CURSOR_SIZES2.map((itemSize) => (
                 <li
@@ -54,7 +57,7 @@ export function CursorSizeSelector() {
     const dropdownRef = React.useRef<HTMLUListElement>(null);
     useClickAway(containerRef, () => setOpen(false));
     React.useEffect(() => {
-        console.log('open', open, 'dropdownRef.current', dropdownRef.current);
+        console.log('useEffect:open', open, 'dropdownRef.current', dropdownRef.current);
         if (open) {
             dropdownRef.current?.focus();
         }
@@ -78,9 +81,17 @@ export function CursorSizeSelector() {
                 <button
                     className="focus:outline-none bg-slate-300 focus:bg-slate-400"
                     onClick={(event) => {
+                        console.log('button:onClick', event);
+
                         event.preventDefault();
                         event.stopPropagation();
                         setOpen(v => !v);
+                    }}
+                    onKeyDown={(event) => {
+                        console.log('button:onKeyDown', event);
+                    }}
+                    onKeyUp={(event) => {
+                        console.log('button:onKeyUp', event);
                     }}
                 >
                     <UIIconUpDown open={open} />
