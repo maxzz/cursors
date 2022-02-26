@@ -97,16 +97,16 @@ export function CursorSizeSelector() {
 
                         event.preventDefault();
                         event.stopPropagation();
-                        
+
                         setOpenWFocus(!open);
                         //setOpen(v => !v);
                     }}
-                    // onKeyDown={(event) => {
-                    //     console.log('button:onKeyDown', event);
-                    // }}
-                    // onKeyUp={(event) => {
-                    //     console.log('button:onKeyUp', event);
-                    // }}
+                // onKeyDown={(event) => {
+                //     console.log('button:onKeyDown', event);
+                // }}
+                // onKeyUp={(event) => {
+                //     console.log('button:onKeyUp', event);
+                // }}
                 >
                     <UIIconUpDown open={open} />
                 </button>
@@ -117,6 +117,23 @@ export function CursorSizeSelector() {
                 <DropDownListRef size={size} setSize={setSize} setOpen={setOpenWFocus} ref={dropdownRef} />
                 {/* <DropDownListRef size={size} setSize={setSize} setOpen={setOpen} ref={dropdownRef} /> */}
             </UIListTransition>
+
+            <button
+                className="m-2 px-2 py-1 border-sky-900 border rounded"
+                onKeyDown={(event) => {
+                    console.log('---------------------');
+                    console.log('test.button:onKeyDown', event);
+                }}
+                onKeyUp={(event) => {
+                    console.log('test.button:onKeyUp', event);
+                }}
+                onKeyPress={(event) => {
+                    console.log('test.button:onKeyPress', event);
+                }}
+                onClick={(event) => {
+                    console.log('test.button:onClick', event);
+                }}
+            >test</button>
         </div>
     );
 }
