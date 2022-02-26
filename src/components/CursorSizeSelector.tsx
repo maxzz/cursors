@@ -9,25 +9,25 @@ import { useClickAway } from "react-use";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 
-function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }) {
-    const containerRef = React.useRef<HTMLUListElement>(null);
+function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }, ref: React.Ref<HTMLUListElement>) {
     function handleKey(event: React.KeyboardEvent<HTMLUListElement>) {
         event.preventDefault();
         const k = event.key;
+
+        console.log('key', k, event);
 
         if (k === 'ArrowUp' || k === 'ArrowDown') {
             let idx = CURSOR_SIZES2.findIndex((item) => item === size);
             idx = idx !== -1 ? idx + (k === 'ArrowUp' ? -1 + CURSOR_SIZES2.length : 1) : 0;
             setSize(CURSOR_SIZES2[idx % CURSOR_SIZES2.length]);
         }
-        else if (k === 'Enter' || k === 'Space') {
+        else if (k === 'Enter' || k === 'Escape' || k === 'Space') {
             setOpen(false);
         }
-        console.log('ee inline', k);
     }
     return (
-        <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden focus:outline-none focus-within:ring" 
-            ref={containerRef}
+        <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden focus:outline-none focus-within:ring"
+            ref={ref}
             tabIndex={0}
             onKeyUp={handleKey}
         >
@@ -44,12 +44,21 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
     );
 }
 
+const DropDownListRef = React.forwardRef(DropDownList);
+
 export function CursorSizeSelector() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
     const [open, setOpen] = React.useState(false);
     const containerRef = React.useRef<HTMLDivElement>(null);
+    const dropdownRef = React.useRef<HTMLUListElement>(null);
     useClickAway(containerRef, () => setOpen(false));
+    React.useEffect(() => {
+        console.log('open', open, 'dropdownRef.current', dropdownRef.current);
+        if (open) {
+            dropdownRef.current?.focus();
+        }
+    }, [open]);
     return (
         <div className="relative inline-block text-xs" ref={containerRef}>
 
@@ -66,14 +75,21 @@ export function CursorSizeSelector() {
                 </div>
 
                 {/* Button */}
-                <button className="focus:outline-none bg-slate-300 focus:bg-slate-400" onClick={() => setOpen(v => !v)}>
+                <button
+                    className="focus:outline-none bg-slate-300 focus:bg-slate-400"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        setOpen(v => !v);
+                    }}
+                >
                     <UIIconUpDown open={open} />
                 </button>
             </label>
 
             {/* List */}
             <UIListTransition open={open}>
-                <DropDownList size={size} setSize={setSize} setOpen={setOpen} />
+                <DropDownListRef size={size} setSize={setSize} setOpen={setOpen} ref={dropdownRef} />
             </UIListTransition>
         </div>
     );
