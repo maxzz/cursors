@@ -64,11 +64,11 @@ export function CursorSizeSelector() {
         }
     }, [open]);
     function setOpenWFocus(v: boolean) {
+        console.log('setOpenWFocus ref', (v ? dropdownRef : buttonRef).current);
+
         if (v) {
             dropdownRef.current?.focus();
         } else {
-            console.log('setOpenWFocus:buttonRef.current?.focus()', buttonRef.current);
-
             buttonRef.current?.focus();
         }
         setOpen(v);
@@ -93,8 +93,12 @@ export function CursorSizeSelector() {
                     className="focus:outline-none bg-slate-300 focus:bg-slate-400"
                     ref={buttonRef}
 
-                    onKeyDown={(event) => {
+                    onClick={(event) => {
                         console.log('button:onClick', event);
+                        setOpenWFocus(!open);
+                    }}
+                    onKeyDown={(event) => {
+                        console.log('button:onKeyDown', event);
 
                         // event.preventDefault();
                         // event.stopPropagation();
@@ -123,7 +127,7 @@ export function CursorSizeSelector() {
                 {/* <DropDownListRef size={size} setSize={setSize} setOpen={setOpen} ref={dropdownRef} /> */}
             </UIListTransition>
 
-            <button
+            {/* <button
                 className="m-2 px-2 py-1 border-sky-900 border rounded"
                 onKeyDown={(event) => {
                     console.log('---------------------');
@@ -138,7 +142,20 @@ export function CursorSizeSelector() {
                 onClick={(event) => {
                     console.log('test.button:onClick', event);
                 }}
-            >test</button>
+            >test</button> */}
         </div>
     );
 }
+
+/*
+    // React.useEffect(() => {
+    //     console.log('useEffect:open', open, 'dropdownRef.current', dropdownRef.current);
+    //     if (open) {
+    //         dropdownRef.current?.focus();
+    //     }
+    // }, [open]);
+    function setOpenWFocus(v: boolean) {
+        (v ? dropdownRef : buttonRef).current?.focus();
+        setOpen(v);
+    }
+*/
