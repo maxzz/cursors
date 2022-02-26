@@ -92,15 +92,20 @@ export function CursorSizeSelector() {
                 <button
                     className="focus:outline-none bg-slate-300 focus:bg-slate-400"
                     ref={buttonRef}
+
                     onKeyDown={(event) => {
                         console.log('button:onClick', event);
 
-                        event.preventDefault();
-                        event.stopPropagation();
+                        // event.preventDefault();
+                        // event.stopPropagation();
 
-                        setOpenWFocus(!open);
+                        const k = event.key;
+                        if (k === 'Enter' || k === 'Space') {
+                            setOpenWFocus(!open);
+                        }
                         //setOpen(v => !v);
                     }}
+
                 // onKeyDown={(event) => {
                 //     console.log('button:onKeyDown', event);
                 // }}
