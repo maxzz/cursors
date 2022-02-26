@@ -55,6 +55,7 @@ export function CursorSizeSelector() {
     const [open, setOpen] = React.useState(false);
     const containerRef = React.useRef<HTMLDivElement>(null);
     const dropdownRef = React.useRef<HTMLUListElement>(null);
+    const buttonRef = React.useRef<HTMLButtonElement>(null);
     useClickAway(containerRef, () => setOpen(false));
     React.useEffect(() => {
         console.log('useEffect:open', open, 'dropdownRef.current', dropdownRef.current);
@@ -62,6 +63,16 @@ export function CursorSizeSelector() {
             dropdownRef.current?.focus();
         }
     }, [open]);
+    function setOpenWFocus(v: boolean) {
+        if (v) {
+            dropdownRef.current?.focus();
+        } else {
+            console.log('setOpenWFocus:buttonRef.current?.focus()', buttonRef.current);
+
+            buttonRef.current?.focus();
+        }
+        setOpen(v);
+    }
     return (
         <div className="relative inline-block text-xs" ref={containerRef}>
 
@@ -80,19 +91,22 @@ export function CursorSizeSelector() {
                 {/* Button */}
                 <button
                     className="focus:outline-none bg-slate-300 focus:bg-slate-400"
-                    onClick={(event) => {
+                    ref={buttonRef}
+                    onKeyDown={(event) => {
                         console.log('button:onClick', event);
 
                         event.preventDefault();
                         event.stopPropagation();
-                        setOpen(v => !v);
+                        
+                        setOpenWFocus(!open);
+                        //setOpen(v => !v);
                     }}
-                    onKeyDown={(event) => {
-                        console.log('button:onKeyDown', event);
-                    }}
-                    onKeyUp={(event) => {
-                        console.log('button:onKeyUp', event);
-                    }}
+                    // onKeyDown={(event) => {
+                    //     console.log('button:onKeyDown', event);
+                    // }}
+                    // onKeyUp={(event) => {
+                    //     console.log('button:onKeyUp', event);
+                    // }}
                 >
                     <UIIconUpDown open={open} />
                 </button>
@@ -100,7 +114,8 @@ export function CursorSizeSelector() {
 
             {/* List */}
             <UIListTransition open={open}>
-                <DropDownListRef size={size} setSize={setSize} setOpen={setOpen} ref={dropdownRef} />
+                <DropDownListRef size={size} setSize={setSize} setOpen={setOpenWFocus} ref={dropdownRef} />
+                {/* <DropDownListRef size={size} setSize={setSize} setOpen={setOpen} ref={dropdownRef} /> */}
             </UIListTransition>
         </div>
     );
