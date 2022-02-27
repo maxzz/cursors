@@ -14,7 +14,7 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
         //event.preventDefault();
         const k = event.key;
 
-        console.log('List:onKeyUp key', k, event, document.activeElement);
+        console.log('-----List:onKeyDown key', k, event, document.activeElement);
 
         if (k === 'ArrowUp' || k === 'ArrowDown') {
             let idx = CURSOR_SIZES2.findIndex((item) => item === size);
@@ -31,7 +31,7 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
             tabIndex={0}
             onKeyDown={handleKey}
             onKeyPress={(event) => {
-                console.log('List:onKeyPress', event, document.activeElement);
+                console.log('-----List:onKeyPress', event, document.activeElement);
             }}
         >
             {CURSOR_SIZES2.map((itemSize) => (
@@ -97,6 +97,7 @@ export function CursorSizeSelector() {
                         console.log('button:onClick', event);
                         setOpenWFocus(!open);
                     }}
+                    /*
                     onKeyDown={(event) => {
                         console.log('button:onKeyDown', event);
 
@@ -109,6 +110,7 @@ export function CursorSizeSelector() {
                         }
                         //setOpen(v => !v);
                     }}
+                    */
 
                 // onKeyDown={(event) => {
                 //     console.log('button:onKeyDown', event);
