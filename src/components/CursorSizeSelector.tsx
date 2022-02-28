@@ -57,13 +57,14 @@ export function CursorSizeSelector() {
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     useClickAway(containerRef, () => setOpen(false));
     React.useEffect(() => {
-        console.log(`💦💦💦Container.useEffect[open] open=${open}`, 'dropdownRef', { el: dropdownRef.current?.tagName.toLowerCase() });
+        console.log(`💦💦💦Container.useEffect[open] %copen: ${open} dropdownRef el: ${dropdownRef.current?.tagName.toLowerCase()}`, 'color: gray');
+
         if (open) {
             dropdownRef.current?.focus();
         }
     }, [open]);
     function setOpenWFocus(v: boolean) {
-        console.log(`💦💦💦Container.setOpenWFocus ref=${v ? 'list' : 'button'}`, { el: (v ? dropdownRef : buttonRef).current?.tagName.toLowerCase() });
+        console.log(`💦💦💦Container.setOpenWFocus %cref: ${v ? 'list' : 'button'} el: ${(v ? dropdownRef : buttonRef).current?.tagName.toLowerCase()}`, 'color: gray');
 
         if (v) {
             dropdownRef.current?.focus();
@@ -93,7 +94,7 @@ export function CursorSizeSelector() {
                     ref={buttonRef}
 
                     onClick={(event) => {
-                        console.log('%c💦💦💦Container.button:onClick', 'color: red; filter: hue-rotate(180deg)', { ev: event });
+                        console.log('%c💦💦💦Container.button:onClick', 'color: rebeccapurple; filter: hue-rotate(180deg)', { ev: event.nativeEvent });
                         setOpenWFocus(!open);
                     }}
                 /*
