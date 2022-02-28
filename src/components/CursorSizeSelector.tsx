@@ -93,7 +93,7 @@ export function CursorSizeSelector() {
                     ref={buttonRef}
 
                     onClick={(event) => {
-                        console.log('%c💦💦💦Container.button:onClick', 'color: red; fill: red', { ev: event });
+                        console.log('%c💦💦💦Container.button:onClick', 'color: red; fill: red; filter: hue-rotate(180deg)', { ev: event });
                         setOpenWFocus(!open);
                     }}
                 /*
