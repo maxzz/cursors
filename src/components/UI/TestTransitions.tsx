@@ -60,7 +60,7 @@ export function Mount() {
             (styles, item, t, i) => {
                 console.log('from transition():', `useState-of-show =`, show, 'item', item, 'idx', i, 'transition', t);
 
-                return item && <a.div style={styles} className="text-3xl">✌️</a.div>;
+                return item && <a.div style={styles} className="text-3xl fill-red-700 stroke-lime-400">✌️</a.div>;
             }
         )}
     </div>;
