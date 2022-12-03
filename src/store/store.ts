@@ -1,5 +1,5 @@
 import { atom, Getter, PrimitiveAtom, SetStateAction, Setter } from "jotai";
-import atomWithCallback from "../hooks/atomsX";
+import { atomWithCallback } from "../hooks/atomsX";
 import { debounce } from "../utils/debounce";
 
 export type ViewPoint = { x: number; y: number; };
