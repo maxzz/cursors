@@ -1,14 +1,14 @@
 import React from "react";
 import { useAtom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { showGrayAtom, orgImgAtom, showHelpIdAtom } from "../../store/store";
-import { classNames } from "../../utils/classnames";
+import { showGrayAtom, orgImgAtom, showHelpIdAtom } from "@/store/store";
+import { classNames } from "@/utils/classnames";
 import { DropZone } from "./DropZone";
 import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
 import { CursorSizeSelector } from "./CursorSizeSelector";
 import { CursorTester } from "./CursorTester";
-import { Mount } from "../UI/TestTransitions";
+import { Mount } from "@ui/TestTransitions";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);

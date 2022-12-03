@@ -1,11 +1,11 @@
 import React from "react";
 import { useAtom } from "jotai";
-import { cursorSizeAtom } from "../../store/store";
-import { classNames } from "../../utils/classnames";
-import { cleanupValueUInt, useNumberInput } from "../../hooks/useNumberInput";
-import { UIListTransition } from "./../UI/UIListTransition";
-import { UIIconUpDown } from "./../UI/UIIconUpDown";
+import { cursorSizeAtom } from "@/store/store";
 import { useClickAway } from "react-use";
+import { classNames } from "@/utils/classnames";
+import { cleanupValueUInt, useNumberInput } from "@/hooks/useNumberInput";
+import { UIListTransition } from "@ui/UIListTransition";
+import { UIIconUpDown } from "@ui/UIIconUpDown";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 

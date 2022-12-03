@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { PrimitiveAtom, useAtom } from "jotai";
-import { classNames } from "../../utils/classnames";
+import { classNames } from "@/utils/classnames";
 
 export function UIDropContainer({ onDropped, accept, className, children, activeAtom, ...rest }: {
     onDropped: (files: FileList) => {};

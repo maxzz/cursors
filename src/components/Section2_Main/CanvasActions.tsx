@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai";
 import { useEffect } from "react";
-import { canvasBodyDstAtom, canvasBodySrcAtom, orgImgAtom, showGrayAtom } from "../../store/store";
-import { applyXOR, drawImage } from "../../utils/image-utils";
-import { toastWarning } from "../UI/UiToaster";
+import { canvasBodyDstAtom, canvasBodySrcAtom, orgImgAtom, showGrayAtom } from "@/store/store";
+import { applyXOR, drawImage } from "@/utils/image-utils";
+import { toastWarning } from "@ui/UiToaster";
 
 export function SourceCanvasActions() {
     const orgImg = useAtomValue(orgImgAtom);

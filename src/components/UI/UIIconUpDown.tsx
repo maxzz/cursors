@@ -1,6 +1,6 @@
 import React from "react";
 import { a, useSpring } from "@react-spring/web";
-import { classNames } from "../../utils/classnames";
+import { classNames } from "@/utils/classnames";
 import { animationConfig } from "./UIListTransition";
 
 export function UIIconUpDown({ open, className, ...rest }: { open: boolean; } & React.SVGAttributes<SVGSVGElement>) {

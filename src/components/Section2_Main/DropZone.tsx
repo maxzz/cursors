@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { atom } from "jotai";
 import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { orgImgAtom } from "../../store/store";
-import { UIDropContainer } from "../UI/UIDropContainer";
-import { IconImagePlus } from "../UI/UIIcons";
-import { toastWarning } from "../UI/UiToaster";
-import { createImageFromBlob, loadFileData } from "../../utils/image-utils";
+import { orgImgAtom } from "@/store/store";
+import { UIDropContainer } from "@ui/UIDropContainer";
+import { IconImagePlus } from "@ui/UIIcons";
+import { toastWarning } from "@ui/UiToaster";
+import { createImageFromBlob, loadFileData } from "@/utils/image-utils";
 
 export function DropZone() {
     const setOrgImg = useUpdateAtom(orgImgAtom);
