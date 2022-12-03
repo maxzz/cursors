@@ -31,12 +31,14 @@ namespace Storage {
     }
     load();
 
-    export const save = debounce(function _save(get: Getter) {
+    export const saveDebounced = debounce(function _save(get: Getter) {
         let newStore: Store = {
             showHelpId: get(showHelpIdAtom),
         };
         localStorage.setItem(KEY, JSON.stringify(newStore));
     }, 1000);
+
+    export const save = ({ get }: { get: Getter; }) => saveDebounced(get);
 }
 
 //#endregion LocalStorage
@@ -79,7 +81,7 @@ export const canvasBodyDstAtom = atom(
 // options
 
 export const showGrayAtom = atom(true);
-export const showHelpIdAtom = atomWithCallback<number | null>(Storage.initialData.showHelpId, ({ get }) => Storage.save(get));
+export const showHelpIdAtom = atomWithCallback<number | null>(Storage.initialData.showHelpId, Storage.save);
 
 // cursor dementions
 
