@@ -39,7 +39,7 @@ function InfoTrigger({ className, ...rest }: React.HTMLAttributes<HTMLDivElement
     );
 }
 
-export function AppCanvas() {
+export function Section2_Main() {
     const orgImg = useAtomValue(orgImgAtom);
     return (
         <div className="h-full flex flex-col">
