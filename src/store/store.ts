@@ -60,7 +60,7 @@ function atomCanvasUpdate(get: Getter, set: Setter, value: SetStateAction<HTMLCa
     let newBody: CanvasBody | null | undefined;
     if (value) {
         let el = typeof value === 'function' ? value(get(atomToSet)?.el) : value;
-        let ctx = value && el?.getContext('2d');
+        let ctx = value && el?.getContext('2d', { willReadFrequently: true });
         newBody = el && ctx && { el, ctx, };
     }
     set(atomToSet, newBody);
