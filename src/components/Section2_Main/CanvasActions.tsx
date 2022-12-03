@@ -61,7 +61,7 @@ export function DestCanvasActions() {
     return null;
 }
 
-export function CanvasActions() {
+export function NoUiCanvasActions() {
     return (<>
         <SourceCanvasActions />
         <DestCanvasActions />

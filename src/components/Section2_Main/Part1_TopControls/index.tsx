@@ -1,8 +1,8 @@
-import { orgImgAtom, showGrayAtom, showHelpIdAtom } from '@/store/store';
-import { classNames } from '@/utils/classnames';
+import React from 'react';
 import { useAtom } from 'jotai';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
-import React from 'react';
+import { orgImgAtom, showGrayAtom, showHelpIdAtom } from '@/store/store';
+import { classNames } from '@/utils/classnames';
 import { CursorSizeSelector } from './CursorSizeSelector';
 import { DropZone } from './DropZone';
 
