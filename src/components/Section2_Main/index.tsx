@@ -8,7 +8,6 @@ import { CanvasActions } from "./CanvasActions";
 import { CanvasElements } from "./CanvasElements";
 import { CursorSizeSelector } from "./CursorSizeSelector";
 import { CursorTester } from "./CursorTester";
-import { Mount } from "@ui/TestTransitions";
 
 function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -41,36 +40,35 @@ function InfoTrigger({ className, ...rest }: React.HTMLAttributes<HTMLDivElement
 
 export function Section2_Main() {
     const orgImg = useAtomValue(orgImgAtom);
-    return (
-        <div className="h-full flex flex-col">
-            {/* No UI actions */}
-            <CanvasActions />
-            <Mount />
+    return (<>
 
-            {/* Drop zone */}
-            <div className="flex flex-col space-y-2">
-                <div className="h-32 self-center flex space-x-2">
-                    <DropZone />
-                    <div className="flex flex-col justify-between">
-                        <InfoTrigger />
-                        <CursorSizeSelector />
-                    </div>
-                </div>
-
+        {/* Drop zone */}
+        <div className="flex flex-col space-y-2">
+            <div className="h-32 self-center flex space-x-2">
+                <DropZone />
                 <div className="flex flex-col justify-between">
-                    {orgImg && <CheckBox className="" />}
+                    <InfoTrigger />
+                    <CursorSizeSelector />
                 </div>
             </div>
 
-            {/* The rest */}
-            <div className="flex-1 flex flex-col justify-center gap-y-4">
-                <div className="flex items-center justify-center">
-                    <CanvasElements />
-                </div>
-                <div>
-                    <CursorTester />
-                </div>
+            <div className="flex flex-col justify-between">
+                {orgImg && <CheckBox className="" />}
             </div>
         </div>
-    );
+
+        {/* No UI actions */}
+        <CanvasActions />
+
+        {/* The rest */}
+        <div className="flex-1 flex flex-col justify-center gap-y-4">
+            <div className="flex items-center justify-center">
+                <CanvasElements />
+            </div>
+            <div>
+                <CursorTester />
+            </div>
+        </div>
+
+    </>);
 }
