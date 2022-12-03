@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppCanvas } from './components/AppCanvas';
+import { AppCanvas } from './components/Section2_Main/AppCanvas';
 import { UIToaster } from './components/UI/UiToaster';
 import { Dialogs } from './components/Dialogs';
 import './App.css';
