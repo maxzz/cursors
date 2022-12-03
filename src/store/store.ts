@@ -1,6 +1,6 @@
 import { atom, Getter, PrimitiveAtom, SetStateAction, Setter } from "jotai";
 import atomWithCallback from "../hooks/atomsX";
-import debounce from "../utils/debounce";
+import { debounce } from "../utils/debounce";
 
 export type ViewPoint = { x: number; y: number; };
 export type ViewSize = { w: number; h: number; };
@@ -79,7 +79,7 @@ export const canvasBodyDstAtom = atom(
 // options
 
 export const showGrayAtom = atom(true);
-export const showHelpIdAtom = atomWithCallback<number | null>(Storage.initialData.showHelpId, ({get}) => Storage.save(get));
+export const showHelpIdAtom = atomWithCallback<number | null>(Storage.initialData.showHelpId, ({ get }) => Storage.save(get));
 
 // cursor dementions
 
