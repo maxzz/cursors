@@ -8,15 +8,13 @@ export function Section2_Main() {
     return (<>
         <Part1_TopControls />
 
-        <NoUiCanvasActions />
-
         <div className="flex-1 flex flex-col justify-center gap-y-4">
             <div className="flex items-center justify-center">
+                <NoUiCanvasActions />
                 <Part2_Canvases />
             </div>
-            <div>
-                <Part3_Display />
-            </div>
+
+            <Part3_Display />
         </div>
     </>);
 }
