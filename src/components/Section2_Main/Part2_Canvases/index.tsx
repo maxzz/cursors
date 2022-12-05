@@ -8,7 +8,7 @@ function CanvasElement({ updateAtom, ...rest }: { updateAtom: CanvasBodyAtomType
     );
 }
 
-export function CanvasElements() {
+export function Part2_Canvases() {
     return (
         <div className="flex gap-4">
             <div className="w-full aspect-square border-sky-700 border">
