@@ -9,7 +9,13 @@ import { UIIconUpDown } from "@ui/UIIconUpDown";
 
 const CURSOR_SIZES2 = [16, 32, 128, 256];
 
-function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: number) => void, setOpen: (v: boolean) => void; }, ref: React.Ref<HTMLUListElement>) {
+type DropdownListProps = {
+    size: number;
+    setSize: (v: number) => void;
+    setOpen: (v: boolean) => void;
+};
+
+function DropdownList({ size, setSize, setOpen }: DropdownListProps, ref: React.Ref<HTMLUListElement>) {
     return (
         <ul className="absolute top-full w-16 bg-slate-400 border-slate-500 border border-t-0 rounded-b-md overflow-hidden focus:outline-none focus-within:ring"
             ref={ref}
@@ -46,16 +52,19 @@ function DropDownList({ size, setSize, setOpen }: { size: number, setSize: (v: n
     );
 }
 
-const DropDownListRef = React.forwardRef(DropDownList);
+const DropDownListRef = React.forwardRef(DropdownList);
 
 export function CursorSizeSelector() {
     const [size, setSize] = useAtom(cursorSizeAtom);
     const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
     const [open, setOpen] = React.useState(false);
+
     const containerRef = React.useRef<HTMLDivElement>(null);
     const dropdownRef = React.useRef<HTMLUListElement>(null);
     const buttonRef = React.useRef<HTMLButtonElement>(null);
+
     useClickAway(containerRef, () => setOpen(false));
+
     React.useEffect(() => {
         console.log(`💦💦💦Container.useEffect[open] %copen: ${open} dropdownRef el: ${dropdownRef.current?.tagName.toLowerCase()}`, 'color: gray');
 
@@ -63,6 +72,7 @@ export function CursorSizeSelector() {
             dropdownRef.current?.focus();
         }
     }, [open]);
+
     function setOpenWFocus(v: boolean) {
         console.log(`💦💦💦Container.setOpenWFocus %cref: ${v ? 'list' : 'button'} el: ${(v ? dropdownRef : buttonRef).current?.tagName.toLowerCase()}`, 'color: gray');
 
@@ -73,6 +83,7 @@ export function CursorSizeSelector() {
         }
         setOpen(v);
     }
+
     return (
         <div className="relative inline-block text-xs" ref={containerRef}>
 
