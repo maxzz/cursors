@@ -1,9 +1,8 @@
+import { useAtom } from "jotai";
 import { showHelpIdAtom } from "@/store/store";
 import { classNames } from "@/utils/classnames";
 import { PortalModal } from "@ui/UIDialog";
 import { IconGithub } from "@ui/UIIcons";
-import { useAtom } from "jotai";
-import { HTMLAttributes, SVGProps } from "react";
 
 function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { editorData: number; setShow?: (v: boolean) => void; }) {
     return (
@@ -34,7 +33,7 @@ function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { edito
             <div className="p-3 flex items-center justify-between">
                 {/* Link */}
                 <a className="flex items-center space-x-2 text-sm scale-[.7] origin-left" href="https://github.com/maxzz/cursors" target="_blank">
-                    <IconGithub />
+                    <IconGithub className="w-8 h-8" />
                     <span>source code</span>
                 </a>
                 {/* Close */}
