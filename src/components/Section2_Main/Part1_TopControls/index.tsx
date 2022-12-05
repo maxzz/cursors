@@ -6,17 +6,17 @@ import { classNames } from '@/utils/classnames';
 import { CursorSizeSelector } from './CursorSizeSelector';
 import { DropZone } from './DropZone';
 
-function CheckBox({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
+function CheckBoxShowGraySrcCanvas({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
     return (
-        <label className={classNames("flex items-center space-x-2 select-none", className)} {...rest}>
+        <label className={classNames("flex items-center space-x-1.5 select-none", className)} {...rest}>
             <input
-                className="w-4 h-4 text-slate-500 bg-purple-200 focus:ring-slate-500 focus:ring-offset-1 rounded"
+                className="w-5 h-5 form-checkbox text-sky-700 bg-sky-200 focus:ring-sky-700 focus:ring-offset-sky-200 focus:ring-offset-1 rounded"
                 type="checkbox"
                 checked={showGray}
                 onChange={(e) => setShowGray(e.target.checked)}
             />
-            <div className="">show gray</div>
+            <div className="text-sky-900">Show source image as gray</div>
         </label>
     );
 }
@@ -48,7 +48,7 @@ export function Part1_TopControls() {
             </div>
 
             <div className="flex flex-col justify-between">
-                {orgImg && <CheckBox className="" />}
+                {orgImg && <CheckBoxShowGraySrcCanvas />}
             </div>
         </div>
     );
