@@ -1,8 +1,8 @@
 import React from "react";
 import { NoUiCanvasActions } from "./Part2_Canvases/CanvasActions";
-import { Part2_Canvases } from "./Part2_Canvases";
-import { CursorTester } from "./Part3_Display/CursorTester";
 import { Part1_TopControls } from "./Part1_TopControls";
+import { Part2_Canvases } from "./Part2_Canvases";
+import { Part3_Display } from "./Part3_Display";
 
 export function Section2_Main() {
     return (<>
@@ -15,7 +15,7 @@ export function Section2_Main() {
                 <Part2_Canvases />
             </div>
             <div>
-                <CursorTester />
+                <Part3_Display />
             </div>
         </div>
     </>);

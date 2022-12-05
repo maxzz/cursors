@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function CursorTester() {
+export function Part3_Display() { //CursorTester
     return (
         <div className="flex justify-center">
             <div className="bg-slate-300 border-b-slate-400/30 border-r-slate-400/30 border-slate-300 rounded-3xl border-[16px]">
