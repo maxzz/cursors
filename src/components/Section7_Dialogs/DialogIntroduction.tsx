@@ -1,8 +1,8 @@
-import React, { HTMLAttributes, SVGProps } from 'react';
-import { useAtom } from 'jotai';
-import { showHelpIdAtom } from '../../store/store';
-import { PortalModal } from '../UI/UIDialog';
-import { classNames } from '../../utils/classnames';
+import { showHelpIdAtom } from "@/store/store";
+import { classNames } from "@/utils/classnames";
+import { PortalModal } from "@ui/UIDialog";
+import { useAtom } from "jotai";
+import { HTMLAttributes, SVGProps } from "react";
 
 export function IconGithub(props: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     const { title, ...rest } = props;
@@ -17,7 +17,7 @@ export function IconGithub(props: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSV
     );
 }
 
-function FormHelp({ editorData, setShow = (v: boolean) => { } }: { editorData: number; setShow?: (v: boolean) => void; }) {
+function DialogIntroduction({ editorData, setShow = (v: boolean) => { } }: { editorData: number; setShow?: (v: boolean) => void; }) {
     return (
         <div className={classNames(
             "max-w-[460px] max-h-[640px] bg-gray-200 rounded overflow-hidden", //w-[460px] h-[640px]
@@ -56,19 +56,13 @@ function FormHelp({ editorData, setShow = (v: boolean) => { } }: { editorData: n
     );
 }
 
-function FormEditorTrigger() {
+export function DialogIntroductionTrigger() {
     const [editorData, setEditorData] = useAtom(showHelpIdAtom);
     return (<>
         {editorData &&
             <PortalModal show={true} setShow={(v: boolean) => !v && setEditorData(null)} allowClickOutside={true}>
-                <FormHelp editorData={editorData} />
+                <DialogIntroduction editorData={editorData} />
             </PortalModal>
         }
     </>);
-}
-
-export function Dialogs() {
-    return (
-        <FormEditorTrigger />
-    );
 }

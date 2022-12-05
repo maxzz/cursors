@@ -1,7 +1,7 @@
 import React from 'react';
 import { Section2_Main } from './components/Section2_Main';
 import { UIToaster } from './components/UI/UiToaster';
-import { Dialogs } from './components/Section7_Dialogs/Dialogs';
+import { Dialogs } from './components/Section7_Dialogs';
 import { Mount } from '@ui/TestTransitions';
 import './App.css';
 
