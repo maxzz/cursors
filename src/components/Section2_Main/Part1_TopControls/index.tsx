@@ -43,11 +43,11 @@ export function Part1_TopControls() {
                 <DropZone />
                 <div className="flex flex-col justify-between">
                     <InfoTrigger />
-                    <CursorSizeSelector />
                 </div>
             </div>
 
-            <div className="flex flex-col justify-between">
+            <div className="flex items-center space-x-2">
+                <CursorSizeSelector />
                 {orgImg && <CheckBoxShowGraySrcCanvas />}
             </div>
         </div>
