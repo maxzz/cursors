@@ -1,8 +1,8 @@
 import React, { HTMLAttributes, SVGProps } from 'react';
 import { useAtom } from 'jotai';
-import { showHelpIdAtom } from '../store/store';
-import { PortalModal } from './UI/UIDialog';
-import { classNames } from '../utils/classnames';
+import { showHelpIdAtom } from '../../store/store';
+import { PortalModal } from '../UI/UIDialog';
+import { classNames } from '../../utils/classnames';
 
 export function IconGithub(props: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     const { title, ...rest } = props;
