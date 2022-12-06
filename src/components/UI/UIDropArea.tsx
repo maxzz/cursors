@@ -33,10 +33,12 @@ function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
             setDropActive(false);
             event.dataTransfer && onDropped(event.dataTransfer.files);
         }
+
         document.addEventListener('dragenter', _onDragEnter);
         document.addEventListener('dragover', _onDragOver);
         document.addEventListener('dragleave', _onDragLeave);
         document.addEventListener('drop', _onDrop);
+
         return () => {
             document.removeEventListener('dragenter', _onDragEnter);
             document.removeEventListener('dragover', _onDragOver);
@@ -64,9 +66,15 @@ export function DropZone3() {
         }
     }
 
-    return (
+    console.log('active', active);
+
+    return (<>
         <DragHandlers onDropped={handleDrop} activeAtom={activeAtom} />
-    );
+
+        {active && <div className={`absolute left-4 top-0.5 pb-0.5 text-xs ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
+            'Drop it!'
+        </div>}
+    </>);
 }
 
 
