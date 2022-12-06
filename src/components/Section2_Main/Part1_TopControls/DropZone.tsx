@@ -26,9 +26,11 @@ export function DropZone() {
 
     return (
         <div className="relative">
+
             <div className={`absolute left-4 top-0.5 pb-0.5 text-xs ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
                 {active ? 'Drop' : 'Load image'}
             </div>
+            
             <UIDropContainer
                 className={`w-32 h-32 ${active ? 'bg-green-700' : 'bg-slate-400'} border-slate-500 border rounded cursor-pointer`}
                 onDropped={handleDrop}
