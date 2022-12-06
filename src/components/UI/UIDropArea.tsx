@@ -12,19 +12,25 @@ type UIDropContainerProps = {
     activeAtom: PrimitiveAtom<boolean>;
 };
 
-function DragHandlers() {
+function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
+    const [dropActive, setDropActive] = useAtom(activeAtom);
     useEffect(() => {
         function _onDragEnter(event: DragEvent) {
-            
+            setDropActive(true);
         }
         function _onDragOver(event: DragEvent) {
             event.preventDefault();
+            event.stopPropagation();
+            !dropActive && setDropActive(true);
         }
         function _onDragLeave(event: DragEvent) {
-            
+            setDropActive(false);
         }
         function _onDrop(event: DragEvent) {
-            
+            event.preventDefault();
+            event.stopPropagation();
+            setDropActive(false);
+            event.dataTransfer && onDropped(event.dataTransfer.files);
         }
         document.addEventListener('dragenter', _onDragEnter);
         document.addEventListener('dragover', _onDragOver);
@@ -35,11 +41,32 @@ function DragHandlers() {
             document.removeEventListener('dragover', _onDragOver);
             document.removeEventListener('dragleave', _onDragLeave);
             document.removeEventListener('drop', _onDrop);
-        }
+        };
     }, []);
 
     return (<></>);
 }
+
+export function DropZone3() {
+    const setOrgImg = useUpdateAtom(orgImgAtom);
+    const [activeAtom] = useState(atom(false));
+    const active = useAtomValue(activeAtom);
+
+    async function handleDrop(files: FileList) {
+        if (!files.length) { return; }
+        try {
+            console.log('files', files);
+        } catch (error) {
+            setOrgImg(null);
+            toastWarning((error as Error)?.message || 'Failed to load image');
+        }
+    }
+
+    return (
+        <DragHandlers onDropped={handleDrop} activeAtom={activeAtom} />
+    );
+}
+
 
 export function UIDropContainer({ onDropped, accept, className, children, activeAtom, ...rest }: UIDropContainerProps & HTMLAttributes<HTMLLabelElement>) {
     const [dropActive, setDropActive] = useAtom(activeAtom);

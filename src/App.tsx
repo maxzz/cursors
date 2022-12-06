@@ -3,18 +3,19 @@ import { Section2_Main } from './components/Section2_Main';
 import { UIToaster } from './components/UI/UiToaster';
 import { Dialogs } from './components/Section7_Dialogs';
 import { Mount } from '@ui/TestTransitions'; // test transitions
-import { DropZone2 } from '@ui/UIDropArea';
+import { DropZone2, DropZone3 } from '@ui/UIDropArea';
 import './App.css';
 
 function App() {
     return (<>
         <UIToaster />
         <div className="relative h-screen bg-white bg-gradient-to-t from-sky-700/70 via-sky-700/50 to-sky-700/70">
-                <div className="p-4 h-full flex flex-col">
+            <div className="p-4 h-full flex flex-col">
                 {/* <Mount /> */}
                 <Section2_Main />
             </div>
-            <DropZone2 />
+            {/* <DropZone2 /> */}
+            <DropZone3 />
         </div>
         <Dialogs />
     </>);
