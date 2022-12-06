@@ -1,15 +1,13 @@
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { atom, PrimitiveAtom, useAtom, useAtomValue } from "jotai";
-import { classNames } from "@/utils/classnames";
-import { useUpdateAtom } from "jotai/utils";
+import { atom, PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { orgImgAtom } from "@/store/store";
+import { classNames } from "@/utils/classnames";
 import { toastWarning } from "./UiToaster";
 import { IconImagePlus } from "./UIIcons";
 import { createImageFromBlob, loadFileData } from "@/utils/image-utils";
 
 type UIDropContainerProps = {
     onDropped: (files: FileList) => void;
-    accept?: string; // accept = '.png'
     activeAtom: PrimitiveAtom<boolean>;
 };
 
@@ -56,7 +54,7 @@ function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
 }
 
 export function DropZone3() {
-    const setOrgImg = useUpdateAtom(orgImgAtom);
+    const setOrgImg = useSetAtom(orgImgAtom);
     const [activeAtom] = useState(atom(false));
     const active = useAtomValue(activeAtom);
 

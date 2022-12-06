@@ -1,6 +1,5 @@
 import React from 'react';
-import { useAtom } from 'jotai';
-import { useAtomValue, useUpdateAtom } from 'jotai/utils';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { orgImgAtom, showGrayAtom, showHelpIdAtom } from '@/store/store';
 import { classNames } from '@/utils/classnames';
 import { CursorSizeSelector } from './CursorSizeSelector';
@@ -22,7 +21,7 @@ function CheckBoxShowGraySrcCanvas({ className, ...rest }: React.HTMLAttributes<
 }
 
 function InfoTrigger({ className, ...rest }: React.HTMLAttributes<HTMLDivElement>) {
-    const showHelp = useUpdateAtom(showHelpIdAtom);
+    const showHelp = useSetAtom(showHelpIdAtom);
     return (
         <div
             className={classNames("w-6 h-6 pt-px text-sm text-center font-bold font-serif text-slate-700 bg-slate-300 border-slate-500 border rounded-md active:scale-[.97] cursor-pointer", className)}
@@ -53,6 +52,3 @@ export function Part1_TopControls() {
         </div>
     );
 }
-
-//TODO: update jotai imports
-//TODO: update dropzone layout
