@@ -15,9 +15,12 @@ type UIDropContainerProps = {
 
 function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
     const [dropActive, setDropActive] = useAtom(activeAtom);
+    const activeListenersRef = useRef(0);
     useEffect(() => {
         function _onDragEnter(event: DragEvent) {
-            setDropActive(true);
+            if (!activeListenersRef.current++) {
+                setDropActive(true);
+            }
         }
         function _onDragOver(event: DragEvent) {
             event.preventDefault();
@@ -25,9 +28,12 @@ function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
             !dropActive && setDropActive(true);
         }
         function _onDragLeave(event: DragEvent) {
-            setDropActive(false);
+            if (!--activeListenersRef.current) {
+                setDropActive(false);
+            }
         }
         function _onDrop(event: DragEvent) {
+            activeListenersRef.current = 0;
             event.preventDefault();
             event.stopPropagation();
             setDropActive(false);
