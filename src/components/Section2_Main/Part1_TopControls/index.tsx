@@ -40,7 +40,7 @@ export function Part1_TopControls() {
     return (
         <div className="flex flex-col space-y-2">
             <div className="h-32 self-center flex space-x-2">
-                <DropZone />
+                {/* <DropZone /> */}
                 <div className="flex flex-col justify-between">
                     <InfoTrigger />
                 </div>
