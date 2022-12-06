@@ -1,18 +1,13 @@
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { atom, PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useEffect, useRef, useState } from "react";
+import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { orgImgAtom } from "@/store/store";
 import { classNames } from "@/utils/classnames";
 import { toastWarning } from "./UiToaster";
 import { IconImagePlus } from "./UIIcons";
 import { createImageFromBlob, loadFileData } from "@/utils/image-utils";
 
-type UIDropContainerProps = {
-    onDropped: (files: FileList) => void;
-    activeAtom: PrimitiveAtom<boolean>;
-};
-
-function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
-    const [dropActive, setDropActive] = useAtom(activeAtom);
+function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: FileList) => void; activeAtom: PrimitiveAtom<boolean>; }) {
+    const setDropActive = useSetAtom(activeAtom);
     const activeListenersRef = useRef(0);
     useEffect(() => {
         function _onDragEnter(event: DragEvent) {
@@ -22,8 +17,6 @@ function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
         }
         function _onDragOver(event: DragEvent) {
             event.preventDefault();
-            event.stopPropagation();
-            !dropActive && setDropActive(true);
         }
         function _onDragLeave(event: DragEvent) {
             if (!--activeListenersRef.current) {
@@ -33,7 +26,6 @@ function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
         function _onDrop(event: DragEvent) {
             activeListenersRef.current = 0;
             event.preventDefault();
-            event.stopPropagation();
             setDropActive(false);
             event.dataTransfer && onDropped(event.dataTransfer.files);
         }
@@ -70,7 +62,7 @@ export function DropArea() {
         }
     }
 
-    console.log('active', active);
+    //console.log('active', active);
 
     return (<>
         <DragHandlers onDropped={handleDrop} activeAtom={activeAtom} />
