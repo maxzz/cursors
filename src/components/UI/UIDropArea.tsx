@@ -5,6 +5,7 @@ import { useUpdateAtom } from "jotai/utils";
 import { orgImgAtom } from "@/store/store";
 import { toastWarning } from "./UiToaster";
 import { IconImagePlus } from "./UIIcons";
+import { createImageFromBlob, loadFileData } from "@/utils/image-utils";
 
 type UIDropContainerProps = {
     onDropped: (files: FileList) => void;
@@ -43,7 +44,6 @@ function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
             document.removeEventListener('drop', _onDrop);
         };
     }, []);
-
     return (<></>);
 }
 
@@ -55,7 +55,9 @@ export function DropZone3() {
     async function handleDrop(files: FileList) {
         if (!files.length) { return; }
         try {
-            console.log('files', files);
+            const blob = await loadFileData(files[0]);
+            const img: HTMLImageElement = await createImageFromBlob(blob);
+            setOrgImg(img);
         } catch (error) {
             setOrgImg(null);
             toastWarning((error as Error)?.message || 'Failed to load image');
