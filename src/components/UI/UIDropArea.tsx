@@ -53,7 +53,7 @@ function DragHandlers({ onDropped, activeAtom }: UIDropContainerProps) {
     return (<></>);
 }
 
-export function DropZone3() {
+export function DropArea() {
     const setOrgImg = useSetAtom(orgImgAtom);
     const [activeAtom] = useState(atom(false));
     const active = useAtomValue(activeAtom);

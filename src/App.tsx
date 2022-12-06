@@ -3,7 +3,7 @@ import { Section2_Main } from './components/Section2_Main';
 import { UIToaster } from './components/UI/UiToaster';
 import { Dialogs } from './components/Section7_Dialogs';
 import { Mount } from '@ui/TestTransitions'; // test transitions
-import { DropZone3 } from '@ui/UIDropArea';
+import { DropArea } from '@ui/UIDropArea';
 import './App.css';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
                 {/* <Mount /> */}
                 <Section2_Main />
             </div>
-            <DropZone3 />
+            <DropArea />
         </div>
         <Dialogs />
     </>);
