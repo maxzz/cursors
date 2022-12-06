@@ -10,11 +10,11 @@ function App() {
     return (<>
         <UIToaster />
         <div className="relative h-screen bg-white bg-gradient-to-t from-sky-700/70 via-sky-700/50 to-sky-700/70">
-                <DropZone2 />
                 <div className="p-4 h-full flex flex-col">
                 {/* <Mount /> */}
                 <Section2_Main />
             </div>
+            <DropZone2 />
         </div>
         <Dialogs />
     </>);

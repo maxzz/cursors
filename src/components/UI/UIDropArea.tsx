@@ -65,18 +65,18 @@ export function DropZone2() {
     }
 
     return (
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 pointer-events-none">
 
-            <div className={`absolute left-4 top-0.5 pb-0.5 text-xs ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
+            {/* <div className={`absolute left-4 top-0.5 pb-0.5 text-xs ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
                 {active ? 'Drop' : 'Load image'}
-            </div>
+            </div> */}
             
             <UIDropContainer
-                className={`w-full h-full ${active ? 'bg-green-700' : 'bg-slate-400'} border-slate-500 border rounded cursor-pointer`}
+                className={`w-full h-full ${active ? 'bg-green-700' : 'bg-transparent'} border-slate-500 border rounded cursor-pointer`}
                 onDropped={handleDrop}
                 activeAtom={activeAtom}
             >
-                <IconImagePlus className={`${active ? 'text-green-600/30' : 'text-slate-300'}   pointer-events-none`} />
+                {/* <IconImagePlus className={`${active ? 'text-green-600/30' : 'text-slate-300'}   pointer-events-none`} /> */}
             </UIDropContainer>
         </div>
     );
