@@ -1,4 +1,4 @@
-import { HTMLAttributes, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import { atom, PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import { classNames } from "@/utils/classnames";
 import { useUpdateAtom } from "jotai/utils";
@@ -11,6 +11,35 @@ type UIDropContainerProps = {
     accept?: string; // accept = '.png'
     activeAtom: PrimitiveAtom<boolean>;
 };
+
+function DragHandlers() {
+    useEffect(() => {
+        function _onDragEnter(event: DragEvent) {
+            
+        }
+        function _onDragOver(event: DragEvent) {
+            event.preventDefault();
+        }
+        function _onDragLeave(event: DragEvent) {
+            
+        }
+        function _onDrop(event: DragEvent) {
+            
+        }
+        document.addEventListener('dragenter', _onDragEnter);
+        document.addEventListener('dragover', _onDragOver);
+        document.addEventListener('dragleave', _onDragLeave);
+        document.addEventListener('drop', _onDrop);
+        return () => {
+            document.removeEventListener('dragenter', _onDragEnter);
+            document.removeEventListener('dragover', _onDragOver);
+            document.removeEventListener('dragleave', _onDragLeave);
+            document.removeEventListener('drop', _onDrop);
+        }
+    }, []);
+
+    return (<></>);
+}
 
 export function UIDropContainer({ onDropped, accept, className, children, activeAtom, ...rest }: UIDropContainerProps & HTMLAttributes<HTMLLabelElement>) {
     const [dropActive, setDropActive] = useAtom(activeAtom);
@@ -70,7 +99,7 @@ export function DropZone2() {
             {/* <div className={`absolute left-4 top-0.5 pb-0.5 text-xs ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
                 {active ? 'Drop' : 'Load image'}
             </div> */}
-            
+
             <UIDropContainer
                 className={`w-full h-full ${active ? 'bg-green-700' : 'bg-transparent'} border-slate-500 border rounded cursor-pointer`}
                 onDropped={handleDrop}
@@ -81,41 +110,3 @@ export function DropZone2() {
         </div>
     );
 }
-
-
-// export function UIDropContainer({ onDropped, accept, className, children, activeAtom, ...rest }: UIDropContainerProps & HTMLAttributes<HTMLLabelElement>) {
-//     const [dropActive, setDropActive] = useAtom(activeAtom);
-//     const inputRef = useRef<HTMLInputElement>(null);
-//     return (
-//         <label
-//             className={classNames(`inline-block`, className)}
-
-//             onDragOver={(event) => {
-//                 event.preventDefault();
-//                 event.stopPropagation();
-//                 !dropActive && setDropActive(true);
-//             }}
-
-//             onDrop={(event) => {
-//                 event.preventDefault();
-//                 event.stopPropagation();
-//                 setDropActive(false);
-//                 onDropped(event.dataTransfer.files);
-//             }}
-
-//             onDragEnter={(event) => setDropActive(true)}
-//             onDragLeave={(event) => setDropActive(false)}
-
-//             {...rest}
-//         >
-//             <input
-//                 ref={inputRef}
-//                 type="file"
-//                 className="hidden"
-//                 accept={accept}
-//                 onChange={() => inputRef.current?.files && onDropped(inputRef.current?.files)}
-//             />
-//             {children}
-//         </label>
-//     );
-// }
