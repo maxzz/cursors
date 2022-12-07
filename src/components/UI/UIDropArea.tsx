@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { orgImgAtom } from "@/store/store";
-import { classNames } from "@/utils/classnames";
 import { toastWarning } from "./UiToaster";
-import { IconImagePlus } from "./UIIcons";
 import { createImageFromBlob, loadFileData } from "@/utils/image-utils";
 
-function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: FileList) => void; activeAtom: PrimitiveAtom<boolean>; }) {
+export function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: FileList) => void; activeAtom: PrimitiveAtom<boolean>; }) {
     const setDropActive = useSetAtom(activeAtom);
     const activeListenersRef = useRef(0);
+
     useEffect(() => {
-        function _onDragEnter(event: DragEvent) {
+        function _onDragEnter() {
             if (!activeListenersRef.current++) {
                 setDropActive(true);
             }
@@ -18,28 +17,30 @@ function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: FileList) 
         function _onDragOver(event: DragEvent) {
             event.preventDefault();
         }
-        function _onDragLeave(event: DragEvent) {
+        function _onDragLeave() {
             if (!--activeListenersRef.current) {
                 setDropActive(false);
             }
         }
         function _onDrop(event: DragEvent) {
-            activeListenersRef.current = 0;
             event.preventDefault();
+            activeListenersRef.current = 0;
             setDropActive(false);
             event.dataTransfer && onDropped(event.dataTransfer.files);
         }
 
-        document.addEventListener('dragenter', _onDragEnter);
-        document.addEventListener('dragover', _onDragOver);
-        document.addEventListener('dragleave', _onDragLeave);
-        document.addEventListener('drop', _onDrop);
+        const a = document.addEventListener;
+        a('dragenter', _onDragEnter);
+        a('dragover', _onDragOver);
+        a('dragleave', _onDragLeave);
+        a('drop', _onDrop);
 
         return () => {
-            document.removeEventListener('dragenter', _onDragEnter);
-            document.removeEventListener('dragover', _onDragOver);
-            document.removeEventListener('dragleave', _onDragLeave);
-            document.removeEventListener('drop', _onDrop);
+            const r = document.removeEventListener;
+            r('dragenter', _onDragEnter);
+            r('dragover', _onDragOver);
+            r('dragleave', _onDragLeave);
+            r('drop', _onDrop);
         };
     }, []);
     return (<></>);
@@ -67,7 +68,7 @@ export function DropArea() {
     return (<>
         <DragHandlers onDropped={handleDrop} activeAtom={activeAtom} />
 
-        {active && <div className={`absolute left-4 top-0.5 pb-0.5 text-xs ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
+        {active && <div className={`absolute inset-0 grid place-items-center text-5xl z-10 ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
             'Drop it!'
         </div>}
     </>);
