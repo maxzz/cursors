@@ -56,7 +56,7 @@ const DropDownListRef = React.forwardRef(DropdownList);
 
 export function CursorSizeSelector() {
     const [size, setSize] = useAtom(cursorSizeAtom);
-    const bind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
+    const intBind = useNumberInput(size, setSize, cleanupValueUInt);  //TODO: check range > 0 && range <= 256
     const [open, setOpen] = React.useState(false);
 
     const containerRef = React.useRef<HTMLDivElement>(null);
@@ -96,7 +96,7 @@ export function CursorSizeSelector() {
             >
                 {/* Input */}
                 <div className="w-10">
-                    <input className="w-full px-2 py-1 text-center bg-slate-300 border-slate-500 border-r focus:outline-none" type="text" {...bind} />
+                    <input className="w-full px-2 py-1 text-center bg-slate-300 border-slate-500 border-r focus:outline-none" type="text" {...intBind} />
                 </div>
 
                 {/* Button */}

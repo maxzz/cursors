@@ -1,5 +1,5 @@
 import React from "react";
-import { NoUiCanvasActions } from "./Part2_Canvases/CanvasActions";
+import { NoUiCanvasActions } from "./Part2_Canvases/NoUiCanvasActions";
 import { Part1_TopControls } from "./Part1_TopControls";
 import { Part2_Canvases } from "./Part2_Canvases";
 import { Part3_Display } from "./Part3_Display";
