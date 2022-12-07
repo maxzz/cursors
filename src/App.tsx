@@ -10,9 +10,9 @@ function App() {
     return (<>
         <UIToaster />
         <div className="relative h-screen bg-white bg-gradient-to-t from-sky-700/70 via-sky-700/50 to-sky-700/70">
-            <div className="p-4 h-full flex flex-col">
+            <div className="h-full flex flex-col">
                 <Section1_Header />
-                <Section2_Main />
+                <Section2_Main className="flex-1" />
             </div>
             <DropArea />
         </div>
