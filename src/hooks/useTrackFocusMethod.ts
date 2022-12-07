@@ -32,16 +32,18 @@ export function useTrackFocusMethod() {
             focusMethodRef.current = 'mouse';
         }
 
-        document.addEventListener('focus', _onFocus, true);
-        document.addEventListener('blur', _onBlur, true);
-        document.addEventListener('keydown', _onKeyDown, true);
-        document.addEventListener('mousedown', _onMouseDown, true);
+        const a = document.addEventListener;
+        a('focus', _onFocus, true);
+        a('blur', _onBlur, true);
+        a('keydown', _onKeyDown, true);
+        a('mousedown', _onMouseDown, true);
 
         return () => {
-            document.removeEventListener('focus', _onFocus);
-            document.removeEventListener('blur', _onBlur);
-            document.removeEventListener('keydown', _onKeyDown);
-            document.removeEventListener('mousedown', _onMouseDown);
+            const r = document.removeEventListener;
+            r('focus', _onFocus);
+            r('blur', _onBlur);
+            r('keydown', _onKeyDown);
+            r('mousedown', _onMouseDown);
         };
     }, []);
 }
