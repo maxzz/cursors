@@ -2,11 +2,11 @@ import { atom, Getter, PrimitiveAtom, SetStateAction, Setter } from "jotai";
 import { atomWithCallback } from "../hooks/atomsX";
 import { debounce } from "../utils/debounce";
 
-import { AppStorage } from "./storage/local-storage-load";
-import { StorageSave } from "./storage/local-storage-save";
-
 export * from './canvas-body';
 export * from './ui-options';
+
+export { AppStorage } from "./storage/local-storage-load";
+export { StorageSave } from "./storage/local-storage-save";
 
 //#region LocalStorage
 
