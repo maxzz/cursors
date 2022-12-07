@@ -1,10 +1,5 @@
-import { useAtomValue } from "jotai";
-import { useEffect } from "react";
-import { canvasBodyDstAtom, canvasBodySrcAtom, orgImgAtom, showGrayAtom } from "@/store";
-import { applyXOR, drawImage } from "@/utils/image-utils";
-import { toastWarning } from "@ui/UiToaster";
-import { SourceCanvasActions } from "./SrcCanvasActions";
-import { DestCanvasActions } from "./DstCanvasActions";
+import { SourceCanvasActions } from "./SourceCanvasActions";
+import { DestCanvasActions } from "./DestCanvasActions";
 
 export function NoUiCanvasActions() {
     return (<>
