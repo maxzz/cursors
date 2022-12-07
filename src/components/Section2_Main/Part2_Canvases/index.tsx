@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { CanvasBodyAtomType, canvasBodyDstAtom, canvasBodySrcAtom } from "@/store/store";
+import { CanvasBodyAtomType, canvasBodyDstAtom, canvasBodySrcAtom } from "@/store";
 
 function CanvasElement({ updateAtom, ...rest }: { updateAtom: CanvasBodyAtomType; } & React.HTMLAttributes<HTMLCanvasElement>) {
     const setCanvas = useSetAtom(updateAtom);

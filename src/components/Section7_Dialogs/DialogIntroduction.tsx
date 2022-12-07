@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { showHelpIdAtom } from "@/store/store";
+import { showHelpIdAtom } from "@/store";
 import { classNames } from "@/utils/classnames";
 import { PortalModal } from "@ui/UIDialog";
 import { IconGithub } from "@ui/UIIcons";

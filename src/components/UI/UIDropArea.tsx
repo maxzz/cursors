@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { orgImgAtom } from "@/store/store";
+import { orgImgAtom } from "@/store";
 import { toastWarning } from "./UiToaster";
 import { createImageFromBlob, loadFileData } from "@/utils/image-utils";
 

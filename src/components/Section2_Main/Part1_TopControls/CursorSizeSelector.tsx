@@ -1,6 +1,6 @@
 import React from "react";
 import { useAtom } from "jotai";
-import { cursorSizeAtom } from "@/store/store";
+import { cursorSizeAtom } from "@/store";
 import { useClickAway } from "react-use";
 import { classNames } from "@/utils/classnames";
 import { cleanupValueUInt, useNumberInput } from "@/hooks/useNumberInput";

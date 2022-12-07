@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { orgImgAtom } from "@/store/store";
+import { orgImgAtom } from "@/store";
 import { UIDropContainer } from "@ui/UIDropContainer";
 import { IconImagePlus } from "@ui/UIIcons";
 import { toastWarning } from "@ui/UiToaster";

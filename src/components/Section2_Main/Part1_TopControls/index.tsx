@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { orgImgAtom, showGrayAtom, showHelpIdAtom } from '@/store/store';
+import { orgImgAtom, showGrayAtom, showHelpIdAtom } from '@/store';
 import { classNames } from '@/utils/classnames';
 import { CursorSizeSelector } from './CursorSizeSelector';
 import { DropZone } from './DropZone';
