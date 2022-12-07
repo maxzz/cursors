@@ -1,4 +1,4 @@
-import { CanvasBody } from "../store/store";
+import { CanvasBody } from "@/store";
 
 export function loadFileData(file: Blob): Promise<string | ArrayBuffer | null> {
     return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
