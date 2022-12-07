@@ -1,6 +1,7 @@
 import { useSetAtom } from "jotai";
 import { showHelpIdAtom } from "@/store";
 import { classNames } from "@/utils/classnames";
+// import { Mount } from '@ui/TestTransitions'; // test transitions
 // import { DropZone } from "@/components/Section2_Main/Part1_TopControls/DropZone";
 
 function InfoTrigger({ className, ...rest }: React.HTMLAttributes<HTMLDivElement>) {
@@ -21,6 +22,7 @@ export function Section1_Header() {
     return (
         <div className="h-32 self-center flex space-x-2">
             {/* <DropZone /> */}
+            {/* <Mount /> */}
             <div className="flex flex-col justify-between">
                 <InfoTrigger />
             </div>
