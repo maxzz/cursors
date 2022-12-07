@@ -1,9 +1,8 @@
 import React from 'react';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { orgImgAtom, showGrayAtom, showHelpIdAtom } from '@/store';
+import { useAtom, useAtomValue } from 'jotai';
+import { orgImgAtom, showGrayAtom } from '@/store';
 import { classNames } from '@/utils/classnames';
 import { CursorSizeSelector } from './CursorSizeSelector';
-import { DropZone } from './DropZone';
 
 function CheckBoxShowGraySrcCanvas({ className, ...rest }: React.HTMLAttributes<HTMLLabelElement>) {
     const [showGray, setShowGray] = useAtom(showGrayAtom);
@@ -20,30 +19,11 @@ function CheckBoxShowGraySrcCanvas({ className, ...rest }: React.HTMLAttributes<
     );
 }
 
-function InfoTrigger({ className, ...rest }: React.HTMLAttributes<HTMLDivElement>) {
-    const showHelp = useSetAtom(showHelpIdAtom);
-    return (
-        <div
-            className={classNames("w-6 h-6 pt-px text-sm text-center font-bold font-serif text-slate-700 bg-slate-300 border-slate-500 border rounded-md active:scale-[.97] cursor-pointer", className)}
-            title="info"
-            onClick={() => showHelp(1)}
-            {...rest}
-        >
-            i
-        </div>
-    );
-}
-
 export function Part1_TopControls() {
     const orgImg = useAtomValue(orgImgAtom);
     return (
         <div className="flex flex-col space-y-2">
-            <div className="h-32 self-center flex space-x-2">
-                {/* <DropZone /> */}
-                <div className="flex flex-col justify-between">
-                    <InfoTrigger />
-                </div>
-            </div>
+            {/* info trigger */}
 
             <div className="flex items-center space-x-2">
                 <CursorSizeSelector />
