@@ -1,6 +1,6 @@
 import { atomWithCallback } from "@/hooks/atomsX";
 import { atom } from "jotai";
-import { AppStorage } from "./storage/local-storage-load";
+import { stateInitials } from "./storage/state-initials";
 import { StorageSave } from "./storage/local-storage-save";
 
 export type ViewPoint = { x: number; y: number; };
@@ -10,7 +10,7 @@ export type ViewBox = ViewPoint & ViewSize;
 // options
 
 export const showGrayAtom = atom(true);
-export const showHelpIdAtom = atomWithCallback<number | null>(AppStorage.initialData.showHelpId, StorageSave.save);
+export const showHelpIdAtom = atomWithCallback<number | null>(stateInitials.showHelpId, StorageSave.save);
 
 // cursor dementions
 
