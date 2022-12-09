@@ -6,23 +6,21 @@ import { IconGithub } from "@ui/UIIcons";
 
 function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { editorData: number; setShow?: (v: boolean) => void; }) {
     return (
-        <div className={classNames(
-            "min-w-[400px] min-h-[480px] bg-gray-200 rounded overflow-hidden",
-            "grid grid-rows-[auto,1fr,auto]")}
+        <div className={classNames("min-w-[400px] min-h-[480px] text-sky-900 bg-gray-200 rounded overflow-hidden grid grid-rows-[auto,1fr,auto]")}
         >
             {/* Header */}
-            <div className="p-4 text-xl font-bold leading-tight tracking-tight border-slate-500 border-b">
+            <div className="p-4 text-xl font-bold leading-tight tracking-tight text-sky-700 border-slate-500 border-b">
                 Instructions
             </div>
 
             {/* Body */}
             <div className="min-w-[16rem] min-h-[6rem] p-4 text-sm">
                 {/* Number */}
-                <div className="h-7 w-7 pt-0.5 text-center font-bold bg-slate-400 border-slate-400 border rounded">
+                <div className="h-7 w-7 pt-0.5 text-center font-bold bg-sky-200 border-sky-300 border rounded shadow">
                     {editorData}
                 </div>
 
-                <ul className="mt-4 px-4 list-disc space-y-1">
+                <ul className="mt-4 px-6 list-disc space-y-1">
                     <li className="">Upload an image to create a cursor from</li>
                     <li className="">Select the desired cursor size</li>
                     <li className="">Apply transformations</li>
@@ -42,7 +40,7 @@ function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { edito
                 </a>
 
                 {/* Close */}
-                <button className="px-3 py-1.5 border-slate-500 hover:bg-slate-400 active:scale-[.97] border rounded" onClick={() => setShow(false)}>
+                <button className="px-4 py-1.5 hover:bg-slate-300 border-slate-500 active:scale-[.97] border rounded" onClick={() => setShow(false)}>
                     Close
                 </button>
             </div>
