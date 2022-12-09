@@ -34,14 +34,15 @@ function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { edito
             </div>
 
             {/* Buttons */}
-            <div className="p-3 flex items-center justify-between">
+            <div className="p-4 flex items-center justify-between">
                 {/* Link */}
                 <a className="flex items-center space-x-2 text-sm scale-[.7] origin-left" href="https://github.com/maxzz/cursors" target="_blank">
                     <IconGithub className="w-8 h-8" />
                     <span>source code</span>
                 </a>
+
                 {/* Close */}
-                <button className="px-3 py-2 border-slate-500 border rounded" onClick={() => setShow(false)}>Close</button>
+                <button className="px-3 py-1.5 border-slate-500 border rounded" onClick={() => setShow(false)}>Close</button>
             </div>
         </div>
     );
