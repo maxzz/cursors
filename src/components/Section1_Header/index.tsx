@@ -20,12 +20,11 @@ function InfoTrigger({ className, ...rest }: React.HTMLAttributes<HTMLDivElement
 
 export function Section1_Header() {
     return (
-        <div className="h-32 self-center flex space-x-2">
+        <div className="p-4 flex space-x-2 justify-between shadow">
             {/* <DropZone /> */}
             {/* <Mount /> */}
-            <div className="flex flex-col justify-between">
-                <InfoTrigger />
-            </div>
+            <div className="text-2xl text-sky-100 uppercase tracking-tighter" style={{WebkitTextStroke: '.2px blue'}}>Web cursors playground</div>
+            <InfoTrigger />
         </div>
     );
 }
