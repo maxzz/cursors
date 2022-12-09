@@ -15,13 +15,13 @@ export function Part3_Display() { //CursorTester
         <div className="flex justify-center space-x-4">
 
             <Frame3D>
-                <div className="min-h-[340px]">
+                <div className="min-h-[300px]">
                     <div className="w-36 h-36 bg-white border-slate-900 border"></div>
                     <div className="w-36 h-36 bg-black border-slate-500 border"></div>
                 </div>
 
-                <div className="pt-2 w-max font-mono text-xs text-green-500">
-                    * Hover over the square to check the cursor
+                <div className="max-w-[220px] font-mono text-[.7rem] text-green-500">
+                    * Hover your mouse over a black or white square to check the contrast of the cursor.
                 </div>
             </Frame3D>
 
