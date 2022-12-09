@@ -1,5 +1,5 @@
-import { useAtomValue } from "jotai";
 import { useEffect } from "react";
+import { useAtomValue } from "jotai";
 import { canvasElCtxDstAtom, orgImgAtom } from "@/store";
 import { drawImage } from "@/utils/image-utils";
 import { toastWarning } from "@ui/UiToaster";
@@ -10,7 +10,7 @@ export function DestCanvasActions() {
 
     useEffect(() => {
         if (!elCtx) { return; }
-        
+
         try {
             if (orgImg) {
                 elCtx.el.width = orgImg.width;

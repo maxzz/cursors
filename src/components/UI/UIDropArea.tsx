@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { orgImgAtom } from "@/store";
 import { toastWarning } from "./UiToaster";
-import { createImageFromBlob, loadFileData } from "@/utils/image-utils";
+import { createImageFromBlob, loadFileData } from "@/utils/image-io";
 
 export function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: FileList) => void; activeAtom: PrimitiveAtom<boolean>; }) {
     const setDropActive = useSetAtom(activeAtom);
