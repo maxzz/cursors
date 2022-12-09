@@ -7,7 +7,7 @@ import { IconGithub } from "@ui/UIIcons";
 function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { editorData: number; setShow?: (v: boolean) => void; }) {
     return (
         <div className={classNames(
-            "max-w-[460px] max-h-[640px] bg-gray-200 rounded overflow-hidden", //w-[460px] h-[640px]
+            "min-w-[400px] min-h-[480px] bg-gray-200 rounded overflow-hidden", //w-[460px] h-[640px]
             "grid grid-rows-[min-content,1fr,min-content]")}
         >
             {/* Header */}
