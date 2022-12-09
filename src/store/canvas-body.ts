@@ -1,3 +1,5 @@
+import { createImageFromBlob, loadFileData } from "@/utils/image-io";
+import { toastWarning } from "@ui/UiToaster";
 import { atom, Getter, PrimitiveAtom, SetStateAction, Setter } from "jotai";
 
 // source image
@@ -33,4 +35,22 @@ const _canvasElCtxDstAtom = atom<CanvasElCtx | null | undefined>(null);
 export const canvasElCtxDstAtom = atom(
     (get) => get(_canvasElCtxDstAtom),
     (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasElCtxDstAtom)
+);
+
+// handle files drop
+
+export const doDroppedFilesAtom = atom(
+    null,
+    async (get, set, files: FileList) => {
+        if (!files.length) { return; }
+        
+        try {
+            const blob = await loadFileData(files[0]);
+            const img: HTMLImageElement = await createImageFromBlob(blob);
+            set(orgImgAtom, img);
+        } catch (error) {
+            set(orgImgAtom, null);
+            toastWarning((error as Error)?.message || 'Failed to load image');
+        }
+    }
 );

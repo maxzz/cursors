@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { orgImgAtom } from "@/store";
-import { toastWarning } from "./UiToaster";
-import { createImageFromBlob, loadFileData } from "@/utils/image-io";
+import { doDroppedFilesAtom } from "@/store";
 
 export function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: FileList) => void; activeAtom: PrimitiveAtom<boolean>; }) {
     const setDropActive = useSetAtom(activeAtom);
@@ -47,26 +45,11 @@ export function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: Fil
 }
 
 export function DropArea() {
-    const setOrgImg = useSetAtom(orgImgAtom);
     const [activeAtom] = useState(atom(false));
     const active = useAtomValue(activeAtom);
-
-    async function handleDrop(files: FileList) {
-        if (!files.length) { return; }
-        try {
-            const blob = await loadFileData(files[0]);
-            const img: HTMLImageElement = await createImageFromBlob(blob);
-            setOrgImg(img);
-        } catch (error) {
-            setOrgImg(null);
-            toastWarning((error as Error)?.message || 'Failed to load image');
-        }
-    }
-
-    //console.log('active', active);
-
+    const doDroppedFiles = useSetAtom(doDroppedFilesAtom);
     return (<>
-        <DragHandlers onDropped={handleDrop} activeAtom={activeAtom} />
+        <DragHandlers onDropped={doDroppedFiles} activeAtom={activeAtom} />
 
         {active && <div className={`absolute inset-0 grid place-items-center text-5xl font-bold text-slate-50 bg-slate-800/90 z-10`}>
             Drop it!
