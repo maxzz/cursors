@@ -42,7 +42,9 @@ function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { edito
                 </a>
 
                 {/* Close */}
-                <button className="px-3 py-1.5 border-slate-500 border rounded" onClick={() => setShow(false)}>Close</button>
+                <button className="px-3 py-1.5 border-slate-500 hover:bg-slate-400 active:scale-[.97] border rounded" onClick={() => setShow(false)}>
+                    Close
+                </button>
             </div>
         </div>
     );
