@@ -18,7 +18,7 @@ function IntroductionBody({ editorData, setShow = (v: boolean) => { } }: { edito
             {/* Body */}
             <div className="min-w-[16rem] min-h-[6rem] p-4 text-sm">
                 {/* Number */}
-                <div className="w-6 text-center border-slate-400 border rounded">
+                <div className="h-7 w-7 pt-0.5 text-center font-bold bg-slate-400 border-slate-400 border rounded">
                     {editorData}
                 </div>
 
