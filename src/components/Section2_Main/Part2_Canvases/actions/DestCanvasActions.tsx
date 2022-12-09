@@ -1,29 +1,30 @@
 import { useAtomValue } from "jotai";
 import { useEffect } from "react";
-import { canvasBodyDstAtom, orgImgAtom } from "@/store";
+import { canvasElCtxDstAtom, orgImgAtom } from "@/store";
 import { drawImage } from "@/utils/image-utils";
 import { toastWarning } from "@ui/UiToaster";
 
 export function DestCanvasActions() {
     const orgImg = useAtomValue(orgImgAtom);
-    const body = useAtomValue(canvasBodyDstAtom);
+    const elCtx = useAtomValue(canvasElCtxDstAtom);
 
     useEffect(() => {
-        if (!body) { return; }
+        if (!elCtx) { return; }
+        
         try {
             if (orgImg) {
-                body.el.width = orgImg.width;
-                body.el.height = orgImg.height;
+                elCtx.el.width = orgImg.width;
+                elCtx.el.height = orgImg.height;
 
-                drawImage(body, orgImg);
+                drawImage(elCtx, orgImg);
             } else {
-                body.ctx.clearRect(0, 0, body.el.width, body.el.height);
+                elCtx.ctx.clearRect(0, 0, elCtx.el.width, elCtx.el.height);
             }
         } catch (error) {
             toastWarning(`Failed to render image`);
             console.log('Failed to render image', error);
         }
-    }, [body, orgImg]);
+    }, [elCtx, orgImg]);
 
     return null;
 }

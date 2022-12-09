@@ -1,38 +1,40 @@
 import { useAtomValue } from "jotai";
 import { useEffect } from "react";
-import { canvasBodySrcAtom, orgImgAtom, showGrayAtom } from "@/store";
+import { canvasElCtxSrcAtom, orgImgAtom, showGrayAtom } from "@/store";
 import { applyXOR, drawImage } from "@/utils/image-utils";
 import { toastWarning } from "@ui/UiToaster";
 
 export function SourceCanvasActions() {
     const orgImg = useAtomValue(orgImgAtom);
-    const body = useAtomValue(canvasBodySrcAtom);
+    const elCtx = useAtomValue(canvasElCtxSrcAtom);
     const showGray = useAtomValue(showGrayAtom);
 
     useEffect(() => {
-        if (!body) { return; }
+        if (!elCtx) { return; }
+        
         try {
             if (orgImg) {
-                drawImage(body, orgImg);
+                drawImage(elCtx, orgImg);
 
-                showGray && applyXOR(body, '#000000');
+                showGray && applyXOR(elCtx, '#000000');
             } else {
-                body.ctx.clearRect(0, 0, body.el.width, body.el.height);
+                elCtx.ctx.clearRect(0, 0, elCtx.el.width, elCtx.el.height);
             }
         } catch (error) {
             toastWarning(`Failed to render image`);
             console.log('Failed to render image', error);
         }
-    }, [body, orgImg, showGray]);
+    }, [elCtx, orgImg, showGray]);
 
     useEffect(() => {
-        if (!body) { return; }
+        if (!elCtx) { return; }
+
         if (showGray) {
-            showGray && applyXOR(body, '#300000');
+            showGray && applyXOR(elCtx, '#300000');
         } else {
-            orgImg && drawImage(body, orgImg);
+            orgImg && drawImage(elCtx, orgImg);
         }
-    }, [body, showGray]);
+    }, [elCtx, showGray]);
 
     return null;
 }

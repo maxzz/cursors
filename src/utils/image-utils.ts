@@ -1,4 +1,4 @@
-import { CanvasBody } from "@/store";
+import { CanvasElCtx } from "@/store";
 
 export function loadFileData(file: Blob): Promise<string | ArrayBuffer | null> {
     return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
@@ -22,7 +22,7 @@ export function createImageFromBlob(data: string | ArrayBuffer | null) {
     });
 }
 
-export function drawImage(body: CanvasBody, img: HTMLImageElement) {
+export function drawImage(body: CanvasElCtx, img: HTMLImageElement) {
     // body.ctx.clearRect(0, 0, body.el.width, body.el.height);
     // body.ctx.beginPath();
     body.ctx.fillStyle = 'red';
@@ -31,7 +31,7 @@ export function drawImage(body: CanvasBody, img: HTMLImageElement) {
     body.ctx.drawImage(img, 0, 0);
 }
 
-export function convertToGray(body: CanvasBody) {
+export function convertToGray(body: CanvasElCtx) {
     const imageData = body.ctx.getImageData(0, 0, body.el.width, body.el.height);
     const data: Uint8ClampedArray = imageData.data;
     for (var i = 0; i <= data.length; i += 4) {
@@ -49,7 +49,7 @@ const enum RGB {
     b = 2,
 }
 
-export function applyXOR(body: CanvasBody, hexColor: string) {
+export function applyXOR(body: CanvasElCtx, hexColor: string) {
 
     const color = hexColor.match(/([a-fA-F\d]{2})/g);
     if (!color || color.length !== 3) {

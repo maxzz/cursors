@@ -6,15 +6,15 @@ export const orgImgAtom = atom<HTMLImageElement | null>(null);
 
 // canvas body
 
-export type CanvasBody = {
+export type CanvasElCtx = {
     el: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
 };
 
-export type CanvasBodyAtomType = typeof canvasBodySrcAtom;
+export type CanvasBodyAtomType = typeof canvasElCtxSrcAtom;
 
-function atomCanvasUpdate(get: Getter, set: Setter, value: SetStateAction<HTMLCanvasElement | null | undefined>, atomToSet: PrimitiveAtom<CanvasBody | null | undefined>) {
-    let newBody: CanvasBody | null | undefined;
+function atomCanvasUpdate(get: Getter, set: Setter, value: SetStateAction<HTMLCanvasElement | null | undefined>, atomToSet: PrimitiveAtom<CanvasElCtx | null | undefined>) {
+    let newBody: CanvasElCtx | null | undefined;
     if (value) {
         let el = typeof value === 'function' ? value(get(atomToSet)?.el) : value;
         let ctx = value && el?.getContext('2d', { willReadFrequently: true });
@@ -23,14 +23,14 @@ function atomCanvasUpdate(get: Getter, set: Setter, value: SetStateAction<HTMLCa
     set(atomToSet, newBody);
 }
 
-const _canvasBodySrcAtom = atom<CanvasBody | null | undefined>(null);
-export const canvasBodySrcAtom = atom(
-    (get) => get(_canvasBodySrcAtom),
-    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasBodySrcAtom)
+const _canvasElCtxSrcAtom = atom<CanvasElCtx | null | undefined>(null);
+export const canvasElCtxSrcAtom = atom(
+    (get) => get(_canvasElCtxSrcAtom),
+    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasElCtxSrcAtom)
 );
 
-const _canvasBodyDstAtom = atom<CanvasBody | null | undefined>(null);
-export const canvasBodyDstAtom = atom(
-    (get) => get(_canvasBodyDstAtom),
-    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasBodyDstAtom)
+const _canvasElCtxDstAtom = atom<CanvasElCtx | null | undefined>(null);
+export const canvasElCtxDstAtom = atom(
+    (get) => get(_canvasElCtxDstAtom),
+    (get, set, value: SetStateAction<HTMLCanvasElement | null | undefined>) => ((atom) => atomCanvasUpdate(get, set, value, atom))(_canvasElCtxDstAtom)
 );
