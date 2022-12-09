@@ -39,6 +39,7 @@ export const canvasElCtxDstAtom = atom(
 
 // handle files drop
 
+export type DoDroppedFilesAtom = typeof doDroppedFilesAtom;
 export const doDroppedFilesAtom = atom(
     null,
     async (get, set, files: FileList) => {

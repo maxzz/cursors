@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { atom, PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { doDroppedFilesAtom } from "@/store";
+import { DoDroppedFilesAtom, doDroppedFilesAtom } from "@/store";
 
-export function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: FileList) => void; activeAtom: PrimitiveAtom<boolean>; }) {
+export function DragHandlers({ doDroppedFilesAtom, activeAtom }: { doDroppedFilesAtom: DoDroppedFilesAtom; activeAtom: PrimitiveAtom<boolean>; }) {
     const setDropActive = useSetAtom(activeAtom);
+    const droppedFiles = useSetAtom(doDroppedFilesAtom);
     const activeListenersRef = useRef(0);
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: Fil
             event.preventDefault();
             activeListenersRef.current = 0;
             setDropActive(false);
-            event.dataTransfer && onDropped(event.dataTransfer.files);
+            event.dataTransfer && droppedFiles(event.dataTransfer.files);
         }
 
         const a = document.addEventListener;
@@ -47,9 +48,8 @@ export function DragHandlers({ onDropped, activeAtom }: { onDropped: (files: Fil
 export function DropArea() {
     const [activeAtom] = useState(atom(false));
     const active = useAtomValue(activeAtom);
-    const doDroppedFiles = useSetAtom(doDroppedFilesAtom);
     return (<>
-        <DragHandlers onDropped={doDroppedFiles} activeAtom={activeAtom} />
+        <DragHandlers doDroppedFilesAtom={doDroppedFilesAtom} activeAtom={activeAtom} />
 
         {active && <div className={`absolute inset-0 grid place-items-center text-5xl font-bold text-slate-50 bg-slate-800/90 z-10`}>
             Drop it!
