@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { CanvasBodyAtomType, canvasBodyDstAtom, canvasBodySrcAtom } from "@/store";
-import { CanvasElementWAtom } from "./CanvasElementWAtom";
+import { CanvasElementWAtom } from "../../UI/UICanvasElementWAtom";
 
 export function Part2_Canvases() {
     return (
