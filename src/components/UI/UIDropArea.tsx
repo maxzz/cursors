@@ -68,8 +68,8 @@ export function DropArea() {
     return (<>
         <DragHandlers onDropped={handleDrop} activeAtom={activeAtom} />
 
-        {active && <div className={`absolute inset-0 grid place-items-center text-5xl z-10 ${active ? 'text-slate-50 font-bold' : 'text-slate-100'}`}>
-            'Drop it!'
+        {active && <div className={`absolute inset-0 grid place-items-center text-5xl font-bold text-slate-50 bg-slate-800/90 z-10`}>
+            Drop it!
         </div>}
     </>);
 }
